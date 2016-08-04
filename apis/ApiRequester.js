@@ -2,8 +2,15 @@
 
 import axios from "axios";
 
+var CASSY_URL;
+
 ///const CASSY_WEBSERV_URL = "https://cassy-server.herokuapp.com/";
-const CASSY_URL = process.env.CASSY_URL || "http://localhost:8888/";
+if (process.env.NODE_ENV === "production"){
+	CASSY_URL = "https://cassydataportal.herokuapp.com/";
+}
+else {
+	CASSY_URL = "http://localhost:8888/";
+}
 
 module.exports = {
 
