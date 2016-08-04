@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-  	"prestart": "webpack",
+  	"prestart": "webpack -p --config webpack.config.js --progress --colors",
     "start": "node ./bin/www"
   },
   "dependencies": {
