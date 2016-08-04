@@ -1,7 +1,6 @@
 {
-  "name": "MentorAfrica",
-  "version": "1.0.0",
-  "description": "An e-mentoring web application",
+  "name": "cassyserver",
+  "version": "0.0.0",
   "moduleType": [],
   "authors": [
     "Uduak Obong-Eren"

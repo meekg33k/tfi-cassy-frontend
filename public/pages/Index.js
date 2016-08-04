@@ -12,9 +12,6 @@ export default class Index extends React.Component {
 
 	handleUserLogin(user){
 
-		console.log(user.username);
-		console.log(user.password);
-
 		ApiRequester.loginUser(user).then(function(res){
 			console.log(res);
 			console.log("success");
