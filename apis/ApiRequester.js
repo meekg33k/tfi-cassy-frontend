@@ -11,7 +11,10 @@ module.exports = {
 
 		console.log(CASSY_URL);
 
-		return axios.post(CASSY_URL+"login").then(function(res) {
+		return axios.post(CASSY_URL+"login", {
+			username: "batman", 
+			password: "mobile"
+		}).then(function(res) {
 
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);

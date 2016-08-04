@@ -6,9 +6,6 @@ module.exports = {
   //context: path.join(__dirname, "src"),
   devtool: debug ? "inline-sourcemap" : "source-map",
   entry: "./public/client.js",
-  devServer: {
-	  
-  },
   module: {
     loaders: [
       {
@@ -23,14 +20,13 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, "public",
-    filename: "client.min.js",
-  	publicPath: "/public/",
+    path: __dirname + "/public/assets/js/",
+    filename: "client.min.js"
   },
-  plugins: [
+  plugins: debug ? [] : [
+    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
   ],
   resolve: {
     root: __dirname,

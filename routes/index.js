@@ -12,8 +12,23 @@ router.get('/', (req, res, next) => {
 // Login
 router.post('/login', passport.authenticate('local', { session: false }), (req, res) => {
 	console.log("Login request");
+	console.log(req);
+	//Temporary work around
+	req.user = {
+		username: "admin@cassybayarea.org", 
+		usertype: "admin"
+	}
     res.status(200).send(req.user);
 });
+/*
+router.post('/login', (req, res) => {
+	console.log("Login request");
+    res.status(200).send({
+		username: "admin@cassybayarea.org", 
+		usertype: "admin"
+	}
+	);
+});*/
 
 // Logout
 router.get('/logout', (req, res) => {
