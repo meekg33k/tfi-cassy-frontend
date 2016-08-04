@@ -1,0 +1,334 @@
+
+.navbar-fixed-top {
+    min-height: 100px;
+}
+
+.navbar-nav > li > a {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    line-height: 100px;
+}
+
+@media (max-width: 767px) {
+    .navbar-nav > li > a {
+    line-height: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;}
+}
+
+.active{
+  color: #0f0f0f;
+}
+
+.address{
+  font-size: 80%;
+  margin: 0px;
+  color: #0f0f0f;
+}
+
+.btn-size{
+  font-size: 1.5em;
+}
+
+.content-layout{
+  padding: 40px 30px 20px 10px;
+  margin-left: 0px;
+  margin-right: 50px;
+  margin-bottom: 70px;
+}
+
+.line-breaker{
+  padding:20px;
+}
+
+#add-student-btn{
+  font-style: bold;
+  text-align: center;
+}
+
+#record-event-btn{
+  font-style: bold;
+  text-align: center;
+}
+
+.btn-text{
+  font-style: bold;
+  text-align: center;
+  font-size: 1.2em;
+  color: #909439;
+}
+
+.right-padding{
+  padding-right: 50px;
+  padding-left: 0px;
+}
+
+.welcome-banner{
+  font-size:25px;
+  text-align: center;
+  color: #909439;
+  font-family: "Comic Sans MS";
+}
+
+.index-header{
+  font-size:25px;
+  text-align: center;
+}
+
+.nav-index{
+  font-size: 1.1em;
+  color: #909439;
+}
+
+/*.link{
+  color: #909439;
+  font-family: "Comic Sans MS";
+  font-style: italic;
+  font-size:1.5em;
+}*/
+
+.jumbotron{
+  padding: 70px 30px 20px 10px;
+  margin-left: 0px;
+  margin-right: 50px;
+  margin-bottom: 70px;
+  height: 200%;
+  background: url(../images/backgroundtwo.jpe);
+  color: #909439; 
+}
+
+.section-header{
+  font-size:20px;
+  color: #909439;
+  font-family: "Comic Sans MS";
+}
+
+.student-header{
+  font-size:20px;
+  color: #008542;
+  font-family: "Comic Sans MS";
+}
+
+.school-header{
+  font-size:20px;
+  color: #286090;
+  font-family: "Comic Sans MS";
+}
+
+.event-header{
+  font-size:20px;
+  color: #FD8709;
+  font-family: "Comic Sans MS";
+}
+
+.report-form{
+  border-width:5px; 
+  border-style:ridge;
+  padding: 10px;
+}
+
+.spacing {
+  padding-left:5em
+}
+
+body{
+  align:center;
+  padding: 50px 0px 0px 50px;
+  z-index: 0;
+}
+
+.navbar-default{
+  background: #FEFEFE;
+}
+
+.navbar-default .navbar-text {
+  color: #909439;
+}
+
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus{
+  color: #fff;
+  background: #909439
+}
+
+.navbar-default .navbar-nav > a,
+.navbar-default .navbar-nav > a:hover,
+.navbar-default .navbar-nav > a:focus{
+  color: #ff8b00;
+  background: #909439
+}
+
+
+.navbar-default .navbar-nav .open .dropdown-menu> li > a,
+.navbar-default .navbar-nav .open .dropdown-menu{
+  background-color: #303F9F;
+  color: #eeeeee;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu> li{
+  color: #000000;
+}
+
+
+.carousel{
+  background: #1A237E;
+}
+
+.carousel .item {
+  height: 300px;
+}
+
+.item .img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 300px;
+}
+
+.row-header{
+  margin: 0px auto;
+  padding: 0px auto;
+}
+
+.row-content{
+  margin: 30px auto;
+  padding: 50px 0px 50px 0px;
+  border-bottom: 1px ridge;
+  min-height: 800px;
+}
+
+.row-footer{
+  background-color: #AfAfAf;
+  margin: 0px auto;
+  padding: 20px 0px 20px 0px;
+}
+
+.panel > .panel-heading {
+  //background-image: none;
+  text-align: center
+  background-color: #02ABB2;
+}
+
+Link: hover{
+  text-decoration: none
+}
+
+i.fa-edit {
+  text-align: center;
+  color: #FD8709;
+  font-size: 12vw;
+
+}
+
+i.fa-building {
+  text-align: center;
+  color: #6b5d5c;
+  font-size: 12vw;
+
+}
+
+i.fa-institution {
+  text-align: center;
+  color: #286090;
+  font-size: 12vw;
+
+}
+
+i.fa-graduation-cap {
+  text-align: center;
+  color: #008542;
+  font-size: 12vw;
+
+}
+
+i.fa-user-plus {
+  text-align: center;
+  color: #C9302C;
+  font-size: 12vw;
+
+}
+
+i.fa-search {
+  text-align: center;
+  color: #909439;
+  font-size: 12vw;
+
+}
+
+
+.col-lg-4 i {
+    display:block;
+    text-align:center
+}
+/* Example Styles for React Tags*/
+/*body {
+  font-family: monospace;
+  color: #444;
+}*/
+
+div.ReactTags__tags {
+    position: relative;
+}
+
+/* Styles for the input */
+div.ReactTags__tagInput {
+  width: 200px;
+  border-radius: 4px;
+  display: inline-block;
+}
+div.ReactTags__tagInput input, 
+div.ReactTags__tagInput input:focus {
+  margin: 0;
+  font-size: 12px;
+  width: 100%;
+  border: 1px solid #eee;
+  padding: 8px 10px ;
+  display: block;
+}
+
+/* Styles for selected tags */
+div.ReactTags__selected span.ReactTags__tag {
+  border: 1px solid #ddd;
+  background: #eee;
+  font-size: 12px;
+  display: inline-block;
+  padding: 10px 10px;
+  margin: 0 5px;
+  cursor: move;
+  border-radius: 2px;
+}
+div.ReactTags__selected a.ReactTags__remove {
+  color: #aaa;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Styles for suggestions */
+div.ReactTags__suggestions {
+  position: absolute;
+}
+div.ReactTags__suggestions ul {
+  list-style-type: none;
+  box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+  background: white;
+  width: 220px;
+  padding: 0;
+  margin: 0;
+}
+div.ReactTags__suggestions li {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 5px;
+  margin: 0;
+}
+div.ReactTags__suggestions li mark {
+    text-decoration: underline;
+    background: none;
+    font-weight: 600;
+}
+div.ReactTags__suggestions ul li.active {
+    background: #b7cfe0;
+    cursor: pointer;
+}
