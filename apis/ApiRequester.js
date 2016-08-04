@@ -9,8 +9,7 @@ module.exports = {
 
 	loginUser: function(user){
 
-		console.log(user.username);
-		console.log(user.password);
+		console.log(CASSY_URL);
 
 		return axios.post(CASSY_URL+"login").then(function(res) {
 

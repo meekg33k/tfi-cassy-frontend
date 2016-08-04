@@ -1,13 +1,13 @@
 var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
+var path = require("path");
 
 module.exports = {
   //context: path.join(__dirname, "src"),
   devtool: debug ? "inline-sourcemap" : "source-map",
   entry: "./public/client.js",
   devServer: {
-    contentBase: './public',
-    hot: true
+	  
   },
   module: {
     loaders: [
@@ -23,8 +23,9 @@ module.exports = {
     ]
   },
   output: {
-    path: __dirname + "/public/assets/js/",
-    filename: "client.min.js"
+    path: path.resolve(__dirname, "public",
+    filename: "client.min.js",
+  	publicPath: "/public/",
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
