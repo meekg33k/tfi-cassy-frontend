@@ -6,7 +6,7 @@ var passport = require('../services/passport-config');
 /* GET home page. */
 router.get('/', (req, res, next) => {
   //res.render('index', { title: 'Cassy-server', description: 'This site is under construction' });
-  res.sendFile(__dirname + '../public/index.html');
+  res.sendFile(__dirname.substring(0, __dirname.length() - 6) + '/public/index.html');
 });
 
 // Login
