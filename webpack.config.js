@@ -1,6 +1,5 @@
 var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
-var path = require("path");
 
 module.exports = {
   //context: path.join(__dirname, "src"),
@@ -25,7 +24,7 @@ module.exports = {
   },
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),
-	new webpack.DefinePlugin({
+	  new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }

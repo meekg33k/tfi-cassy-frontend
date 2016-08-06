@@ -16,6 +16,27 @@
     padding-bottom: 10px;}
 }
 
+.width-well{
+  width:92.5%
+}
+
+.form-ctrl{
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
 .active{
   color: #0f0f0f;
 }
@@ -94,7 +115,7 @@
   margin-bottom: 70px;
   height: 200%;
   background: url(../images/backgroundtwo.jpe);
-  color: #909439; 
+  color: #909439;
 }
 
 .section-header{
@@ -115,6 +136,7 @@
   font-family: "Comic Sans MS";
 }
 
+
 .school-header{
   font-size:20px;
   color: #286090;
@@ -128,7 +150,7 @@
 }
 
 .report-form{
-  border-width:5px; 
+  border-width:5px;
   border-style:ridge;
   padding: 10px;
 }
@@ -284,7 +306,7 @@ div.ReactTags__tagInput {
   border-radius: 4px;
   display: inline-block;
 }
-div.ReactTags__tagInput input, 
+div.ReactTags__tagInput input,
 div.ReactTags__tagInput input:focus {
   margin: 0;
   font-size: 12px;
