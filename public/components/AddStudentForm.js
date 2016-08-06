@@ -132,7 +132,7 @@ export default React.createClass({
 
 		return(
 			<div>
-				{displayError()}	
+				{displayError()}
 				<form class="form-horizontal" role="form" onSubmit={this.addStudent}>
 					<div class="form-group">
 	                    <label for="firstName" class="col-sm-2 control-label">First Name</label>
@@ -190,14 +190,14 @@ export default React.createClass({
 	                    <label for="ethnicity" class="col-sm-2 control-label">Ethnicity</label>
 	                    <div class="col-sm-5">
 	                        <select class="form-control" id="ethnicity">
-	                            <option>Caucasian</option>
-	                            <option>Hispanic/Latino</option>
-	                            <option>Asian</option>
-	                            <option>African American</option>
-	                            <option>Pacific Islander</option>
-                              	<option>Native American</option>
-	                            <option>Asian Indian</option>
-	                     		<option>Mixed Race</option>
+                            <option>Caucasian</option>
+                            <option>Hispanic/Latino</option>
+                            <option>Asian</option>
+                            <option>African American</option>
+                            <option>Pacific Islander</option>
+                          	<option>Native American</option>
+                            <option>Asian Indian</option>
+	                     			<option>Mixed Race</option>
 	                        </select>
 	                    </div>
 	                </div>

@@ -22,13 +22,10 @@ import AddStaffPage from "./pages/AddStaff"
 import AddStudentAdmin from "./pages/AddStudentAdmin"
 
 
-//const app = document.getElementById("app");
 const root = document.getElementById("root");
 console.log(root);
-//const searchBox = document.getElementById("searchStudent");
 
 
-//Change IndexLayout... to NavBarIndex and Layout
 ReactDOM.render((
 	<Router history={hashHistory}>
 		<Route path="/" component={IndexLayout}>

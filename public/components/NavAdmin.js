@@ -8,7 +8,7 @@ import { IndexLink, Link } from "react-router";
 //className Layout extends React.Component {
 export default React.createClass({
 	render(){
-		var active = {backgroundColor: 'red'};
+		const active = { color: 'white', backgroundColor: '#909439' };
 		return(
 			<div>
 		    <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -27,19 +27,19 @@ export default React.createClass({
 		            <div id="navbar" class="navbar-collapse collapse">
 		                <ul class="nav navbar-nav">
 		                    <li>
-		                    	<IndexLink to="/admin/schools/edit" activeClassName="active">
+		                    	<IndexLink to="/admin/schools/edit" activeStyle={active}>
 		                      		<i class="fa fa-university"></i>
 		                            &nbsp;Schools
 		                        </IndexLink>
 		                    </li>
 		                    <li>
-		                    	<IndexLink to="/admin/students/add" activeClassName="active">
+		                    	<IndexLink to="/admin/students/add" activeStyle={active}>
 		                        	<i class="fa fa-group "></i>
 	                            	&nbsp;Students
 		                        </IndexLink>
 		                    </li>
 		                    <li>
-		                    	<IndexLink to="/admin/staff/add" activeClassName="active">
+		                    	<IndexLink to="/admin/staff/add" activeStyle={active}>
 		                        	<i class="fa fa-user "></i>
 	                            	&nbsp;Staff
 		                        </IndexLink>
@@ -47,7 +47,7 @@ export default React.createClass({
 		                    <li>
 		                        <a href="/admin/forms/edit">
 		                            <span class="fa fa-edit" aria-hidden="true">
-		                            </span> 
+		                            </span>
 		                            &nbsp;Forms
 		                        </a>
 		                    </li>
@@ -61,7 +61,7 @@ export default React.createClass({
 		                </ul>
             		</div>
 		        </div>
-		    </nav> 
+		    </nav>
 		    {this.props.children}
 		    </div>
 		);

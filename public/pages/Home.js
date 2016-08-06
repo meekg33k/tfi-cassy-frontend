@@ -12,7 +12,38 @@ export default React.createClass({
 				<div class="content-layout">
 				    <div class="welcome-banner well">
 				            Welcome Christy, what would you want to do today?
-			        </div>
+			      </div>
+						<br />
+
+						<div class="container">
+				        <div class="row row-header">
+									<div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
+										<Link to="/students/add">
+											<div class="well wid-well">
+												<p><i class = "fa fa-graduation-cap"></i></p>
+												<p class="btn-text"><b> My Students </b></p>
+											</div>
+										</Link>
+									</div>
+			            <div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
+				            <Link to="/events/add">
+					            <div class="well wid-well">
+						            <p><i class = "fa fa-calendar"></i></p>
+						            <p class="btn-text"><b> My Events </b></p>
+			                </div>
+		                </Link>
+			            </div>
+			            <div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
+				            <Link to="./reports.html">
+					            <div class="well wid-well">
+						            <p><i class = "fa fa-pencil"></i></p>
+						            <p class="btn-text"><b> My Reports </b></p>
+			                </div>
+		                </Link>
+			            </div>
+								</div>
+				    </div>
+						<br />
 
 				    <div class="container">
 				        <div class="row row-header">
@@ -25,16 +56,16 @@ export default React.createClass({
 				                <p class="line-breaker" />
 				                <p class="line-breaker" />
 				                <Link to="/events/add">
-				                	<button type="button" class="btn btn-md btn-warning" id ="record-event-btn"> 
+				                	<button type="button" class="btn btn-md btn-warning" id ="record-event-btn">
 					                	<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-					                 &nbsp;Record Event 
+					                 &nbsp;Record Event
 				                 	</button>
 			                 	</Link>
  				               	<p class="line-breaker" />
  				               	<Link to="/students/add">
 					                <button class="btn btn-success btn-md" type="button" id ="add-student-btn">
 					                	+<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-				                	 &nbsp;Add Student 
+				                	 &nbsp;Add Student
 			                	 	</button>
 		                	 	</Link>
 				                <p class="line-breaker" />

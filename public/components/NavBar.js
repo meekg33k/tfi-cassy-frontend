@@ -5,9 +5,9 @@ import ReactDOM from "react-dom";
 import { IndexLink, Link } from "react-router";
 
 
-//className Layout extends React.Component {
 export default React.createClass({
 	render(){
+		const active = { color: 'white', backgroundColor: '#909439' };
 		return(
 			<div>
 		    <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -26,21 +26,27 @@ export default React.createClass({
 		            <div id="navbar" class="navbar-collapse collapse">
 		                <ul class="nav navbar-nav">
 		                    <li>
-		                    	<IndexLink to="/events/add" activeClassName="active">
-		                      		<i class="fa fa-calendar"></i>
+		                    	<IndexLink to="/events/add" activeStyle={active}>
+		                      		<span class="glyphicon glyphicon-calendar"></span>
 			                            &nbsp;Events
-		                        </IndexLink>
+	                        </IndexLink>
 		                    </li>
 		                    <li>
-		                    	<IndexLink to="/students/view" activeClassName="active">
+		                    	<IndexLink to="/students/view" activeStyle={active}>
 		                        	<i class="fa fa-group "></i>
 		                            &nbsp;Students
-		                        </IndexLink>
+	                        </IndexLink>
 		                    </li>
+												<li>
+													<IndexLink to="/students/add" activeStyle={active}>
+															<span class="glyphicon glyphicon-user"></span>
+																&nbsp;Add Student
+													</IndexLink>
+												</li>
 		                    <li>
 		                        <a href="./reports.html">
-		                            <span class="fa fa-pencil" aria-hidden="true">
-		                            </span> 
+		                            <span class="glyphicon glyphicon-pencil" aria-hidden="true">
+		                            </span>
 		                            &nbsp;Reports
 		                        </a>
 		                    </li>
@@ -54,7 +60,7 @@ export default React.createClass({
 		                </ul>
             		</div>
 		        </div>
-		    </nav> 
+		    </nav>
 		    {this.props.children}
 		    </div>
 		);

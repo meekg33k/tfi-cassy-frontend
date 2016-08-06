@@ -20,6 +20,10 @@
   width:92.5%
 }
 
+.wid-well{
+  width:85%
+}
+
 .form-ctrl{
   height: 34px;
   padding: 6px 12px;
@@ -136,7 +140,6 @@
   font-family: "Comic Sans MS";
 }
 
-
 .school-header{
   font-size:20px;
   color: #286090;
@@ -243,13 +246,6 @@ Link: hover{
   text-decoration: none
 }
 
-i.fa-edit {
-  text-align: center;
-  color: #FD8709;
-  font-size: 12vw;
-
-}
-
 i.fa-building {
   text-align: center;
   color: #6b5d5c;
@@ -257,9 +253,16 @@ i.fa-building {
 
 }
 
-i.fa-institution {
+i.fa-calendar {
   text-align: center;
-  color: #286090;
+  color: #FD8709;
+  font-size: 12vw;
+
+}
+
+i.fa-edit {
+  text-align: center;
+  color: #FD8709;
   font-size: 12vw;
 
 }
@@ -271,9 +274,16 @@ i.fa-graduation-cap {
 
 }
 
-i.fa-user-plus {
+i.fa-institution {
   text-align: center;
-  color: #C9302C;
+  color: #286090;
+  font-size: 12vw;
+
+}
+
+i.fa-pencil {
+  text-align: center;
+  color: #2C689C;
   font-size: 12vw;
 
 }
@@ -285,6 +295,13 @@ i.fa-search {
 
 }
 
+
+i.fa-user-plus {
+  text-align: center;
+  color: #C9302C;
+  font-size: 12vw;
+
+}
 
 .col-lg-4 i {
     display:block;
