@@ -32,12 +32,12 @@ Run `bower install` and `npm install` to install
 
 ## Technology Stack
 
-Front-End: React [https://facebook.github.io/react/] (https://facebook.github.io/react/) Bootstrap [http://getbootstrap.com],(http://getbootstrap.com)
+Front-End: React [https://facebook.github.io/react/] (https://facebook.github.io/react/) Bootstrap [http://getbootstrap.com] (http://getbootstrap.com)
 Back-End: Express [https://expressjs.com] (https://expressjs.com)
 Authentication: Passport [http://passportjs.org] (http://passportjs.org)
 Database: MySQL Server
 Build Tool: Webpack [https://webpack.github.io] (https://webpack.github.io)
-JSX Compiler: Babel [http://babel.js.io](http://babel.js.io)
+JSX Compiler: Babel [http://babel.js.io] (http://babel.js.io)
 
 
 
@@ -74,7 +74,7 @@ Data Sources
 
 Services
   * Create services: `/services/{NAME}.js`
-  * Server side APIs that client makes calls to
+  * Server side APIs called from the client side
 
 
 
