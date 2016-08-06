@@ -7,7 +7,6 @@ import {Router, Route, IndexRoute, hashHistory, NotFoundRoute } from "react-rout
 import IndexLayout from "./components/IndexLayout"
 import AdminLayout from "./components/AdminLayout"
 import AppLayout from "./components/AppLayout"
-import Layout from "./components/Layout"
 import Search from "./components/Search"
 import NavBar from "./components/NavBarIndex"
 
@@ -52,5 +51,5 @@ ReactDOM.render((
 			<Route path="/admin/students/add" component={AddStudentAdmin}/>
 		</Route>
 
-	</Router>), 
+	</Router>),
 root);
