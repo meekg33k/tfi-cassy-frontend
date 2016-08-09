@@ -7,19 +7,19 @@ import {Router, Route, IndexRoute, hashHistory, NotFoundRoute } from "react-rout
 import IndexLayout from "./components/IndexLayout"
 import AdminLayout from "./components/AdminLayout"
 import AppLayout from "./components/AppLayout"
-import Search from "./components/Search"
 import NavBar from "./components/NavBarIndex"
 
 import IndexPage from "./pages/Index"
 import AdminPage from "./pages/Admin"
 import HomePage from "./pages/Home"
-import AddEventPage from "./pages/AddEvent"
+import EventPage from "./pages/Event"
 import AddStudentPage from "./pages/AddStudent"
-import StudentProfilePage from "./pages/StudentProfile"
+import StudentPage from "./pages/Student"
 import AddSchoolPage from "./pages/AddSchool"
+import StudentProfilePage from "./pages/StudentProfile"
 import SchoolDetailsPage from "./pages/SchoolDetails"
-import AddStaffPage from "./pages/AddStaff"
-import AddStudentAdmin from "./pages/AddStudentAdmin"
+import StaffPage from "./pages/Staff"
+import ReportPage from "./pages/Report"
 
 
 const root = document.getElementById("root");
@@ -32,20 +32,25 @@ ReactDOM.render((
 			<IndexRoute component={IndexPage}/>
 		</Route>
 
-		<Route path="/home" component={AppLayout}>
+		<Route path="/home" component={AppLayout} name="Home">
 			<IndexRoute component={HomePage}/>
-			<Route path="/events/add" component={AddEventPage}/>
-			<Route path="/students/add" component={AddStudentPage}/>
-			<Route path="/students/view" component={StudentProfilePage}/>
-			<Route path="/search" component={Search}/>
+			<Route path="/events" component={EventPage} name="Events"/>
+			<Route path="/students" name="Students">
+				<IndexRoute component={StudentPage} />
+				<Route path="/students/:id" component={StudentProfilePage} name="Student"/>
+			</Route>
+			<Route path="/reports" component={ReportPage} name="Reports"/>
 		</Route>
 
-		<Route path="/admin" component={AdminLayout}>
+		<Route path="/admin" component={AdminLayout} name="AdminHome">
 			<IndexRoute component={AdminPage}/>
-			<Route path="/admin/schools/add" component={AddSchoolPage}/>
-			<Route path="/admin/schools/edit" component={SchoolDetailsPage}/>
-			<Route path="/admin/staff/add" component={AddStaffPage}/>
-			<Route path="/admin/students/add" component={AddStudentAdmin}/>
+			<Route path="/admin/schools/add" component={AddSchoolPage} name="Schools"/>
+			<Route path="/admin/schools" component={SchoolDetailsPage} name="Edit"/>
+			<Route path="/admin/staff" component={StaffPage} name="Staff"/>
+			<Route path="/admin/students" name="Students">
+				<IndexRoute component={StudentPage} />
+				<Route path="/admin/students/:id" component={StudentProfilePage} name="Student"/>
+			</Route>
 		</Route>
 
 	</Router>),
