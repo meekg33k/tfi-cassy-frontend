@@ -44,7 +44,7 @@ export default class Index extends React.Component {
 			                    <img src="../assets/images/charts.png" class="img-responsive" height="500px" width="500px"></img>
 			                    <p ></p>
 			                    <p class="line-breaker" ></p>
-			                    <p>....spooling reports just got easier</p>
+			                    <p>....gateway to CASSY Data Management Platform</p>
 			                </div>
 			                <div class="col-xs-12 col-sm-5 col-lg-4 col-md-5">
 			                    <p class="line-breaker" />

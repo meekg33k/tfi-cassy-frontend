@@ -15,7 +15,7 @@ export default React.createClass({
 				    <div class="container">
 				        <div class="row row-header">
 				            <div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
-					            <Link to="/admin/forms/edit">
+					            <Link to="/admin/forms">
 						            <div class="well">
 							            <p><i class = "fa fa-edit"></i></p>
 							            <p class="btn-text"><b> Add/Edit Form Field </b></p>
@@ -23,18 +23,18 @@ export default React.createClass({
 				                </Link>
 				            </div>
 				            <div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
-					            <Link to="/admin/districts/add">
-						            <div class="well">
-							            <p><i class = "fa fa-building"></i></p>
-							            <p class="btn-text"><b> Add District </b></p>
-					                </div>
-				                </Link>
+											<Link to="/admin/staff">
+												<div class="well">
+													<p><i class = "fa fa-user-plus"></i></p>
+													<p class="btn-text"><b> Add/Edit Staff </b></p>
+													</div>
+												</Link>
 				            </div>
 				            <div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
-					            <Link to="/admin/schools/add">
+					            <Link to="/admin/schools">
 						            <div class="well">
 							            <p><i class = "fa fa-institution"></i></p>
-							            <p class="btn-text"><b> Add School </b></p>
+							            <p class="btn-text"><b> Add/Edit School </b></p>
 					                </div>
 				                </Link>
 				            </div>
@@ -42,30 +42,30 @@ export default React.createClass({
 		                <p class="line-breaker"></p>
 		                <div class="row row-header">
 				            <div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
-					            <Link to="/admin/staff/add">
+											<Link to="/admin/districts">
 						            <div class="well">
-							            <p><i class = "fa fa-user-plus"></i></p>
-							            <p class="btn-text"><b> Add/Edit Staff </b></p>
+							            <p><i class = "fa fa-building"></i></p>
+							            <p class="btn-text"><b> Add/Edit District </b></p>
 					                </div>
 				                </Link>
 				            </div>
 				            <div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
-					            <Link to="/admin/students/add">
+					            <Link to="/admin/students">
 						            <div class="well">
 							            <p><i class = "fa fa-graduation-cap"></i></p>
-							            <p class="btn-text"><b> Add Student </b></p>
+							            <p class="btn-text"><b> Add/Edit Student </b></p>
 					                </div>
 				                </Link>
 				            </div>
 				            <div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
-					            <Link to="/admin/schools/edit">
+					            <Link to="/admin/reports">
 						            <div class="well">
-							            <p><i class = "fa fa-search"></i></p>
-							            <p class="btn-text"><b> Search School </b></p>
+							            <p><i class = "fa fa-pencil"></i></p>
+							            <p class="btn-text"><b> View Reports </b></p>
 					                </div>
 				                </Link>
 				            </div>
-		                </div>
+	                </div>
 				    </div>
 			    </div>
 		    </div>
