@@ -12,23 +12,23 @@ export default React.createClass({
 			name: "React"
 		};
 	},
-	
+
 	onLogin(e){
 		e.preventDefault();
 
 		var username = this.refs.username.value;
 		var password = this.refs.password.value;
 
+		var user = {
+			username: username,
+			password: password
+		}
+
 		if (username.length >= 0 && typeof username === "string"){
 			this.refs.username.value = '';
 			this.refs.password.value = '';
-
-			this.props.onUserLogin({username, password});
-
+			this.props.onUserLogin(user);
 		}
-
-
-
 	},
 
 	render(){

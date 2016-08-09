@@ -4,8 +4,9 @@ import axios from "axios";
 
 var CASSY_URL;
 
+///const CASSY_WEBSERV_URL = "https://cassy-server.herokuapp.com/";
 if (process.env.NODE_ENV === "production"){
-	CASSY_URL = "https://cassy-server.herokuapp.com/";
+	CASSY_URL = "https://cassydataportal.herokuapp.com/";
 }
 else {
 	CASSY_URL = "http://localhost:8888/";
@@ -18,9 +19,11 @@ module.exports = {
 		console.log(CASSY_URL);
 
 		return axios.post(CASSY_URL+"login", {
-			username: "batman",
-			password: "mobile"
+			username: user.username,
+			password: user.password
 		}).then(function(res) {
+
+			console.log("*******>"+JSON.stringify(res));
 
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);
@@ -30,6 +33,7 @@ module.exports = {
 				return res.data;
 			}
 		}, function(res) {
+			console.log("=====>"+res);
 			throw new Error(res.data.message);
 		});
 	},
@@ -37,7 +41,7 @@ module.exports = {
 	createNewUser: function(user){
 		console.log(CASSY_URL);
 
-		return axios.post(CASSY_URL+"users", user).then(function(res) {
+		return axios.post(CASSY_URL+"login", user).then(function(res) {
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);
 			}

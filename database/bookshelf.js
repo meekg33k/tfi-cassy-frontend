@@ -1,4 +1,6 @@
 // Database configuration
+var Bookshelf = require('bookshelf');
+
 var dbConfig = {
   client: 'mysql',
   connection: {
@@ -6,12 +8,14 @@ var dbConfig = {
     port: 3306,
     user: 'awsadminuser',
     password: 'tficassy',
-    database: 'cassydev'
+    database: 'cassydev',
+    charset: 'UTF8_GENERAL_CI'
   }
 };
 
+var DB = Bookshelf.initialize(dbConfig);
 // Bookshelf js initialaization
-var knex = require('knex')(dbConfig);
-var bookshelf = require('bookshelf')(knex);
+// var knex = require('knex')(dbConfig);
+// var bookshelf = require('bookshelf')(knex);
 
-module.exports = bookshelf;
+module.exports.DB = DB;

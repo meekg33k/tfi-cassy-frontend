@@ -5,12 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var passport = require('./services/passport-config');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 // routes files
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var students = require('./routes/students');
+
+var User = require('./model/User');
 
 var app = express();
 
@@ -29,6 +32,28 @@ app.use(session({ secret: 'banana' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+passport.use(new LocalStrategy(function(username, password, done) {
+   new User.UserModel({username: username}).fetch().then(function(data) {
+      var user = data;
+      if(user === null) {
+         return done(null, false, {message: 'Invalid username or password'});
+      } else {
+         user = data.toJSON();
+         return done(null, user);
+      }
+   });
+}));
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
 
 app.use('/', routes);
 app.use('/users', users);

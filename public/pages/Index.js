@@ -13,8 +13,9 @@ export default class Index extends React.Component {
 	handleUserLogin(user){
 
 		ApiRequester.loginUser(user).then(function(res){
+			console.log(res);
 			console.log("Successfully logged in");
-			if (res.usertype == "admin"){
+			if (res.role == "admin"){
 			window.location.replace(
 			  window.location.pathname + window.location.search + '#/admin'
 			);
