@@ -27,7 +27,21 @@ router.post('/login', function(req, res, next) {
       res.status(403).send({err: "No such user found"});
     }
 
-    res.status(200).json(result);
+    var result = JSON.stringify(result[0]);
+    console.log("===>"+result);
+
+    var validatedUser = {
+      userId: result.user_id,
+      firstName: result.first_name,
+      lastName: result.last_name,
+      username: result.username,
+      role: result.role,
+      managerId: result.manager_user_id
+    }
+
+    console.log("^^^^^"+validatedUser);
+
+    res.status(200).json(validatedUser);
   });
 });
 

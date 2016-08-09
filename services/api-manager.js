@@ -44,25 +44,12 @@ apiManager.changePassword = (id, params, callback) => {
 apiManager.validateLogin = (params, callback) => {
   var username = params.username;
   var password = params.password;
-  connection.query('SELECT * FROM user  WHERE username = ? AND password = ?', [username, password], (err, result) => {
+
+  connection.query("SELECT * FROM user  WHERE username = ? AND password = ?", [username, password], (err, result) => {
     if (err) {
       callback(err);
     }
-
-    console.log(result);
-
-    var validatedUser = {
-      userId: result.user_id,
-      firstName: result.first_name,
-      lastName: result.last_name,
-      username: result.username,
-      role: result.role,
-      managerId: result.manager_user_id
-    }
-
-    console.log(validatedUser);
-
-    callback(null, validatedUser);
+    callback(null, result);
   });
 };
 

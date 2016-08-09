@@ -33,7 +33,6 @@ module.exports = {
 				return res.data;
 			}
 		}, function(res) {
-			console.log("=====>"+res);
 			throw new Error(res.data.message);
 		});
 	},
