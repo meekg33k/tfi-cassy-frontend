@@ -212,9 +212,21 @@ export default React.createClass({
                     </div>
                 </div>
 								<div class="form-group">
+                    <label for="iepMinutes" class="col-sm-2 control-label">IEP Minutes</label>
+                    <div class="col-sm-10">
+											<input type="number" ref="iepMinutes" required />
+                    </div>
+                </div>
+								<div class="form-group">
+                    <label for="attendees" class="col-sm-2 control-label">No. of Attendees</label>
+                    <div class="col-sm-10">
+											<input type="number" ref="attendees" required />
+                    </div>
+                </div>
+								<div class="form-group">
                     <label for="file" class="col-sm-2 control-label">Attach File</label>
                     <div class="col-sm-10">
-											<input type="file" name="pic" accept="image/*" />
+											<input type="file" ref="file" required />
                     </div>
                 </div>
                 <p class="line-breaker"></p>
