@@ -27,25 +27,25 @@ export default React.createClass({
 		            <div id="navbar" class="navbar-collapse collapse">
 		                <ul class="nav navbar-nav">
 		                    <li>
-		                    	<IndexLink to="/admin/schools/edit" activeStyle={active}>
+		                    	<IndexLink to="/admin/schools" activeStyle={active}>
 		                      		<i class="fa fa-university"></i>
 		                            &nbsp;Schools
 		                        </IndexLink>
 		                    </li>
 		                    <li>
-		                    	<IndexLink to="/admin/students/add" activeStyle={active}>
+		                    	<IndexLink to="/admin/students" activeStyle={active}>
 		                        	<i class="fa fa-group "></i>
 	                            	&nbsp;Students
 		                        </IndexLink>
 		                    </li>
 		                    <li>
-		                    	<IndexLink to="/admin/staff/add" activeStyle={active}>
+		                    	<IndexLink to="/admin/staff" activeStyle={active}>
 		                        	<i class="fa fa-user "></i>
 	                            	&nbsp;Staff
 		                        </IndexLink>
 		                    </li>
 		                    <li>
-		                        <a href="/admin/forms/edit">
+		                        <a href="/admin/forms">
 		                            <span class="fa fa-edit" aria-hidden="true">
 		                            </span>
 		                            &nbsp;Forms

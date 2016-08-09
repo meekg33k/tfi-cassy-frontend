@@ -25,31 +25,24 @@ export default React.createClass({
 		            </div>
 		            <div id="navbar" class="navbar-collapse collapse">
 		                <ul class="nav navbar-nav">
-		                    <li>
-		                    	<IndexLink to="/events/add" activeStyle={active}>
-		                      		<span class="glyphicon glyphicon-calendar"></span>
-			                            &nbsp;Events
-	                        </IndexLink>
-		                    </li>
-		                    <li>
-		                    	<IndexLink to="/students/view" activeStyle={active}>
-		                        	<i class="fa fa-group "></i>
-		                            &nbsp;Students
-	                        </IndexLink>
-		                    </li>
-												<li>
-													<IndexLink to="/students/add" activeStyle={active}>
-															<span class="glyphicon glyphicon-user"></span>
-																&nbsp;Add Student
-													</IndexLink>
-												</li>
-		                    <li>
-		                        <a href="./reports.html">
-		                            <span class="glyphicon glyphicon-pencil" aria-hidden="true">
-		                            </span>
+											<li>
+												<IndexLink to="/students" activeStyle={active}>
+														<i class="fa fa-group "></i>
+															&nbsp;Students
+												</IndexLink>
+											</li>
+	                    <li>
+	                    	<IndexLink to="/events" activeStyle={active}>
+	                      		<span class="glyphicon glyphicon-calendar"></span>
+		                            &nbsp;Events
+                        </IndexLink>
+	                    </li>
+	                    <li>
+												<IndexLink to="/reports" activeStyle={active}>
+	                      		<span class="glyphicon glyphicon-pencil"></span>
 		                            &nbsp;Reports
-		                        </a>
-		                    </li>
+                        </IndexLink>
+	                    </li>
 		                </ul>
 		                <ul class="nav navbar-nav navbar-right">
 		                    <li>
