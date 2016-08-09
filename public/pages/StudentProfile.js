@@ -2,6 +2,8 @@
 
 import React from "react";
 import { Link } from "react-router";
+import BreadCrumb from "react-breadcrumbs"
+
 import StudentDetails from "../components/StudentDetails";
 import Problem from "../components/PresentingProblem";
 import Treatment from "../components/TreatmentConcern";
@@ -10,10 +12,18 @@ import Treatment from "../components/TreatmentConcern";
 export default React.createClass({
 
 	render(){
+
+		// componentDidMount() {
+	  //   this.setState({
+	  //     // route components are rendered with useful information, like URL params
+	  //     user: findUserById(this.props.params.userId)
+	  //   })
+	  // },
 		return (
 			<div>
 				<div class="container">
 			        <p class="line-breaker" />
+						  <BreadCrumb routes={this.props.routes} separator =" >> "/>
 			        <div class="row row-header">
 			            <div class="col-xs-12 col-sm-7 col-lg-7 ccol md-7">
 			                <p class="event-header">Student Profile</p>

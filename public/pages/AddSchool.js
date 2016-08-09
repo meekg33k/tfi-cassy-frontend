@@ -2,7 +2,6 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import Search from "../components/Search"
 
 
 export default React.createClass({
@@ -74,5 +73,3 @@ export default React.createClass({
 		);
   }
 });
-
-	
