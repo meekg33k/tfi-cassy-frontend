@@ -65,7 +65,7 @@ Router
 View
   * Create component: `/public/components/` either as a js or jsx file `/public/components/{NAME}.js`
   * Create page: `/public/pages/` either as a js or jsx file `/public/pages/{NAME}.js`
-  * Make sure to add the page to the specific route in `/public/client.js`
+  * Make sure to import the page and add it to the specific route in `/public/client.js` using the right naming convention. For example, `import {NAME}Page from "./pages/{NAME}.js"`
   * (Optional) Include components as aliases in ./webpack.config.js
 
 Data Sources
