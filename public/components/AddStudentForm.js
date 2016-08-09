@@ -101,7 +101,6 @@ export default React.createClass({
 		e.preventDefault();
 
 		if (this.validateInput() && this.ensureInputEntered()){
-
 			this.props.onAddStudent({
 				id: Date.now(),
 				firstName: this.refs.firstName.value,
@@ -115,6 +114,11 @@ export default React.createClass({
 			this.refs.lastName.value = '';
 		}
 
+	},
+
+	exitAddStudent(e){
+		e.preventDefault();
+		this.props.onExitAddStudent();
 	},
 
 
@@ -131,9 +135,16 @@ export default React.createClass({
 		};
 
 		return(
-			<div>
+			<div class="well">
+				<div class="row row-header">
+						<div class="col-xs-12 col-sm-12 col-lg-12 ccol md-12">
+								<p class="student-header">Add Student</p>
+						</div>
+				</div>
+				<br />
 				{displayError()}
-				<form class="form-horizontal" role="form" onSubmit={this.addStudent}>
+				<br />
+				<form class="form-horizontal" role="form">
 					<div class="form-group">
 	                    <label for="firstName" class="col-sm-2 control-label">First Name</label>
 	                    <div class="col-sm-5">
@@ -159,7 +170,7 @@ export default React.createClass({
 	                            <option>6th</option>
 	                            <option>7th</option>
 	                            <option>8th</option>
-                              	<option>9th</option>
+                            	<option>9th</option>
 	                            <option>10th</option>
 	                            <option>11th</option>
 	                            <option>12th</option>
@@ -201,13 +212,53 @@ export default React.createClass({
 	                        </select>
 	                    </div>
 	                </div>
+									<div class="form-group">
+											<label for="referral" class="col-sm-2 control-label">Referral Source</label>
+											<div class="col-sm-5">
+													<select class="form-control" id="referral">
+															<option>Self</option>
+															<option>Peer</option>
+															<option>Parent</option>
+															<option>School Staff</option>
+															<option>Other Adult</option>
+															<option>Seen Last Year</option>
+															<option>Classroom Presentation</option>
+													</select>
+											</div>
+									</div>
+									<div class="form-group">
+											<label for="presentingIssue" class="col-sm-2 control-label">Presenting Issue</label>
+											<div class="col-sm-5">
+													<select class="form-control" id="referral">
+															<option>Academic Stress</option>
+															<option>Anger</option>
+															<option>Anxiety</option>
+															<option>Bullying (aggressor)</option>
+															<option>...</option>
+															<option>Substance Abuse/Family</option>
+															<option>Suicidality</option>
+													</select>
+											</div>
+									</div>
+											<div class="form-group">
+													<label class="col-sm-2 control-label">Free / Reduced Lunch</label>
+														<div class="checkbox col-sm-5">
+															<label>
+																<input type="checkbox" />
+															</label>
+													</div>
+											</div>
 	                <div class="form-group">
-	                    <div class="col-sm-offset-2 col-sm-10">
-	                        <button type="submit" class="btn btn-success">
-	                        	<span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
-		                    	&nbsp; Add Student
-	                    	</button>
-	                    </div>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success" onClick={this.addStudent}>
+	                        	<span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
+		                    	&nbsp; Save
+	                    	</button>&nbsp; &nbsp; &nbsp;
+												<button type="submit" class="btn btn-danger" onClick={this.exitAddStudent}>
+													<span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
+												&nbsp; Cancel
+											</button>
+                    </div>
 	                </div>
 	            </form>
 			</div>

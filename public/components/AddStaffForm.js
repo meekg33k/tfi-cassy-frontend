@@ -4,6 +4,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import uuid from "node-uuid";
 
+import ApiRequester from "../../apis/ApiRequester"
+
 
 export default React.createClass({
 
@@ -15,7 +17,6 @@ export default React.createClass({
 	},
 
 	ensureInputEntered(){
-
 		var firstName = this.refs.firstName.value;
 		var lastName = this.refs.lastName.value;
 		var email = this.refs.email.value;
@@ -171,22 +172,34 @@ export default React.createClass({
 
 		if (this.validateInput() && this.ensureInputEntered()){
 
-			this.props.onAddStaff({
-				id: Date.now(),
-				firstName: this.refs.firstName.value,
-				lastName: this.refs.lastName.value,
-				role: this.refs.role.value,
-				manager: this.refs.manager.value
+			ApiRequester.createNewUser({
+
+
+			}).then(function(res){
+
+				console.log(res);
+				
+				this.props.onAddStaff({
+					id: Date.now(),
+					firstName: this.refs.firstName.value,
+					lastName: this.refs.lastName.value,
+					role: this.refs.role.value,
+					manager: this.refs.manager.value
+				});
+				this.refs.firstName.value = '';
+				this.refs.lastName.value = '';
+				this.refs.email.value = '';
+
+			}, function(err){
+				console.log(err);
 			});
-
-			this.refs.firstName.value = '';
-			this.refs.lastName.value = '';
-			this.refs.email.value = '';
-
 		}
-
 	},
 
+	exitAddStaff(e){
+		e.preventDefault();
+		this.props.onExitAddStaff();
+	},
 
 	render(){
 		var displayError = () =>{
@@ -201,10 +214,16 @@ export default React.createClass({
 		};
 
 		return(
-			<div>
-				{displayError()}	
-				<form class="form-horizontal" role="form" onSubmit={this.addStaff}>
-
+			<div class="well">
+				<div class="row row-header">
+						<div class="col-xs-12 col-sm-12 col-lg-12 ccol md-12">
+								<p class="staff-header">Add Staff Member</p>
+						</div>
+				</div>
+				<br />
+				{displayError()}
+				<br />
+				<form class="form-horizontal" role="form">
 	                <div class="form-group">
 	                    <label for="firstName" class="col-sm-2 control-label">First Name</label>
 	                    <div class="col-sm-5">
@@ -244,13 +263,17 @@ export default React.createClass({
 	                        </select>
 	                    </div>
 	                </div>
-	                <div class="form-group">
-	                    <div class="col-sm-offset-2 col-sm-10">
-	                        <button type="submit" class="btn btn-success">
-	                        	<span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
-		                    	&nbsp; Add Staff
-	                    	</button>
-	                    </div>
+									<div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success" onClick={this.addStaff}>
+	                        	<span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
+		                    	&nbsp; Save
+	                    	</button>&nbsp; &nbsp; &nbsp;
+												<button type="submit" class="btn btn-danger" onClick={this.exitAddStaff}>
+													<span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
+												&nbsp; Cancel
+											</button>
+                    </div>
 	                </div>
 	            </form>
 			</div>
