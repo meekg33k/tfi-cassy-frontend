@@ -205,28 +205,28 @@ export default React.createClass({
                       <input type="date" class="form-control" ref="eventDate" required/>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="attendingStudents" class="col-sm-2 control-label">Attending Students</label>
-                    <div class="col-sm-10">
-                        <StudentTag onAddStudent={this.handleAddStudent} onDeleteStudent={this.handleDeleteStudent} suggestions={this.retrieveSuggestions()}></StudentTag>
-                    </div>
-                </div>
 								<div class="form-group">
                     <label for="iepMinutes" class="col-sm-2 control-label">IEP Minutes</label>
-                    <div class="col-sm-10">
-											<input type="number" ref="iepMinutes" required />
+                    <div class="col-sm-2">
+											<input type="number" class="form-control" ref="iepMinutes" required />
                     </div>
                 </div>
 								<div class="form-group">
                     <label for="attendees" class="col-sm-2 control-label">No. of Attendees</label>
-                    <div class="col-sm-10">
-											<input type="number" ref="attendees" required />
+                    <div class="col-sm-2">
+											<input type="number" class="form-control" ref="attendees" required />
                     </div>
                 </div>
 								<div class="form-group">
+										<label for="attendingStudents" class="col-sm-2 control-label">Attending Students</label>
+										<div class="col-sm-10">
+												<StudentTag onAddStudent={this.handleAddStudent} onDeleteStudent={this.handleDeleteStudent} suggestions={this.retrieveSuggestions()}></StudentTag>
+										</div>
+								</div>
+								<div class="form-group">
                     <label for="file" class="col-sm-2 control-label">Attach File</label>
-                    <div class="col-sm-10">
-											<input type="file" ref="file" required />
+                    <div class="col-sm-5">
+											<input type="file" class="form-control" ref="file" required />
                     </div>
                 </div>
                 <p class="line-breaker"></p>
