@@ -17,11 +17,11 @@
 }
 
 .width-well{
-  width:92.5%
+  width:95%
 }
 
 .wid-well{
-  width:85%
+  width:100%
 }
 
 .form-ctrl{
@@ -276,7 +276,7 @@ i.fa-graduation-cap {
 
 i.fa-institution {
   text-align: center;
-  color: #286090;
+  color: #909439;
   font-size: 12vw;
 
 }
@@ -294,7 +294,6 @@ i.fa-search {
   font-size: 12vw;
 
 }
-
 
 i.fa-user-plus {
   text-align: center;
