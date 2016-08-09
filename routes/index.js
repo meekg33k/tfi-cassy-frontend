@@ -16,7 +16,6 @@ router.post('/login', function(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
 
-  console.log("Starting validation!!");
   apiManager.validateLogin({username, password}, (err, result) => {
     if (err) {
       console.error('No user for the given id ' + req.params.userid + err);
@@ -27,21 +26,7 @@ router.post('/login', function(req, res, next) {
       res.status(403).send({err: "No such user found"});
     }
 
-    var result = JSON.stringify(result[0]);
-    console.log("===>"+result);
-
-    var validatedUser = {
-      userId: result.user_id,
-      firstName: result.first_name,
-      lastName: result.last_name,
-      username: result.username,
-      role: result.role,
-      managerId: result.manager_user_id
-    }
-
-    console.log("^^^^^"+validatedUser);
-
-    res.status(200).json(validatedUser);
+    res.status(200).json(JSON.stringify(result[0]));
   });
 });
 

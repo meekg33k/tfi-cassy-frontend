@@ -211,6 +211,12 @@ export default React.createClass({
                         <StudentTag onAddStudent={this.handleAddStudent} onDeleteStudent={this.handleDeleteStudent} suggestions={this.retrieveSuggestions()}></StudentTag>
                     </div>
                 </div>
+								<div class="form-group">
+                    <label for="file" class="col-sm-2 control-label">Attach File</label>
+                    <div class="col-sm-10">
+											<input type="file" name="pic" accept="image/*" />
+                    </div>
+                </div>
                 <p class="line-breaker"></p>
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
