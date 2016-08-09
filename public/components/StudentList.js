@@ -17,14 +17,14 @@ export default React.createClass({
 
 	render(){
 
-		var {students} = this.props; 
+		var {students} = this.props;
 
 		var renderMessage = () => {
 			if (students.length == 0){
 
 				return(
 					<div>
-						<p>No student details found. You can use the form above to add the student</p>
+						<p>No student details found. You can click on the Add Student button to add the student</p>
 					</div>
 				);
 
@@ -33,15 +33,15 @@ export default React.createClass({
 				return(
 					<div>
 				        <div class="row">
-							<div class="col-sm-2 col-lg-2 ccol md-2">
+							<div class="col-sm-2 col-lg-2 col md-2">
 								<b>First Name</b>
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
 								<b>Last Name</b>
-							</div>						
+							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
 								<b>Grade</b>
-							</div>							
+							</div>
 							<div class="col-sm-6 col-lg-6 col md-6">
 								<b>School</b>
 							</div>
@@ -56,7 +56,7 @@ export default React.createClass({
 		var renderStudents = () => {
 			return students.map((student) => {
 				return (
-					<Student key={student.id} onEdit={this.props.onEditStudent} onDelete={this.props.onDeleteStudent} 
+					<Student key={student.id} onEdit={this.props.onEditStudent} onDelete={this.props.onDeleteStudent}
 					{...student}/>
 				);
 			});
@@ -65,11 +65,8 @@ export default React.createClass({
 		return(
 			<div>
 				<div class="container">
-			        <p class="line-breaker" />
+			        <br />
 			        <div class="row row-header">
-			        	<p class="student-header">Student Assignment</p>
-			        	<br />
-			        
 				        <div class="well width-well">
 				        	{renderMessage()}
 				        </div>

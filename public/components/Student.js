@@ -2,6 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+import { Link } from "react-router";
 
 
 
@@ -12,13 +13,26 @@ export default React.createClass({
 			isEditing: false,
 			id: this.props.id,
 			firstName: this.props.firstName,
-			lastName: this.props.lastName, 
+			lastName: this.props.lastName,
 			gender: this.props.gender,
 			grade: this.props.grade,
-			school: this.props.school
+			school: this.props.school,
+			userType: "",
 		};
 	},
 
+	getStudent(){
+		var student = {
+			id: this.state.id,
+			firstName: this.state.firstName,
+			lastName: this.state.lastName,
+			gender: this.state.gender,
+			grade: this.state.grade,
+			school: this.state.school
+		};
+
+		return student;
+	},
 
 	cancelEdit(){
 		this.setState({
@@ -30,10 +44,9 @@ export default React.createClass({
 	delete(e){
 
 		e.preventDefault(e);
-
 		this.props.onDelete({
 			id: this.state.id
-		});		
+		});
 	},
 
 
@@ -56,7 +69,7 @@ export default React.createClass({
 			grade: this.refs.grade.value,
 			school: this.refs.school.value
 		});
-		
+
 	},
 
 	startEdit(){
@@ -83,22 +96,28 @@ export default React.createClass({
 							<div class="col-sm-2 col-lg-2 col md-2">
 								{this.state.grade}
 							</div>
-							<div class="col-sm-3 col-lg-3 col md-3">
+							<div class="col-sm-2 col-lg-2 col md-2">
 								{this.state.school}
 							</div>
-							<div class="col-sm-3 col-lg-3 col md-3">
+							<div class="col-sm-4 col-lg-4 col md-4">
+								<Link to={`${this.state.userType}/students/${this.state}`}>
+									<button type="button" class="btn btn-sm btn-primary">
+											<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+											&nbsp; Profile
+									</button>
+								</Link>
+								&nbsp;
 
-								<button type="button" onClick={this.startEdit} class="btn btn-sm btn-warning"> 
-				                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-				                    &nbsp; Edit
-				                </button>
-				                &emsp;
-				                &emsp;
+								<button type="button" onClick={this.startEdit} class="btn btn-sm btn-warning">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    &nbsp; Edit
+                </button>
+								&nbsp;
 
-								<button type="button" onClick={this.delete} class="btn btn-sm btn-danger"> 
-				                    <span class="glyphicon glyphicon-trash" aria-hidden="true">  </span>
-				                    &nbsp; Delete
-				                </button>
+								<button type="button" onClick={this.delete} class="btn btn-sm btn-danger">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true">  </span>
+                    &nbsp; Delete
+                </button>
 							</div>
 						</div>
 					</div>
@@ -117,39 +136,39 @@ export default React.createClass({
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
 								<select class="form-ctrl" ref="grade">
-		                            <option>1st</option>
-		                            <option>2nd</option>
-		                            <option>3rd</option>
-		                            <option>4th</option>
-		                            <option>5th</option>
-		                            <option>6th</option>
-		                            <option>7th</option>
-		                            <option>8th</option>
-	                              	<option>9th</option>
-		                            <option>10th</option>
-		                            <option>11th</option>
-		                            <option>12th</option>
-		                            <option>Kindergarten</option>
-		                        </select>
+                  <option>1st</option>
+                  <option>2nd</option>
+                  <option>3rd</option>
+                  <option>4th</option>
+                  <option>5th</option>
+                  <option>6th</option>
+                  <option>7th</option>
+                  <option>8th</option>
+                  <option>9th</option>
+                  <option>10th</option>
+                  <option>11th</option>
+                  <option>12th</option>
+                  <option>Kindergarten</option>
+              </select>
 							</div>
 							<div class="col-sm-3 col-lg-3 col md-3">
-		                        <select class="form-control" ref="school">
-		                            <option>ABC School</option>
-		                            <option>XYZ College</option>
-		                        </select>
+                <select class="form-control" ref="school">
+                    <option>ABC School</option>
+                    <option>XYZ College</option>
+                </select>
 							</div>
 							<div class="col-sm-3 col-lg-3 col-md-3">
-								<button type="button" onClick={this.saveEdit} class="btn btn-sm btn-success"> 
-				                    <span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
-				                    &nbsp; Save
-				                </button>
-				                &emsp;
-				                &emsp;
+								<button type="button" onClick={this.saveEdit} class="btn btn-sm btn-success">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
+                    &nbsp; Save
+                </button>
+                &emsp;
+                &emsp;
 
-								<button type="button" onClick={this.cancelEdit} class="btn btn-sm btn-danger"> 
-				                    <span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
-				                    &nbsp; Cancel
-				                </button>
+								<button type="button" onClick={this.cancelEdit} class="btn btn-sm btn-danger">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
+                    &nbsp; Cancel
+                </button>
 							</div>
 						</div>
 					</div>
@@ -159,7 +178,7 @@ export default React.createClass({
 
 		return(
 			<div>
-				{renderStudent()}	
+				{renderStudent()}
 			</div>
 		);
 	}

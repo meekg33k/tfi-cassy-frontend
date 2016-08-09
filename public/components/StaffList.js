@@ -17,7 +17,7 @@ export default React.createClass({
 
 	render(){
 
-		var {staff} = this.props; 
+		var {staff} = this.props;
 
 		var renderMessage = () => {
 			if (staff.length == 0){
@@ -32,7 +32,7 @@ export default React.createClass({
 			else {
 				return(
 					<div>
-				        <div class="row">
+		        <div class="row">
 							<div class="col-sm-2 col-lg-2 ccol md-2">
 								<b>First Name</b>
 							</div>
@@ -47,16 +47,16 @@ export default React.createClass({
 							</div>
 						</div>
 						<br />
-			            {renderStaffs()}
-		            </div>
-	            );
+            {renderStaffs()}
+          </div>
+          );
 			}
 		};
 
 		var renderStaffs = () => {
 			return staff.map((staffMember) => {
 				return (
-					<Staff key={staffMember.id} onEdit={this.props.onEditStaff} onDelete={this.props.onDeleteStaff} 
+					<Staff key={staffMember.id} onEdit={this.props.onEditStaff} onDelete={this.props.onDeleteStaff}
 					{...staffMember}/>
 				);
 			});
@@ -65,11 +65,7 @@ export default React.createClass({
 		return(
 			<div>
 				<div class="container">
-			        <p class="line-breaker" />
 			        <div class="row row-header">
-			        	<p class="staff-header">Staff Assignment</p>
-			        	<br />
-			        
 				        <div class="well width-well">
 				        	{renderMessage()}
 				        </div>
