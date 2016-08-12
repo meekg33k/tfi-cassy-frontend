@@ -33,7 +33,7 @@ export default React.createClass({
 				return(
 					<div>
 		        <div class="row">
-							<div class="col-sm-2 col-lg-2 ccol md-2">
+							<div class="col-sm-2 col-lg-2 col md-2">
 								<b>First Name</b>
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
