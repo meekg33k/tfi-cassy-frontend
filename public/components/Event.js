@@ -2,30 +2,25 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+import {connect} from "react-redux"
+
+import * as actions from "../../actions/actions"
 
 
-
-export default React.createClass({
+var Event =  React.createClass({
 
 	getInitialState(){
 		return {
-			isEditing: false,
+			isEditing: false, //Internal state to determine if this is being edited
 			id: this.props.id,
 			name: this.props.name,
 			type: this.props.type,
 			school: this.props.school,
-      other: this.props.other,
+      		other: this.props.other,
 			description: this.props.description,
 			date: this.props.date,
-      students: this.props.students
+      		students: this.props.students
 		};
-	},
-
-
-	cancelEdit(){
-		this.setState({
-			isEditing: !this.state.isEditing
-		});
 	},
 
 
@@ -38,7 +33,12 @@ export default React.createClass({
 
 
 	startEdit(){
+		var {dispatch} = this.props;
+
 		if (this.props.onEdit(this.state)){
+			//send app-wide signal
+			dispatch(actions.enableEditEvent(true));
+			//set internal component state
 			this.setState({
 				isEditing: true
 			});
@@ -54,8 +54,8 @@ export default React.createClass({
 
 	render(){
 
-		var renderStudent = () =>{
-			if (!this.state.isEditing){
+		var renderEvent = () =>{
+			if (!this.state.isEditing && !this.props.editEventState){
 				return(
 					<div>
 						<p></p>
@@ -73,16 +73,16 @@ export default React.createClass({
 								{this.state.school}
 							</div>
 							<div class="col-sm-4 col-lg-4 col md-4">
-                {this.state.date}
+        				{this.state.date}
 								&nbsp;
 
-								<button type="button" onClick={this.startEdit} class="btn btn-sm btn-success">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                    &nbsp; Edit
-                </button>
+								<button type="button" onClick={this.startEdit} class="btn btn-sm btn-success" disabled={this.props.editEventState}>
+	                  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+	                  &nbsp; Edit
+	              </button>
 								&nbsp;
 
-								<button type="button" onClick={this.delete} class="btn btn-sm btn-danger">
+								<button type="button" onClick={this.delete} class="btn btn-sm btn-danger" disabled={this.props.editEventState}>
                     <span class="glyphicon glyphicon-trash" aria-hidden="true">  </span>
                     &nbsp; Delete
                 </button>
@@ -91,7 +91,43 @@ export default React.createClass({
 					</div>
 				);
 			}
-			else {
+			if (!this.state.isEditing && this.props.editEventState){
+				return(
+					<div>
+						<p></p>
+						<div class="row">
+							<div class="col-sm-2 col-lg-2 col md-2">
+								{this.state.name}
+							</div>
+							<div class="col-sm-2 col-lg-2 col md-2">
+								{this.state.type}
+							</div>
+							<div class="col-sm-2 col-lg-2 col md-2">
+								{this.state.description}
+							</div>
+							<div class="col-sm-2 col-lg-2 col md-2">
+								{this.state.school}
+							</div>
+							<div class="col-sm-4 col-lg-4 col md-4">
+        				{this.state.date}
+								&nbsp;
+
+								<button type="button" onClick={this.startEdit} class="btn btn-sm btn-success" disabled={this.props.editEventState}>
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    &nbsp; Edit
+                </button>
+								&nbsp;
+
+								<button type="button" onClick={this.delete} class="btn btn-sm btn-danger" disabled={this.props.editEventState}>
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true">  </span>
+                    &nbsp; Delete
+                </button>
+							</div>
+						</div>
+					</div>
+				);
+			}
+			if (this.state.isEditing && this.props.editEventState) {
 				return(
 					<div>
 						<p></p>
@@ -111,8 +147,8 @@ export default React.createClass({
 							<div class="col-sm-4 col-lg-4 col md-4">
                 {this.state.date}
 								&nbsp;
-              <b>Currently Editing...</b> &nbsp;&nbsp;
-						</div>
+        				<b>Currently Editing...</b> &nbsp;&nbsp;
+							</div>
 						</div>
 					</div>
 				);
@@ -121,9 +157,17 @@ export default React.createClass({
 
 		return(
 			<div>
-				{renderStudent()}
+				{renderEvent()}
 			</div>
 		);
 	}
 
 });
+
+module.exports = connect(
+	(store) => {
+		return {
+			editEventState: store.editEventState
+		};
+	}
+)(Event);

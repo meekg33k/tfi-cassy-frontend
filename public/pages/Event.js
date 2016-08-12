@@ -4,6 +4,7 @@ import uuid from "node-uuid";
 import React from "react";
 import ReactDOM from "react-dom";
 import BreadCrumb from "react-breadcrumbs"
+import {connect} from "react-redux"
 
 import AddEventForm from "../components/AddEventForm"
 import EditEventForm from "../components/EditEventForm"
@@ -11,182 +12,88 @@ import EventList from "../components/EventList"
 import Search from "../components/Searcher"
 import SearchProcessor from "../../apis/Helper"
 
+import * as actions from "../../actions/actions"
 
 
-export default React.createClass({
+
+var Event = React.createClass({
 
 	getInitialState(){
 		return {
-      addEvent: false,
-			editingEvent: false,
+      		addEvent: this.props,
+			isEditing: this.props, //app-wide state of editing
+			showEditForm: false, //component state to determine if form should be displayed
 			searchString: "",
-			editEvent: {},
-			events: [
-				{
-					id: 898091,
-					name: "Ranswood Event",
-					type: "Individual Session",
-					school: "Ranswood Elementary",
-					other:"",
-					description:"A wonderful event",
-					date: "03/18/2012",
-					students: [
-						"Marlon Jameson", "Cut Carr", "Yanzhang Yui"
-					]
-				}, {
-					id: 777118,
-					name: "Dopest Event",
-					type: "Individual Session",
-					school: "Loyola College",
-					other: "",
-					description:"A wonderful event",
-					date: "03/25/2016",
-					students: [
-						  {
-						    "id": 1,
-						    "name": "Vinod Ep",
-						  },
-						  {
-						    "id": 2,
-						    "name": "Kay Jay"
-						  },
-						  {
-						    "id": 3,
-						    "name": "user"
-						  }
-						]
-				},
-			]
+			eventBeingEdited: {}, //object being edited
+			events: this.props
 		};
 	},
 
 	//This is the method that actually adds a new event..will make API calls
-	handleAddEvent(event, state){
-		console.log(this.state.editingEvent);
-		if (!this.state.editingEvent){
-			this.setState({
-				events: [
-					...this.state.events,
-					event
-				]
-			});
+	handleAddEvent(event){
+		var { dispatch } = this.props;
+		if (!this.props.showEditForm){
+			dispatch(actions.addEvent(event));
+			this.handleExitAddEvent();
 		}
-		this.setState({
-			addEvent: state
-		});
 	},
 
 	//This method that actually deletes an event..will make API calls
 	handleDeleteEvent(event){
 
-		var victimId;
-    if (confirm("Do you want to proceed to delete the event?") == true) {
-	    	for(var i = 0;  i < this.state.events.length; i++) {
-			    if (this.state.events[i].id === event.id) {
-			        victimId = i;
-			        break;
-			    }
-				}
-
-				var updatedEvents = this.state.events.splice(victimId, 1);
-				this.setState(updatedEvents);
-    }
+    	if (confirm("Do you want to proceed to delete the event?") == true) {
+    		var { dispatch } = this.props;
+			dispatch(actions.deleteEvent(event));
+    	}
 
 	},
 
 	//Handles initial call to edit event from EventList... no API calls
 	handleEditEvent(eventToBeEdited){
-		if (!this.state.addEvent){
+		if (!this.props.addEvent){
 			this.setState({
-				editingEvent: true,
-				editEvent: eventToBeEdited
+				showEditForm: true,
+				eventBeingEdited: eventToBeEdited
 			});
 			return true;
 		}
 		return false;
 	},
 
-	//State processing... no API calls
-  handleExitAddEvent(){
-    this.setState({
-      addEvent: false
-    });
-  },
 
-	//State processing... no API calls
-	handleExitEditEvent(){
-
-		var victimId;
-		for(var i = 0;  i < this.state.events.length; i++) {
-			if (this.state.events[i].id === this.state.editEvent.id) {
-					victimId = i;
-					break;
-			}
-		}
-
-		var updatedEvents = this.state.events.splice(victimId, 1);
-
-		this.setState(updatedEvents);
-		this.setState({
-			events: [
-				...this.state.events,
-				{
-					id: Date.now(),
-					name: this.state.editEvent.name,
-					type: this.state.editEvent.type,
-					school: this.state.editEvent.school,
-					other: this.state.editEvent.other,
-					description: this.state.editEvent.description,
-					date: this.state.editEvent.date,
-				}
-			],
-			editingEvent: false
-		});
+  	handleExitAddEvent(){
+	    var { dispatch } = this.props;
+	    dispatch(actions.enableAddEvent(false));
 	},
 
 
-	//this does to acutal editing of events... makes API calls
+  	handleExitEditEvent(){
+	    var { dispatch } = this.props;
+	    dispatch(actions.exitEditEvent(this.state.eventBeingEdited));
+	    dispatch(actions.enableEditEvent(false));
+	},
+
+
 	handleSaveEditEvent(eventEdited){
 		var victimId;
-		console.log(eventEdited);
+		var { dispatch } = this.props;
 
-		for(var i = 0;  i < this.state.events.length; i++) {
-			console.log("Comparing "+this.state.events[i].id + " and "+eventEdited.id);
-			if (this.state.events[i].id === eventEdited.id) {
-					victimId = i;
-					break;
-			}
-		}
+		//Does actual editing.. makes API calls
+		dispatch(actions.saveEditedEvent(eventEdited));
+		dispatch(actions.enableEditEvent(false));
 
-		var updatedEvents = this.state.events.splice(victimId, 1);
-
-		this.setState(updatedEvents);
 		this.setState({
-			events: [
-				...this.state.events,
-				{
-					id: Date.now(),
-					name: eventEdited.name,
-					type: eventEdited.type,
-					school: eventEdited.school,
-					other: eventEdited.other,
-					description: eventEdited.description,
-					date: eventEdited.date,
-
-				}
-			],
-			editingEvent: false
+			showEditForm: false
 		});
 	},
 
 
-  initiateAddEvent(){
-		if (!this.state.editingEvent){
-			this.setState({
-	      addEvent: true
-			});
-		}
-  },
+	initiateAddEvent(){
+		var { dispatch } = this.props;
+	    if (!this.props.isEditing){
+	    	dispatch(actions.enableAddEvent(true));
+    	}
+	},
 
 
 	handleSearch(searchString){
@@ -197,16 +104,16 @@ export default React.createClass({
 
   	render() {
 
-  		var {events, searchString} = this.state;
+  		var {events, dispatch} = this.props;
+  		var searchString= this.state.searchString;
   		var filteredEvents = SearchProcessor.filterEvents(events, searchString);
+	    console.log("event state after exiting", this.props);
 
-      var renderAddEditEvent = () =>{
-  			if (this.state.addEvent){
-					if (this.state.editingEvent){
-						this.setState({
-							addEvent: false
-						});
-					}
+      	var renderAddEditEvent = () =>{
+  			if (this.props.addEvent){
+				if (this.props.isEditing){
+					dispatch(actions.enableAddEvent(false));
+				}
 				else{
 					return(
 						<div>
@@ -216,54 +123,67 @@ export default React.createClass({
 				}
 
   			}
-				if (this.state.editingEvent){
+			if (this.props.isEditing){
+				if (this.props.addEvent){
+					dispatch(actions.enableEditEvent(false));
 					if (this.state.addEvent){
 						this.setState({
-							editingEvent: false
+							showEditForm: false
 						});
 					}
-					else{
-						return(
-							<div>
-								<EditEventForm onSaveEditEvent={this.handleSaveEditEvent} onExitEditEvent={this.handleExitEditEvent} event={this.state.editEvent}/>
-							</div>
-						);
-					}
 				}
+				else{
+					return(
+						<div>
+							<EditEventForm onSaveEditEvent={this.handleSaveEditEvent}
+								onExitEditEvent={this.handleExitEditEvent} event={this.state.eventBeingEdited}/>
+						</div>
+					);
+				}
+			}
 
   		};
 
 	    return (
 	    	<div>
-				    <div class="container">
-              <p class="line-breaker" />
-              <BreadCrumb routes={this.props.routes} separator =" >> "/>
-              <br />
-              <br />
+				<div class="container">
+		            <p class="line-breaker" />
+		            <BreadCrumb routes={this.props.routes} separator =" >> "/>
+		            <br />
+		            <br />
 			        <div class="row row-header report-form">
           				{renderAddEditEvent()}
 			            <br />
-                  <div class="row row-header">
-                    <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
-                        <p class="event-header">My Events List</p>
-                    </div>
-                    <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2">
-                      <div class="form-group">
-                            <button type="submit" class="btn btn-warning" onClick={this.initiateAddEvent}>
-                              <span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
-                            &nbsp; Add Event
-                          </button>
-                      </div>
-                    </div>
+                  	<div class="row row-header">
+	                    <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+	                        <p class="event-header">My Events List</p>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2">
+	                      	<div class="form-group">
+	                            <button type="submit" class="btn btn-warning" onClick={this.initiateAddEvent}>
+	                              <span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
+	                            &nbsp; Add Event
+	                          	</button>
+	                      	</div>
+	                    </div>
   			            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
   			            	<Search onSearch={this.handleSearch} placeholder = "Search by event name here"/>
   			            </div>
-                  </div>
-									<EventList events={filteredEvents} onEditEvent={this.handleEditEvent} onDeleteEvent={this.handleDeleteEvent}/>
-
+                  	</div>
+					<EventList events={filteredEvents} onEditEvent={this.handleEditEvent} onDeleteEvent={this.handleDeleteEvent}/>
 			        </div>
 			    </div>
 			</div>
 		);
-  }
+  	}
 });
+
+module.exports = connect(
+	(store) => {
+		return {
+			events: store.events,
+			addEvent: store.addEventState,
+			isEditing: store.editEventState
+		};
+	}
+)(Event);

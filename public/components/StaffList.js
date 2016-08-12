@@ -47,13 +47,13 @@ export default React.createClass({
 							</div>
 						</div>
 						<br />
-            {renderStaffs()}
+            {renderStaff()}
           </div>
           );
 			}
 		};
 
-		var renderStaffs = () => {
+		var renderStaff = () => {
 			return staff.map((staffMember) => {
 				return (
 					<Staff key={staffMember.id} onEdit={this.props.onEditStaff} onDelete={this.props.onDeleteStaff}
