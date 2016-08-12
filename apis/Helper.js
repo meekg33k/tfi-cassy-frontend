@@ -1,6 +1,7 @@
 module.exports = {
 	filter(array, searchText){
 
+		console.log(array);
 		var filteredArray = array;
 
 		filteredArray = array.filter((element) => {
@@ -30,10 +31,9 @@ module.exports = {
 	filterEvents(array, searchText){
 		var filteredArray;
 
-		filteredArray = array.filter((element) => {
-		var fieldOne = element.name.toLowerCase();
-
-			return searchText.length === 0 || fieldOne.indexOf(searchText) > -1;
+		filteredArray = array.filter((event) => {
+			var eventName = event.name.toLowerCase();
+			return searchText.length === 0 || eventName.indexOf(searchText) > -1;
 		});
 
 		filteredArray.sort((a,b) => {
