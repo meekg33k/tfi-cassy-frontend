@@ -112,11 +112,6 @@
   font-size:1.5em;
 }*/
 
-.error{
-  color: red;
-  font-style: bold;
-}
-
 .jumbotron{
   padding: 70px 30px 20px 10px;
   margin-left: 0px;
@@ -149,6 +144,10 @@
   font-size:20px;
   color: #286090;
   font-family: "Comic Sans MS";
+}
+
+.error{
+  color: red;
 }
 
 .event-header{
@@ -281,14 +280,15 @@ i.fa-graduation-cap {
 
 i.fa-institution {
   text-align: center;
-  color: #909439;
+  color: #286090;
   font-size: 12vw;
 
 }
 
 i.fa-pencil {
   text-align: center;
-  color: #2C689C;
+  color: #909439;
+  /**color: #2C689C;**/
   font-size: 12vw;
 
 }
