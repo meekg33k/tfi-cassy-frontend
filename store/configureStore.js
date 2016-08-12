@@ -8,12 +8,13 @@ import * as reducer from "../reducers/reducer"
 export var configure = () => {
 	var appReducer = combineReducers({
 		addEventState: reducer.enableAddEventReducer,
-		//addStudentState: reducer.enableAddStudentReducer,
+		addSchoolState: reducer.enableAddSchoolReducer,
 		addStaffState: reducer.enableAddStaffReducer,
 		editButtonState: reducer.editButtonEventReducer,
 		editEventState: reducer.enableEditEventReducer,
 		events: reducer.eventReducer,
 		searchText: reducer.searchReducer,
+		schools: reducer.schoolReducer,
 		staff: reducer.staffReducer
 	});
 

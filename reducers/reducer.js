@@ -1,6 +1,6 @@
 export var searchReducer = (state = '', action) => {
 	switch(action.type){
-		case 'SET_SEARCH_TEXT': 
+		case 'SET_SEARCH_TEXT':
 			return action.payload;
 		default:
 			return state;
@@ -11,7 +11,7 @@ export var searchReducer = (state = '', action) => {
 /** Event Reducers **/
 export var enableAddEventReducer = (state = false, action) => {
 	switch(action.type){
-		case 'ENABLE_ADD_EVENT': 
+		case 'ENABLE_ADD_EVENT':
 			return action.payload;
 		default:
 			return state;
@@ -22,7 +22,7 @@ export var enableAddEventReducer = (state = false, action) => {
 //Set to true when EditEvent has started
 export var enableEditEventReducer = (state = false, action) => {
 	switch(action.type){
-		case 'ENABLE_EDIT_EVENT': 
+		case 'ENABLE_EDIT_EVENT':
 			return action.payload;
 		default:
 			return state;
@@ -33,7 +33,7 @@ export var enableEditEventReducer = (state = false, action) => {
 //Set to true when EditEvent has started
 export var editEventButtonReducer = (state = false, action) => {
 	switch(action.type){
-		case 'DISABLE_EDIT_BTN': 
+		case 'DISABLE_EDIT_BTN':
 			return action.payload;
 		default:
 			return state;
@@ -82,13 +82,13 @@ var defaultEventState = [
 
 export var eventReducer = (state = defaultEventState, action) => {
 	switch(action.type){
-		case 'ADD_EVENT': 
+		case 'ADD_EVENT':
 			return 	[
 				...state,
 				action.payload
 			];
 
-		case 'DELETE_EVENT': 
+		case 'DELETE_EVENT':
 			var victimId;
 
 			for(var i = 0;  i < state.length; i++) {
@@ -104,7 +104,7 @@ export var eventReducer = (state = defaultEventState, action) => {
 
 		case 'EDIT_EVENT':
 			var eventId;
-			
+
 			for(var i = 0;  i < state.length; i++) {
 			    if (state[i].id === action.payload.id) {
 			        eventId = i;
@@ -123,7 +123,7 @@ export var eventReducer = (state = defaultEventState, action) => {
 					description: action.payload.description,
 					date: action.payload.date,
 	        		students: action.payload.attendingStudents,
-				}		
+				}
 			];
 
 		case 'EXIT_EDIT_EVENT':
@@ -148,8 +148,105 @@ export var eventReducer = (state = defaultEventState, action) => {
 					description: action.payload.description,
 					date: action.payload.date,
 	        		students: action.payload.attendingStudents,
-				}		
+				}
 			];
+		default:
+			return state;
+	}
+};
+
+
+/** School Reducers **/
+export var enableAddSchoolReducer = (state = false, action) => {
+	switch(action.type){
+		case 'ENABLE_ADD_SCHOOL':
+			return action.payload;
+		default:
+			return state;
+	}
+};
+
+
+var schoolState = [
+				{
+					id: 123,
+					name: "Ranswood Elementary",
+					address: "123 Phelan Road, San Jose CA 95122",
+					principal: "Laura Fookes",
+					contact: "Laura Fookes",
+					contactEmail: "laura@ranswood.edu",
+					district: "Milpitas",
+					siteCoordinator: "Eve Jackson"
+				}, {
+					id: 456,
+					name: "Durmoint College",
+					address: "1240 Gibbs Road, Palo Alto CA 90123",
+					principal: "William Jackson",
+					contact: "Bill Rolland",
+					contactEmail: "brolland@durmoint.edu",
+					district: "Palo Alto",
+					siteCoordinator: "John Doe"
+
+				}, {
+					id: 789,
+					name: "Buena High School",
+					address: "89B Jinal Road, Cupertino CA 95225",
+					principal: "Vinod Piyush",
+					contact: "Sonia Kimberly",
+					contactEmail: "sonia@buena.edu",
+					district: "Cupertino",
+					siteCoordinator: "Adam Johnson"
+				},
+			];
+
+export var schoolReducer = (state = schoolState, action) => {
+	switch(action.type){
+		case 'ADD_SCHOOL':
+			console.log(action.payload);
+			return 	[
+				...state,
+				action.payload
+			];
+
+		case 'DELETE_SCHOOL':
+			var victimId;
+
+			for(var i = 0;  i < state.length; i++) {
+			    if (state[i].id === action.payload.id) {
+			        victimId = i;
+			        break;
+			    }
+			}
+			return [
+			    ...state.slice(0, victimId),
+			    ...state.slice(victimId + 1)
+			];
+
+		case 'EDIT_SCHOOL':
+			var schoolId;
+
+			console.log("Edited School", action.payload);
+			for(var i = 0;  i < state.length; i++) {
+			    if (state[i].id === action.payload.id) {
+			        schoolId = i;
+			        break;
+			    }
+			}
+			return [
+			    ...state.slice(0, schoolId),
+			    ...state.slice(schoolId + 1),
+			    {
+			    	id: Date.now(),
+			    	name: action.payload.name,
+			    	address: action.payload.address,
+			    	principal: action.payload.principal,
+			    	contact: action.payload.contact,
+			    	contactEmail: action.payload.contactEmail,
+			    	district: action.payload.district,
+			    	siteCoordinator: action.payload.siteCoordinator
+			    }
+			];
+
 		default:
 			return state;
 	}
@@ -159,7 +256,7 @@ export var eventReducer = (state = defaultEventState, action) => {
 /** Staff Reducers **/
 export var enableAddStaffReducer = (state = false, action) => {
 	switch(action.type){
-		case 'ENABLE_ADD_STAFF': 
+		case 'ENABLE_ADD_STAFF':
 			return action.payload;
 		default:
 			return state;
@@ -195,14 +292,14 @@ var staffState = [
 
 export var staffReducer = (state = staffState, action) => {
 	switch(action.type){
-		case 'ADD_STAFF': 
+		case 'ADD_STAFF':
 			console.log(action.payload);
 			return 	[
 				...state,
 				action.payload
 			];
 
-		case 'DELETE_STAFF': 
+		case 'DELETE_STAFF':
 			var victimId;
 
 			for(var i = 0;  i < state.length; i++) {
@@ -235,7 +332,7 @@ export var staffReducer = (state = staffState, action) => {
 			    	lastName: action.payload.lastName,
 			    	role: action.payload.role,
 			    	manager: action.payload.manager
-			    }			
+			    }
 			];
 
 		default:
