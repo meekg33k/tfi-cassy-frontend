@@ -139,7 +139,7 @@ export default React.createClass({
 			if (this.state.error){
 				return(
 					<div>
-						<p>{this.state.errorMessage}</p>
+						<p class="error">{this.state.errorMessage}</p>
 					</div>
 				);
 			}

@@ -173,7 +173,7 @@ export default React.createClass({
 
 		e.preventDefault();
 
-		if (this.validateInput() && this.ensureInputEntered()){
+		if (this.ensureInputEntered() && this.validateInput() ){
 			this.props.onAddStaff({
 				id: Date.now(),
 				firstName: this.refs.firstName.value,
@@ -197,7 +197,7 @@ export default React.createClass({
 			if (this.state.error){
 				return(
 					<div>
-						<p>{this.state.errorMessage}</p>
+						<p class="error">{this.state.errorMessage}</p>
 					</div>
 				);
 			}
