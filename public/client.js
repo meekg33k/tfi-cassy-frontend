@@ -18,7 +18,7 @@ import HomePage from "./pages/Home"
 import EventPage from "./pages/Event"
 import AddStudentPage from "./pages/AddStudent"
 import StudentPage from "./pages/Student"
-import AddSchoolPage from "./pages/AddSchool"
+import SchoolPage from "./pages/School"
 import StudentProfilePage from "./pages/StudentProfile"
 import SchoolDetailsPage from "./pages/SchoolDetails"
 import StaffPage from "./pages/Staff"
@@ -56,8 +56,10 @@ ReactDOM.render((
 
 			<Route path="/admin" component={AdminLayout} name="AdminHome">
 				<IndexRoute component={AdminPage}/>
-				<Route path="/admin/schools/add" component={AddSchoolPage} name="Schools"/>
-				<Route path="/admin/schools" component={SchoolDetailsPage} name="Edit"/>
+				<Route path="/admin/schools" name="Schools">
+					<IndexRoute component={SchoolPage} />
+					<Route path="/admin/schools/:id" component={SchoolDetailsPage} name="School"/>
+				</Route>
 				<Route path="/admin/staff" component={StaffPage} name="Staff"/>
 				<Route path="/admin/students" name="Students">
 					<IndexRoute component={StudentPage} />
