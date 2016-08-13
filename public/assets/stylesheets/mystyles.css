@@ -134,6 +134,12 @@
   font-family: "Comic Sans MS";
 }
 
+.district-header{
+  font-size:20px;
+  color: #6b5d5c;
+  font-family: "Comic Sans MS";
+}
+
 .staff-header{
   font-size:20px;
   color: #c9302c;
@@ -266,7 +272,7 @@ i.fa-calendar {
 
 i.fa-edit {
   text-align: center;
-  color: #FD8709;
+  color: #6b5d5c;
   font-size: 12vw;
 
 }
