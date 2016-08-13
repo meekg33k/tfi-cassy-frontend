@@ -127,14 +127,14 @@ export default React.createClass({
 							</div>
 							<div class="col-sm-3 col-lg-3 col md-3">
 								<button type="button" onClick={this.saveEdit} class="btn btn-sm btn-success">
-                    <span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
                     &nbsp; Save
                 </button>
                 &emsp;
                 &emsp;
 
 								<button type="button" onClick={this.cancelEdit} class="btn btn-sm btn-danger">
-	                  <span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
+	                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 	                  &nbsp; Cancel
 	              </button>
 							</div>

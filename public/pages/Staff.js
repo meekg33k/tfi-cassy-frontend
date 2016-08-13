@@ -17,7 +17,7 @@ var Staff =  React.createClass({
 
 	getInitialState(){
 		return {
-      		addStaff: this.props,
+  		addStaff: this.props,
 			searchString: "",
 			staff: this.props
 		};
