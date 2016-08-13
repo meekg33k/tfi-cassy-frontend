@@ -57,6 +57,7 @@ ReactDOM.render((
 			<Route path="/admin" component={AdminLayout} name="AdminHome">
 				<IndexRoute component={AdminPage}/>
 				<Route path="/admin/events" component={EventPage} name="Events"/>
+				<Route path="/admin/reports" component={ReportPage} name="Reports"/>
 				<Route path="/admin/schools" name="Schools">
 					<IndexRoute component={SchoolPage} />
 					<Route path="/admin/schools/:id" component={SchoolDetailsPage} name="School"/>
