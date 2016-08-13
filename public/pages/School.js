@@ -5,7 +5,7 @@ import ReactDOM from "react-dom"
 import BreadCrumb from "react-breadcrumbs"
 import {connect} from "react-redux"
 
-import AddSchoolForm from "../components/AddSchoolForm" 
+import AddSchoolForm from "../components/AddSchoolForm"
 import SchoolList from "../components/SchoolList"
 import Search from "../components/Searcher"
 import SearchProcessor from "../../apis/Helper"
@@ -89,7 +89,7 @@ var School =  React.createClass({
 	    return (
 	    	<div>
 				<div class="container">
-			        <p class="line-breaker" />
+	        <p class="line-breaker" />
 					<BreadCrumb routes={this.props.routes} separator =" >> "/>
 					<br />
 					<br />
@@ -128,4 +128,3 @@ module.exports = connect(
 		};
 	}
 )(School);
-

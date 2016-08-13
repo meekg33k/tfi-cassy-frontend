@@ -12,6 +12,7 @@ export default React.createClass({
 			<div>
 				<div class="container">
 			        <p class="line-breaker" />
+							<BreadCrumb routes={this.props.routes} separator =" >> "/>
 			        <div class="row row-header">
 			            <div class="col-xs-12 col-sm-7 col-lg-7 ccol md-7">
 			                <p class="section-header">School Details</p>
