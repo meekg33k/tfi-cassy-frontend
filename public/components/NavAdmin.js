@@ -30,26 +30,26 @@ export default React.createClass({
 		                    	<IndexLink to="/admin/schools" activeStyle={active}>
 		                      		<i class="fa fa-university"></i>
 		                            &nbsp;Schools
-		                        </IndexLink>
+	                        </IndexLink>
 		                    </li>
 		                    <li>
 		                    	<IndexLink to="/admin/students" activeStyle={active}>
 		                        	<i class="fa fa-group "></i>
 	                            	&nbsp;Students
-		                        </IndexLink>
+	                        </IndexLink>
 		                    </li>
 		                    <li>
 		                    	<IndexLink to="/admin/staff" activeStyle={active}>
 		                        	<i class="fa fa-user "></i>
 	                            	&nbsp;Staff
-		                        </IndexLink>
+	                        </IndexLink>
 		                    </li>
 		                    <li>
-		                        <a href="/admin/forms">
-		                            <span class="fa fa-edit" aria-hidden="true">
-		                            </span>
+													<IndexLink to="/admin/forms" activeStyle={active}>
+	                            <span class="fa fa-edit" aria-hidden="true">
+	                            </span>
 		                            &nbsp;Forms
-		                        </a>
+													</IndexLink>
 		                    </li>
 		                </ul>
 		                <ul class="nav navbar-nav navbar-right">

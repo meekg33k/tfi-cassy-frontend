@@ -7,21 +7,22 @@ import {Provider} from "react-redux";
 
 import actions from "../actions/actions"
 
-import IndexLayout from "./components/IndexLayout"
 import AdminLayout from "./components/AdminLayout"
 import AppLayout from "./components/AppLayout"
+import IndexLayout from "./components/IndexLayout"
 import NavBar from "./components/NavBarIndex"
 
-import IndexPage from "./pages/Index"
 import AdminPage from "./pages/Admin"
-import HomePage from "./pages/Home"
-import EventPage from "./pages/Event"
 import AddStudentPage from "./pages/AddStudent"
-import StudentPage from "./pages/Student"
+import EventPage from "./pages/Event"
+import FormPage from "./pages/Form"
+import HomePage from "./pages/Home"
+import IndexPage from "./pages/Index"
 import SchoolPage from "./pages/School"
-import StudentProfilePage from "./pages/StudentProfile"
 import SchoolDetailsPage from "./pages/SchoolDetails"
 import StaffPage from "./pages/Staff"
+import StudentPage from "./pages/Student"
+import StudentProfilePage from "./pages/StudentProfile"
 import ReportPage from "./pages/Report"
 
 
@@ -57,6 +58,7 @@ ReactDOM.render((
 			<Route path="/admin" component={AdminLayout} name="AdminHome">
 				<IndexRoute component={AdminPage}/>
 				<Route path="/admin/events" component={EventPage} name="Events"/>
+				<Route path="/admin/forms" component={FormPage} name="Forms"/>
 				<Route path="/admin/reports" component={ReportPage} name="Reports"/>
 				<Route path="/admin/schools" name="Schools">
 					<IndexRoute component={SchoolPage} />

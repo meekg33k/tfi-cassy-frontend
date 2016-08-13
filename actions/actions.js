@@ -68,6 +68,15 @@ export var enableEditEvent = (value) => {
 }
 
 
+/** Form Actions **/
+
+export var setSelectField = (value) => {
+	return {
+		type: 'SET_FIELD',
+		payload: value
+	};
+}
+
 
 /** School Actions **/
 

@@ -6,5 +6,5 @@ var User = DB.Model.extend({
 });
 
 module.exports = {
-   User: User
+   UserModel: User
 };

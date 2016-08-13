@@ -156,6 +156,31 @@
   color: red;
 }
 
+
+.form-header{
+  color: #6b5d5c;
+  font-size:20px;
+  font-family: "Comic Sans MS";
+}
+
+.btn-form{
+  background-color: #6b5d5c;
+  color: white
+}
+
+.btn-form.focus {
+  color: #fff;
+  background-color: #6b5d5c;/**#286090;**/
+  border-color: #122b40;
+}
+
+.btn-form:hover {
+  color: #fff;
+  background-color: #6b5d5c;/**#286090;**/
+  border-color: #204d74;
+}
+
+
 .event-header{
   font-size:20px;
   color: #FD8709;
