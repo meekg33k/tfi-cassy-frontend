@@ -140,21 +140,31 @@ export var eventReducer = (state = defaultEventState, action) => {
 			    ...state.slice(0, eventId),
 			    ...state.slice(eventId + 1),
 			    {
-			    	id: Date.now(),
-			    	name: action.payload.name,
-					type: action.payload.type,
-					school: action.payload.school,
+				    	id: Date.now(),
+				    	name: action.payload.name,
+							type: action.payload.type,
+							school: action.payload.school,
 	        		other: action.payload.other,
-					description: action.payload.description,
-					date: action.payload.date,
+							description: action.payload.description,
+							date: action.payload.date,
 	        		students: action.payload.attendingStudents,
-				}
+					}
 			];
 		default:
 			return state;
 	}
 };
 
+
+/** Form Reducers **/
+export var setSelectedFieldReducer = (state = "", action) => {
+	switch(action.type){
+		case 'SET_FIELD':
+			return action.payload;
+		default:
+			return state;
+	}
+};
 
 /** School Reducers **/
 export var enableAddSchoolReducer = (state = false, action) => {
@@ -338,4 +348,4 @@ export var staffReducer = (state = staffState, action) => {
 		default:
 			return state;
 	}
-};	
+};

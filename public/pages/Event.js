@@ -20,7 +20,7 @@ var Event = React.createClass({
 
 	getInitialState(){
 		return {
-      		addEvent: this.props,
+  		addEvent: this.props,
 			isEditing: this.props, //app-wide state of editing
 			showEditForm: false, //component state to determine if form should be displayed
 			searchString: "",
@@ -170,7 +170,7 @@ var Event = React.createClass({
   			            	<Search onSearch={this.handleSearch} placeholder = "Search by event name here"/>
   			            </div>
                   	</div>
-					<EventList events={filteredEvents} onEditEvent={this.handleEditEvent} onDeleteEvent={this.handleDeleteEvent}/>
+										<EventList events={filteredEvents} onEditEvent={this.handleEditEvent} onDeleteEvent={this.handleDeleteEvent}/>
 			        </div>
 			    </div>
 			</div>

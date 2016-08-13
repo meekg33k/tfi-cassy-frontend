@@ -12,6 +12,7 @@ export var configure = () => {
 		addStaffState: reducer.enableAddStaffReducer,
 		editButtonState: reducer.editButtonEventReducer,
 		editEventState: reducer.enableEditEventReducer,
+		formFieldState: reducer.setSelectedFieldReducer,
 		events: reducer.eventReducer,
 		searchText: reducer.searchReducer,
 		schools: reducer.schoolReducer,
