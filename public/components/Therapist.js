@@ -1,64 +1,115 @@
-import React from 'react';
+"use strict";
+
+import React from "react";
+import ReactDOM from "react-dom";
+import { Link } from "react-router";
+
 
 export default React.createClass({
 
-    getInitialState() {
-        return {
-            therapists: [
-              {
-                id: 123,
-                name: "Eve Johnson"
-              },
-              {
-                id: 677,
-                name: "Antonio Lewark"
-              },
-              {
-                id: 900,
-                name: "Lionel Messi"
-              },
-            ]
-        }
-    },
+	getInitialState(){
+		return {
+			isEditing: false,
+			id: this.props.id,
+			name: this.props.name
+		};
+	},
 
-    addTherapist(e){
-      e.preventDefault();
-      var state = this.state.therapists;
-      state.push({
-        id: Date.now(),
-        name: this.refs.therapist.value
-      });
-      this.setState({
-        therapists: state
-      });
-      this.refs.therapist.value ='';
-    },
+	cancelEdit(){
+		this.setState({
+			isEditing: !this.state.isEditing
+		});
+	},
 
-    render() {
 
-      var {therapists} = this.state;
-      console.log(therapists);
+	delete(e){
 
-      var renderTherapists = () => {
-        return therapists.map((therapist) => {
-          return (
-            <p key={therapist.id}>{therapist.name}</p>
-          );
-        });
-      };
+		e.preventDefault(e);
+		this.props.onDelete({
+			id: this.state.id
+		});
+	},
 
-      return (
-          <div>
-            <br />
-            <p><b>Therapists</b> &emsp; &emsp; </p>
-              {renderTherapists()}
-              <p> <input type="text" ref="therapist" placeholder="Enter name of therapist" /> &emsp; &emsp;
-                <button type="button" onClick={this.addTherapist} class="btn btn-sm btn-success">
-                    <span class="fa fa-plus-circle" aria-hidden="true"> </span>
-                    Add New Therapist
+
+	saveEdit(e){
+    e.preventDefault(e);
+
+		this.setState({
+			isEditing: !this.state.isEditing,
+			name: this.refs.name.value,
+		});
+
+	},
+
+	startEdit(){
+		this.setState({
+			isEditing: !this.state.isEditing
+		});
+	},
+
+
+	render(){
+
+		var renderTherapist = () =>{
+			if (!this.state.isEditing){
+				return(
+					<div>
+						<p></p>
+						<div class="row">
+							<div class="col-sm-4 col-lg-4 col md-4">
+								{this.state.name}
+							</div>
+							<div class="col-sm-4 col-lg-4 col md-4">
+								<button type="button" onClick={this.startEdit} class="btn btn-sm btn-warning">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    &nbsp; Edit
                 </button>
-              </p>
-          </div>
-      );
-    }
+								&nbsp;
+								<button type="button" onClick={this.delete} class="btn btn-sm btn-danger">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true">  </span>
+                    &nbsp; Delete
+                </button>
+							</div>
+						</div>
+					</div>
+				);
+			}
+			else {
+				return(
+					<div>
+						<p></p>
+						<div class="row">
+							<div class="col-sm-4 col-lg-4 col md-4">
+                <select class="form-control" ref="name">
+                    <option>Eve Johnson</option>
+                    <option>John Doe</option>
+                    <option>Jill Smith</option>
+                </select>
+							</div>
+							<div class="col-sm-3 col-lg-3 col-md-3">
+								<button type="button" onClick={this.saveEdit} class="btn btn-sm btn-success">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
+                    &nbsp; Save
+                </button>
+                &emsp;
+                &emsp;
+
+								<button type="button" onClick={this.cancelEdit} class="btn btn-sm btn-danger">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
+                    &nbsp; Cancel
+                </button>
+							</div>
+						</div>
+					</div>
+				);
+			}
+		};
+
+		return(
+			<div>
+				{renderTherapist()}
+			</div>
+		);
+	}
+
 });
