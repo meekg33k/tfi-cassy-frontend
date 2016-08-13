@@ -4,8 +4,8 @@ export default React.createClass({
 
     getInitialState() {
         return {
-            name: "Eve Johnson",
-            gender: "Female",
+            name: "Kaycee Jones",
+            gender: "Male",
             ethnicity: "Caucasian",
             grade: "5th Grade",
             school: "Ravenswood Elementary"
@@ -13,13 +13,15 @@ export default React.createClass({
     },
     render() {
         return (
-            <div class="well">
-                <p><b>Student Details</b></p>
-                <p>Name: {this.state.name}</p>
-                <p>Gender: {this.state.gender}</p>
-                <p>Grade: {this.state.grade}</p>
-                <p>School: {this.state.school}</p>
-                <button type="button" class="btn btn-sm btn-warning" id ="record-event-btn"> 
+            <div>
+                <p></p>
+                <div>
+                  <p>Name: {this.state.name}</p>
+                  <p>Gender: {this.state.gender}</p>
+                  <p>Grade: {this.state.grade}</p>
+                  <p>School: {this.state.school}</p>
+                </div>
+                <button type="button" class="btn btn-sm btn-warning" id ="record-event-btn">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true">  </span>
                     Edit Details
                 </button>
