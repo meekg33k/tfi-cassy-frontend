@@ -42,10 +42,10 @@ export default React.createClass({
 		                <p class="line-breaker"></p>
 		                <div class="row row-header">
 				            <div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
-											<Link to="/admin/districts">
+											<Link to="/admin/events">
 						            <div class="well">
-							            <p><i class = "fa fa-building"></i></p>
-							            <p class="btn-text"><b> Add/Edit District </b></p>
+							            <p><i class = "fa fa-calendar"></i></p>
+							            <p class="btn-text"><b> Add/Edit Events</b></p>
 					                </div>
 				                </Link>
 				            </div>
