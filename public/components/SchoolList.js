@@ -28,12 +28,11 @@ export default React.createClass({
 						<p>No school found. You can use the form above to add the school</p>
 					</div>
 				);
-
 			}
 			else {
 				return(
 					<div>
-		        		<div class="row">
+        		<div class="row">
 							<div class="col-sm-2 col-lg-2 col md-2">
 								<b>School Name</b>
 							</div>
@@ -48,9 +47,9 @@ export default React.createClass({
 							</div>
 						</div>
 						<br />
-            			{renderSchools()}
-          			</div>
-          		);
+      			{renderSchools()}
+    			</div>
+      		);
 			}
 		};
 
@@ -66,6 +65,7 @@ export default React.createClass({
 		return(
 			<div>
 				<div class="container">
+							<br />
 			        <div class="row row-header">
 				        <div class="well width-well">
 				        	{renderMessage()}

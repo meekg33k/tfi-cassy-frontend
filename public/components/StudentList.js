@@ -21,18 +21,16 @@ export default React.createClass({
 
 		var renderMessage = () => {
 			if (students.length == 0){
-
 				return(
 					<div>
 						<p>No student details found. You can click on the Add Student button to add the student</p>
 					</div>
 				);
-
 			}
 			else {
 				return(
 					<div>
-				        <div class="row">
+		        <div class="row">
 							<div class="col-sm-2 col-lg-2 col md-2">
 								<b>First Name</b>
 							</div>
@@ -47,9 +45,9 @@ export default React.createClass({
 							</div>
 						</div>
 						<br />
-			            {renderStudents()}
-		            </div>
-	            );
+            {renderStudents()}
+          </div>
+        );
 			}
 		};
 

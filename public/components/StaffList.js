@@ -21,13 +21,11 @@ export default React.createClass({
 
 		var renderMessage = () => {
 			if (staff.length == 0){
-
 				return(
 					<div>
 						<p>No staff details found. You can use the form above to add the staff</p>
 					</div>
 				);
-
 			}
 			else {
 				return(
@@ -65,6 +63,7 @@ export default React.createClass({
 		return(
 			<div>
 				<div class="container">
+							<br />
 			        <div class="row row-header">
 				        <div class="well width-well">
 				        	{renderMessage()}
