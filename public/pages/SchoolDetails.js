@@ -2,12 +2,18 @@
 
 import React from "react";
 import { Link } from "react-router";
-import Therapist from "../components/Therapist";
+import TherapistList from "../components/TherapistList";
 import SiteCoordinator from "../components/SiteCoordinator";
 import BreadCrumb from "react-breadcrumbs";
 
 
 export default React.createClass({
+
+	getInitialState(){
+		return {
+			name: "Ravenswood Elementary"
+		}
+	},
 
 	render(){
 		return (
@@ -19,11 +25,12 @@ export default React.createClass({
 		        <div class="row row-header report-form">
 							<div class="well">
 								<div>
-										<p class="school-header">School Details</p>
+										<p class="school-header">School Details: {this.state.name}</p>
+										<br />
 								</div>
 								<div>
 									<SiteCoordinator></SiteCoordinator>
-			            <Therapist></Therapist>
+			            <TherapistList></TherapistList>
 								</div>
 							</div>
 		        </div>
