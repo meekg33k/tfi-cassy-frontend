@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var connection = require('./database/connection')
 
 // routes files
 var routes = require('./routes/index');
@@ -50,10 +51,11 @@ passport.serializeUser(function(user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
+passport.deserializeUser(function(id, done) {
+  connection.query("SELECT * FROM users WHERE id = ? ",[id], function(err, rows){
+           done(err, rows[0]);
+       });
 });
-
 
 app.use('/', routes);
 app.use('/users', users);

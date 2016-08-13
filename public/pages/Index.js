@@ -11,10 +11,11 @@ import ApiRequester from "../../apis/ApiRequester.js"
 export default class Index extends React.Component {
 
 	handleUserLogin(user){
+		console.log("User object", user);
 
 		ApiRequester.loginUser(user).then(function(res){
-			console.log(res);
-			console.log("Successfully logged in");
+			console.log("Received from server" ,res.data);
+
 			if (res.role === "administrator"){
 			window.location.replace(
 			  window.location.pathname + window.location.search + '#/admin'

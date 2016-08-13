@@ -4,9 +4,9 @@ import axios from "axios";
 
 var CASSY_URL;
 
-///const CASSY_WEBSERV_URL = "https://cassy-server.herokuapp.com/";
+///const CASSY_WEBSERV_URL = "https://cassy-server.herokuapp.com/" https://cassydataportal.herokuapp.com/;
 if (process.env.NODE_ENV === "production"){
-	CASSY_URL = "https://cassydataportal.herokuapp.com/";
+	CASSY_URL = "https://cassy-server.herokuapp.com/";
 }
 else {
 	CASSY_URL = "http://localhost:8888/";
@@ -17,13 +17,14 @@ module.exports = {
 	loginUser: function(user){
 
 		console.log(CASSY_URL);
+		console.log("API Request: Username", user.username);
+		console.log("API Request: Password", user.password);
 
 		return axios.post(CASSY_URL+"login", {
 			username: user.username,
 			password: user.password
 		}).then(function(res) {
-
-			console.log("*******>"+JSON.stringify(res));
+			console.log("Response from server>>>>", JSON.stringify(res));
 
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);
