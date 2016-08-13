@@ -89,7 +89,7 @@ var Staff =  React.createClass({
 	    return (
 	    	<div>
 				<div class="container">
-			        <p class="line-breaker" />
+	        <p class="line-breaker" />
 					<BreadCrumb routes={this.props.routes} separator =" >> "/>
 					<br />
 					<br />
@@ -97,21 +97,21 @@ var Staff =  React.createClass({
 						{renderAddStaff()}
 						<br />
 						<div class="row row-header">
-		                    <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
-		                        <p class="staff-header">Staff List</p>
-		                    </div>
-		                    <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2">
-		                      	<div class="form-group">
-		                            <button type="submit" class="btn btn-success" onClick={this.initiateAddStaff}>
-		                              <span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
-		                            &nbsp; Add Staff
-		                          </button>
-		                      	</div>
-		                    </div>
-	  			            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
-	  			            	<Search onSearch={this.handleSearch} placeholder = "Enter staff name here to search"/>
-	  			            </div>
-	                  	</div>
+                <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+                    <p class="staff-header">Staff List</p>
+                </div>
+                <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2">
+                  	<div class="form-group">
+                        <button type="submit" class="btn btn-danger" onClick={this.initiateAddStaff}>
+                          <span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
+                        &nbsp; Add Staff
+                      </button>
+                  	</div>
+                </div>
+	            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
+	            	<Search onSearch={this.handleSearch} placeholder = "Enter staff name here to search"/>
+	            </div>
+            	</div>
 			            <StaffList staff={filteredStaff} onEditStaff={this.handleEditStaff} onDeleteStaff={this.handleDeleteStaff}/>
 			        </div>
 			    </div>
