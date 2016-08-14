@@ -24,7 +24,7 @@ module.exports = {
 			username: user.username,
 			password: user.password
 		}).then(function(res) {
-			console.log("Response from server>>>>", JSON.stringify(res));
+			console.log("Response from server>>>>", res.data);
 
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);

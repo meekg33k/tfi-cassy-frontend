@@ -14,7 +14,7 @@ export default class Index extends React.Component {
 		console.log("User object", user);
 
 		ApiRequester.loginUser(user).then(function(res){
-			console.log("Received from server" ,res.data);
+			console.log("Received from server" ,res);
 
 			if (res.role === "administrator"){
 			window.location.replace(
