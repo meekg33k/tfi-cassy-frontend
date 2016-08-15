@@ -20,6 +20,10 @@
   width:95%
 }
 
+.nowrap{
+   word-wrap: break-word;
+ }    /* IE */
+
 .wid-well{
   width:100%
 }

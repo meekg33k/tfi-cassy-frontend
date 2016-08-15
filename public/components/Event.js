@@ -67,7 +67,7 @@ var Event =  React.createClass({
 								{this.state.type}
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
-								{this.state.description}
+								<p class="nowrap">{this.state.description}</p>
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
 								{this.state.school}
@@ -103,7 +103,7 @@ var Event =  React.createClass({
 								{this.state.type}
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
-								{this.state.description}
+								<p class="nowrap">{this.state.description}</p>
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
 								{this.state.school}
@@ -139,7 +139,7 @@ var Event =  React.createClass({
 								{this.state.type}
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
-								{this.state.description}
+								<p class="nowrap">{this.state.description}</p>
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
 								{this.state.school}
