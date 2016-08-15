@@ -115,15 +115,15 @@ export var eventReducer = (state = defaultEventState, action) => {
 			    ...state.slice(0, eventId),
 			    ...state.slice(eventId + 1),
 			    {
-			    	id: Date.now(),
-			    	name: action.payload.name,
-					type: action.payload.type,
-					school: action.payload.school,
-	        		other: action.payload.other,
-					description: action.payload.description,
-					date: action.payload.date,
+				    	id: Date.now(),
+				    	name: action.payload.name,
+							type: action.payload.type,
+							school: action.payload.school,
+	      			other: action.payload.other,
+							description: action.payload.description,
+							date: action.payload.date,
 	        		students: action.payload.attendingStudents,
-				}
+					}
 			];
 
 		case 'EXIT_EDIT_EVENT':
@@ -156,8 +156,209 @@ export var eventReducer = (state = defaultEventState, action) => {
 };
 
 
+var defaultFormState = [
+	{
+		id: 898091,
+		name: "Assessment Type",
+		fieldValues: []
+	}, {
+		id: 189801,
+		name: "Event Type",
+		fieldValues: []
+	}, {
+		id: 777118,
+		name: "Grade",
+		fieldValues: [
+			  {
+			    "id": 1,
+			    "name": "1st",
+			  },
+			  {
+			    "id": 2,
+			    "name": "2nd"
+			  },
+			  {
+			    "id": 3,
+			    "name": "3rd"
+			  },
+				{
+					"id": 4,
+					"name": "4th"
+				},
+				{
+					"id": 5,
+					"name": "12th"
+				}
+			]
+	},
+	{
+		id: 442219,
+		name: "Ethnicity",
+		fieldValues: [
+			  {
+			    "id": 1,
+			    "name": "Caucasian",
+			  },
+			  {
+			    "id": 2,
+			    "name": "Hispanic/Latino"
+			  },
+			  {
+			    "id": 3,
+			    "name": "Asian"
+			  },
+				{
+					"id": 4,
+					"name": "African American"
+				}
+			]
+	},
+	{
+		id: 798981,
+		name: "Presenting Issue",
+		fieldValues: [
+			  {
+			    "id": 1,
+			    "name": "Academic Stress",
+			  },
+			  {
+			    "id": 2,
+			    "name": "Cyber Issues"
+			  },
+			  {
+			    "id": 3,
+			    "name": "Domestic Violence"
+			  },
+				{
+					"id": 4,
+					"name": "Impulsivity"
+				}
+			]
+	},
+	{
+		id: 99988,
+		name: "Sex",
+		fieldValues: [
+				{
+					"id": 1,
+					"name": "Male",
+				},
+				{
+					"id": 2,
+					"name": "Female"
+				}
+			]
+	}
+];
+
+
+
 /** Form Reducers **/
-export var setSelectedFieldReducer = (state = "", action) => {
+export var addFieldButtonReducer = (state = false, action) => {
+	switch(action.type){
+		case 'TOGGLE_ADD_FIELD_BTN':
+			return action.payload;
+		default:
+			return state;
+	}
+};
+
+export var formFieldReducer = (state = defaultFormState, action) => {
+	switch(action.type){
+		case 'ADD_FIELD_VALUE':
+			var fieldId;
+			var mutatedField;
+
+			for(var i = 0;  i < state.length; i++) {
+			    if (state[i].id === action.field.id) {
+							mutatedField = state[i];
+							console.log("*******ADD",mutatedField);
+							mutatedField.fieldValues.push({
+								id: Date.now(),
+								name: action.value
+							})
+			        fieldId = i;
+			        break;
+			    }
+			}
+
+			return [
+			    ...state.slice(0, fieldId),
+			    ...state.slice(fieldId + 1),
+			    mutatedField
+			];
+
+		case 'DELETE_FIELD_VALUE':
+			console.log("Reducer: Value to be deleted", action.value);
+			console.log("Reducer: Field object", action.field);
+
+			var victimFieldId;
+			var fieldName;
+			var newFieldValues;
+			var victimValueId;
+			var fieldId;
+
+			for(var i = 0;  i < state.length; i++) {
+					console.log("Comparing store id "+state[i].id+" and "+action.field.id);
+					if (state[i].name === action.field.name) {
+							fieldName = state[i].name;
+							newFieldValues = state[i].fieldValues;
+							victimFieldId = i;
+							for(var j = 0;  j < newFieldValues.length; j++) {
+									if (newFieldValues[j].name === action.value) {
+											victimValueId = newFieldValues[j].id;
+									}
+							}
+							break;
+					}
+			}
+
+			console.log("Id of value to be deleted", victimValueId);
+			//amutatedField.fieldValues.splice(victimValueId, 1);
+
+			var newFieldObject = {
+					id: Date.now(),
+					name: fieldName,
+					fieldValues: [...newFieldValues.slice(0,victimValueId), ...newFieldValues.slice(victimValueId+1)]
+			}
+
+			console.log("This is it!",newFieldObject);
+
+			return [
+				    ...state.slice(0, victimFieldId),
+				    ...state.slice(victimFieldId + 1),
+				    newFieldObject
+				];
+
+		case 'EDIT_FIELD_VALUE':
+			var eventId;
+
+			for(var i = 0;  i < state.length; i++) {
+			    if (state[i].id === action.payload.id) {
+			        eventId = i;
+			        break;
+			    }
+			}
+			return [
+			    ...state.slice(0, eventId),
+			    ...state.slice(eventId + 1),
+			    {
+				    	id: Date.now(),
+				    	name: action.payload.name,
+							type: action.payload.type,
+							school: action.payload.school,
+	        		other: action.payload.other,
+							description: action.payload.description,
+							date: action.payload.date,
+	        		students: action.payload.attendingStudents,
+				}
+			];
+		default:
+			return state;
+	}
+};
+
+export var setSelectedFieldReducer = (state = {}, action) => {
 	switch(action.type){
 		case 'SET_FIELD':
 			return action.payload;
@@ -165,6 +366,17 @@ export var setSelectedFieldReducer = (state = "", action) => {
 			return state;
 	}
 };
+
+export var setFieldValuesReducer = (state = [], action) => {
+	switch(action.type){
+		case 'SET_FIELD_VALUES':
+			return action.payload;
+		default:
+			return state;
+	}
+};
+
+
 
 /** School Reducers **/
 export var enableAddSchoolReducer = (state = false, action) => {

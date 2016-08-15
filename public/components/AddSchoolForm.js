@@ -36,7 +36,7 @@ export default React.createClass({
 		var name = this.refs.name.value;
 
 		var regex = /\d/;
-		var regexTwo = /^[a-zA-Z]+$/;
+		var regexTwo = /^[a-zA-Z ]+$/;
 
 		if ((name.match(regex) != null) || (name.match(regexTwo) == null)){
 			this.setState({
@@ -102,72 +102,72 @@ export default React.createClass({
 				<br />
 				{displayError()}
 				<br />
-				<form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label for="schoolName" class="col-sm-2 control-label">School Name</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" ref="name" placeholder="" />
-                    </div>
+				<form class="form-horizontal" role="form" onSubmit={this.addSchool}>
+            <div class="form-group">
+                <label for="schoolName" class="col-sm-2 control-label">School Name</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" ref="name" placeholder="" />
                 </div>
-                <div class="form-group">
-                    <label for="eventType" class="col-sm-2 control-label">Address</label>
-                    <div class="col-sm-5">
-                        <textarea class="form-control" ref="address" rows="5">
-												</textarea>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="eventType" class="col-sm-2 control-label">Address</label>
+                <div class="col-sm-5">
+                    <textarea class="form-control" ref="address" rows="5">
+										</textarea>
                 </div>
-                <div class="form-group">
-                    <label for="principal" class="col-sm-2 control-label">Principal</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" ref="principal"/>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="principal" class="col-sm-2 control-label">Principal</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" ref="principal"/>
                 </div>
-                <div class="form-group">
-                    <label for="contact" class="col-sm-2 control-label">Primary Contact</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" ref="contact"/>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="contact" class="col-sm-2 control-label">Primary Contact</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" ref="contact"/>
                 </div>
-                <div class="form-group">
-                    <label for="contactEmail" class="col-sm-2 control-label">Primary Contact Email</label>
-                    <div class="col-sm-5">
-                      <input type="email" class="form-control" ref="contactEmail"/>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="contactEmail" class="col-sm-2 control-label">Primary Contact Email</label>
+                <div class="col-sm-5">
+                  <input type="email" class="form-control" ref="contactEmail" required/>
                 </div>
-                <div class="form-group">
-                    <label for="district" class="col-sm-2 control-label">School District</label>
-                    <div class="col-sm-5">
-                        <select class="form-control" ref="district">
-                            <option>Milpitas</option>
-                            <option>Palo Alto</option>
-                            <option>Cupertino</option>
-                        </select>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="district" class="col-sm-2 control-label">School District</label>
+                <div class="col-sm-5">
+                    <select class="form-control" ref="district">
+                        <option>Milpitas</option>
+                        <option>Palo Alto</option>
+                        <option>Cupertino</option>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label for="district" class="col-sm-2 control-label">Site Coordinator</label>
-                    <div class="col-sm-5">
-                        <select class="form-control" ref="siteCoordinator">
-                            <option>Eve Johnson</option>
-                            <option>John Doe</option>
-                            <option>Jill Smith</option>
-                        </select>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="district" class="col-sm-2 control-label">Site Coordinator</label>
+                <div class="col-sm-5">
+                    <select class="form-control" ref="siteCoordinator">
+                        <option>Eve Johnson</option>
+                        <option>John Doe</option>
+                        <option>Jill Smith</option>
+                    </select>
                 </div>
-                <p class="line-breaker"></p>
-							<div class="form-group">
-	                <div class="col-sm-offset-2 col-sm-10">
-	                    <button type="submit" class="btn btn-success" onClick={this.addSchool}>
-                        	<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-	                    	&nbsp; Save
-                    	</button>&nbsp; &nbsp; &nbsp;
-											<button class="btn btn-danger" onClick={this.exitAddSchool}>
-												<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-												&nbsp; Cancel
-											</button>
-	                </div>
-                </div>
-            </form>
+            </div>
+            <p class="line-breaker"></p>
+					<div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">
+                    	<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                  	&nbsp; Save
+                	</button>&nbsp; &nbsp; &nbsp;
+									<button class="btn btn-danger" onClick={this.exitAddSchool}>
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+										&nbsp; Cancel
+									</button>
+              </div>
+            </div>
+        </form>
 			</div>
 		);
 	}

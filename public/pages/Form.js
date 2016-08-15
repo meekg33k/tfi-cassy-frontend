@@ -6,7 +6,7 @@ import BreadCrumb from "react-breadcrumbs"
 import {connect} from "react-redux"
 
 import AddSchoolForm from "../components/AddSchoolForm"
-import FormField from "../components/FormField"
+import FormPanel from "../components/FormPanel"
 import SchoolList from "../components/SchoolList"
 import Search from "../components/Searcher"
 import SearchProcessor from "../../apis/Helper"
@@ -26,43 +26,10 @@ var Form =  React.createClass({
 			};
 		},
 
-
-		handleAddSchool(school){
-			//To include REST API calls
-			var { dispatch } = this.props;
-			dispatch(actions.addSchool(school));
-			this.handleExitAddSchool();
-		},
-
-
-		handleDeleteSchool(school){
-
-		    if (confirm("Do you want to proceed to delete the school?") == true) {
-		    	//TODO: Include REST API calls to delete school
-		    	var { dispatch } = this.props;
-				dispatch(actions.deleteSchool(school));
-		    }
-
-		},
-
-
-		handleEditSchool(editedSchool){
-			var { dispatch } = this.props;
-			dispatch(actions.editSchool(editedSchool));
-		},
-
-
-		handleExitAddSchool(){
-			var { dispatch } = this.props;
-			dispatch(actions.enableAddSchool(false));
-		},
-
-
 		initiateAddSchool(){
 			var { dispatch } = this.props;
 			dispatch(actions.enableAddSchool(true));
 		},
-
 
 		handleSearch(searchString){
 			this.setState({
@@ -71,21 +38,36 @@ var Form =  React.createClass({
 		},
 
     renderField(){
-      console.log("In Form", this.refs.name.value);
-      var { dispatch } = this.props;
-      dispatch(actions.setSelectField(this.refs.name.value));
+      console.log("Selected field Form", this.refs.name.value);
+      var { dispatch, formFields } = this.props;
+			var selectedField;
+
+			console.log(formFields);
+
+			for(var i = 0;  i < this.props.formFields.length; i++) {
+	        if (formFields[i].name === this.refs.name.value) {
+	            selectedField = formFields[i].name;
+      	      dispatch(actions.setSelectedField(selectedField));
+	            break;
+	        }
+	    }
 
       this.setState({
-        showField: true,
-        currentlyEditing: this.refs.name.value
+        showField: true
       });
     },
 
   	render() {
-
-  		var {schools} = this.props;
+      var {formFields} = this.props;
   		var searchString= this.state.searchString;
-  		var filteredSchools = SearchProcessor.filterEvents(schools, searchString);
+
+      var renderFields = () => {
+  			return formFields.map((formField) => {
+  				return (
+              <option key={formField.id}>{formField.name}</option>
+  				);
+  			});
+  		};
 
 			var renderFormField = () =>{
 				if (!this.state.showField){
@@ -97,11 +79,10 @@ var Form =  React.createClass({
         else{
           return(
             <div>
-              <FormField></FormField>
+              <FormPanel></FormPanel>
             </div>
           );
         }
-
 			};
 
 	    return (
@@ -111,7 +92,7 @@ var Form =  React.createClass({
 						<BreadCrumb routes={this.props.routes} separator =" >> "/>
 						<br />
 						<br />
-			        <div class="row row-header report-form">
+		        <div class="row row-header report-form">
 								<br />
 								<div class="row row-header">
 	                <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
@@ -120,21 +101,14 @@ var Form =  React.createClass({
                 </div>
                 <br />
                 <div class="row row-header">
-                  <div class="col-xs-12 col-sm-5 col-lg-5 col-md-5">
-	                    <p>Use the dropdown-menu to select a form to edit</p>
+                  <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+	                    <p>Use the dropdown-menu to select a form field to manage</p>
 	                </div>
 			            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
                     <div class="form-group">
                       <select class="form-control" onChange={this.renderField} ref="name">
                           <option>--None--</option>
-                          <option>Assessment Type</option>
-                          <option>District</option>
-                          <option>Ethnicity</option>
-                          <option>Event Type</option>
-                          <option>Grade</option>
-                          <option>Presenting Issue</option>
-                          <option>Referral Source</option>
-                          <option>Sex</option>
+                          {renderFields()}
                       </select>
                     </div>
 			            </div>
@@ -155,7 +129,9 @@ module.exports = connect(
 		return {
 			schools: store.schools,
       currentlyEditing: store.formFieldState,
-			addSchool: store.addSchoolState
+			addSchool: store.addSchoolState,
+      formFields: store.formFields,
+      formFieldValues: store.formFieldValues
 		};
 	}
 )(Form);

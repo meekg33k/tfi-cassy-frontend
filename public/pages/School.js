@@ -45,6 +45,7 @@ var School =  React.createClass({
 
 		handleEditSchool(editedSchool){
 			var { dispatch } = this.props;
+			console.log("Edited School in School", editedSchool);
 			dispatch(actions.editSchool(editedSchool));
 		},
 

@@ -16,10 +16,10 @@ var Event =  React.createClass({
 			name: this.props.name,
 			type: this.props.type,
 			school: this.props.school,
-      		other: this.props.other,
+  		other: this.props.other,
 			description: this.props.description,
 			date: this.props.date,
-      		students: this.props.students
+  		students: this.props.students
 		};
 	},
 

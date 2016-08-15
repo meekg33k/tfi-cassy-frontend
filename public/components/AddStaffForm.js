@@ -28,7 +28,7 @@ export default React.createClass({
 			});
 
 			this.refs.firstName.focus();
-			return false
+			return false;
 		}
 		else if (firstName.length == 0 && lastName.length == 0){
 			this.setState({
@@ -170,7 +170,6 @@ export default React.createClass({
 
 
 	addStaff(e){
-
 		e.preventDefault();
 
 		if (this.ensureInputEntered() && this.validateInput() ){

@@ -33,16 +33,16 @@ export default React.createClass({
 				return(
 					<div>
         		<div class="row">
-							<div class="col-sm-2 col-lg-2 col md-2">
+							<div class="col-sm-2 col-lg-2 col-md-2">
 								<b>School Name</b>
 							</div>
-							<div class="col-sm-3 col-lg-3 col md-3">
+							<div class="col-sm-3 col-lg-3 col-md-3">
 								<b>Contact Email</b>
 							</div>
-							<div class="col-sm-1 col-lg-1 col md-1">
+							<div class="col-sm-1 col-lg-1 col-md-1">
 								<b>District</b>
 							</div>
-							<div class="col-sm-6 col-lg-6 col md-6">
+							<div class="col-sm-6 col-lg-6 col-md-6">
 								<b>Site Coordinator</b>
 							</div>
 						</div>
