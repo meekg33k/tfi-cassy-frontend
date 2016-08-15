@@ -14,7 +14,7 @@ var FormFieldList = React.createClass({
     var searchString = "";
     var values = SearchProcessor.filterEvents(this.props.formFieldValues, searchString);
     var renderValues = () => {
-      return this.props.formFieldValues.map((event) => {
+      return values.map((event) => {
         return (
           <FieldValue key={event.id} onEdit={this.props.onEditEvent} onDelete={this.props.onDeleteEvent}
           {...event}/>
@@ -23,7 +23,8 @@ var FormFieldList = React.createClass({
     };
 
 		var renderMessage = () => {
-      if (this.props.selectedField == "--None--"){
+      console.log("In FormFieldList", this.props.selectedField);
+      if (this.props.selectedField === "--None--"){
 				return(
 					<div>
 						<p>You did not select a valid option. Kindly use the dropdown above to select a field</p>
@@ -32,11 +33,20 @@ var FormFieldList = React.createClass({
 			}
       else{
           if (values.length == 0){
-            return(
-              <div>
-                <p>No values for this field. Use on the Add New Value button to add a new value for this field</p>
-              </div>
-            );
+            if (this.props.selectedField === "--None--"){
+      				return(
+      					<div>
+      						<p>You did not select a valid option. Kindly use the dropdown above to select a field</p>
+      					</div>
+      				);
+      			}
+            else {
+              return(
+                <div>
+                  <p>No values for this field. Use on the Add New Value button to add a new value for this field</p>
+                </div>
+              );
+            }
           }
           else {
             return(
@@ -77,7 +87,7 @@ var FormFieldList = React.createClass({
 module.exports = connect(
 	(store) => {
 		return {
-      selectedField: store.selectedFiel,
+      selectedField: store.selectedField,
 			addSchool: store.addSchoolState,
       formFields: store.formFields,
       formFieldValues: store.formFieldValues

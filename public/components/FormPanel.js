@@ -57,7 +57,7 @@ var FormPanel = React.createClass({
 			dispatch(actions.toggleAddFieldButton(false));
 		}
 
-    for(var i = 0;  i < formFields.length; i++) {
+    for (var i = 0;  i < formFields.length; i++) {
         if (formFields[i].name === this.props.selectedField) {
             selectedFieldValues = formFields[i].fieldValues;
           	dispatch(actions.setFieldValues(selectedFieldValues));

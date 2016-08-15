@@ -158,6 +158,11 @@ export var eventReducer = (state = defaultEventState, action) => {
 
 var defaultFormState = [
 	{
+		id: 123455,
+		name: "--None--",
+		fieldValues: []
+	},
+	{
 		id: 898091,
 		name: "Assessment Type",
 		fieldValues: []
@@ -266,11 +271,15 @@ export var addFieldButtonReducer = (state = false, action) => {
 export var formFieldReducer = (state = defaultFormState, action) => {
 	switch(action.type){
 		case 'ADD_FIELD_VALUE':
+
+			console.log("Reducer: Value to be added", action.value);
+			console.log("Reducer: Field", action.field);
+
 			var fieldId;
 			var mutatedField;
 
 			for(var i = 0;  i < state.length; i++) {
-			    if (state[i].id === action.field.id) {
+			    if (state[i].name === action.field) {
 							mutatedField = state[i];
 							console.log("*******ADD",mutatedField);
 							mutatedField.fieldValues.push({

@@ -107,7 +107,6 @@ var Form =  React.createClass({
 			            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
                     <div class="form-group">
                       <select class="form-control" onChange={this.renderField} ref="name">
-                          <option>--None--</option>
                           {renderFields()}
                       </select>
                     </div>
