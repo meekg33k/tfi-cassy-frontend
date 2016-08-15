@@ -21,7 +21,7 @@ export var configure = () => {
 		formFields: reducer.formFieldReducer,
 		events: reducer.eventReducer,
 		searchText: reducer.searchReducer,
-		selectedFieldObject: reducer.setSelectedFieldReducer,
+		selectedField: reducer.setSelectedFieldReducer,
 		schools: reducer.schoolReducer,
 		staff: reducer.staffReducer
 	});

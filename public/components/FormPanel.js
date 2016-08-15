@@ -90,7 +90,7 @@ module.exports = connect(
 	(store) => {
 		return {
 			schools: store.schools,
-      selectedField: store.selectedFieldObject,
+      selectedField: store.selectedField,
       formFields: store.formFields,
       formFieldValues: store.formFieldValues,
 			addSchool: store.addSchoolState
