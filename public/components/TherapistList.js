@@ -60,6 +60,9 @@ export default React.createClass({
     			}
           var therapists = this.state.therapists.splice(victimId, 1);
           this.setState(therapists);
+          this.setState({
+            error: false
+          });
       }
     },
 
