@@ -1,11 +1,15 @@
 "use strict";
 
 import React from "react";
+import {connect} from "react-redux";
+import moment from "moment";
 
 import Util from "../../apis/Helper"
 
+import * as actions from "../../actions/actions"
 
-export default React.createClass({
+
+var PresentingProblem = React.createClass({
 
 	getInitialState(){
 
@@ -31,6 +35,16 @@ export default React.createClass({
 	},
 
 	addNewProblem(){
+		var {dispatch} = this.props;
+
+		dispatch(actions.addToTimeLine({
+			id: Date.now(),
+			date: moment().format("MM/DD/YY"),
+			activity: "New Issue",
+			description:this.refs.problem.value,
+			comments: ""
+		}));
+
 		this.setState({
 			problems: [
 				...this.state.problems,
@@ -66,7 +80,7 @@ export default React.createClass({
 					</div>
 					<div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
 							<div class="form-group">
-									<button type="submit" class="btn btn-danger" onClick={this.addNewProblem}>
+									<button type="submit" class="btn btn-sm btn-danger" onClick={this.addNewProblem}>
 										<span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
 									&nbsp; Add New Value
 								</button>
@@ -76,5 +90,11 @@ export default React.createClass({
 			</div>
 		);
 	}
-
 });
+module.exports = connect(
+	(store) => {
+		return {
+			timelines: store.timelineState
+		};
+	}
+)(PresentingProblem);

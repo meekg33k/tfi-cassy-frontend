@@ -53,6 +53,25 @@ module.exports = {
 		return filteredArray;
 	},
 
+	genericSort(array){
+
+		array.sort((a,b) => {
+
+			if (a.id < b.id){
+				return 1;
+			}
+			else if (a.id > b.id){
+				return -1;
+			}
+			else{
+				return 0;
+			}
+
+		});
+
+		return array;
+	},
+
 	validateUserInput(firstName, lastName){
 
 		var regex = /\d/;

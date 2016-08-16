@@ -16,7 +16,6 @@ export default React.createClass({
 
 
 	render(){
-
 		var {staff} = this.props;
 
 		var renderMessage = () => {
@@ -54,7 +53,7 @@ export default React.createClass({
 		var renderStaff = () => {
 			return staff.map((staffMember) => {
 				return (
-					<Staff key={staffMember.id} onCancelEdit = {this.props.onCancelEditStaff} onDelete={this.props.onDeleteStaff} onEdit={this.props.onEditStaff} 
+					<Staff key={staffMember.id} onCancelEdit = {this.props.onCancelEditStaff} onDelete={this.props.onDeleteStaff} onEdit={this.props.onEditStaff}
 							validateEdit={this.props.onValidateEditStaff} {...staffMember}/>
 				);
 			});
@@ -73,5 +72,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-
 });

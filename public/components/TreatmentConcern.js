@@ -1,11 +1,15 @@
 "use strict";
 
 import React from "react";
+import {connect} from "react-redux";
+import moment from "moment";
 
 import Util from "../../apis/Helper"
 
+import * as actions from "../../actions/actions"
 
-export default React.createClass({
+
+var TreatmentConcern = React.createClass({
 
 	getInitialState(){
 		return {
@@ -16,12 +20,30 @@ export default React.createClass({
 	},
 
 	markResolved(){
+		var {dispatch} = this.props;
+		var dispatchMessage = this.props.name + " is marked as resolved";
+		dispatch(actions.addToTimeLine({
+			id: Date.now(),
+			date: moment().format("MM/DD/YY"),
+			activity: "Progress Update",
+			description: "Treatment Concern resolution",
+			comments: dispatchMessage,
+		}));
 		this.setState({
 			resolved: true
 		});
 	},
 
   undoMarkAsResolved(){
+		var {dispatch} = this.props;
+		var dispatchMessage = this.props.name + " is no longer marked as resolved";
+		dispatch(actions.addToTimeLine({
+			id: Date.now(),
+			date: moment().format("MM/DD/YY"),
+			activity: "Progress Update",
+			description: "Treatment Concern resolution",
+			comments: dispatchMessage
+		}));
     this.setState({
       resolved: false
     });
@@ -66,5 +88,11 @@ export default React.createClass({
 
     );
 	}
-
 });
+module.exports = connect(
+	(store) => {
+		return {
+			timelines: store.timelineState
+		};
+	}
+)(TreatmentConcern);

@@ -1,12 +1,16 @@
 "use strict";
 
 import React from "react";
+import {connect} from "react-redux";
+import moment from "moment";
 
 import TreatmentConcern from "../components/TreatmentConcern"
 
+import * as actions from "../../actions/actions"
 
 
-export default React.createClass({
+
+var TreatmentConcernList = React.createClass({
 
 	getInitialState(){
 
@@ -28,6 +32,16 @@ export default React.createClass({
 	},
 
 	addNewConcern(){
+		var {dispatch} = this.props;
+
+		dispatch(actions.addToTimeLine({
+			id: Date.now(),
+			date: moment().format("MM/DD/YY"),
+			activity: "Treatment Concern",
+			description:this.refs.concern.value,
+			comments: ""
+		}));
+
 		this.setState({
 			treatmentConcerns: [
 				...this.state.treatmentConcerns,
@@ -54,7 +68,6 @@ export default React.createClass({
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
 							<select class="form-control" ref="concern">
-								<option>Child Abuse</option>
 								<option>Cyber Issues</option>
 								<option>Depression</option>
 								<option>Eating Disorder</option>
@@ -63,7 +76,7 @@ export default React.createClass({
 					</div>
 					<div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
 							<div class="form-group">
-									<button type="submit" class="btn btn-danger" onClick={this.addNewConcern}>
+									<button type="submit" class="btn btn-sm btn-danger" onClick={this.addNewConcern}>
 										<span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
 									&nbsp; Add New Value
 								</button>
@@ -73,5 +86,11 @@ export default React.createClass({
 			</div>
 		);
 	}
-
 });
+module.exports = connect(
+	(store) => {
+		return {
+			timelines: store.timelineState
+		};
+	}
+)(TreatmentConcernList);

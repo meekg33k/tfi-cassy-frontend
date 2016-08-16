@@ -171,3 +171,15 @@ export var enableAddStaff = (value) => {
 		payload: value
 	};
 }
+
+
+
+
+/** TimeLine Actions **/
+
+export var addToTimeLine = (timelineObject) => {
+	return {
+		type: 'ADD_TO_TIMELINE',
+		payload: timelineObject
+	};
+}

@@ -20,6 +20,11 @@
   width:95%
 }
 
+.inline-div{
+  height:220px;
+  overflow: auto;
+}
+
 .nowrap{
    word-wrap: break-word;
  }    /* IE */

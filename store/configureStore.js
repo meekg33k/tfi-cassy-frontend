@@ -23,7 +23,8 @@ export var configure = () => {
 		searchText: reducer.searchReducer,
 		selectedField: reducer.setSelectedFieldReducer,
 		schools: reducer.schoolReducer,
-		staff: reducer.staffReducer
+		staff: reducer.staffReducer,
+		timelineState: reducer.timelineReducer
 	});
 
 	var store = createStore(appReducer, middleware);
