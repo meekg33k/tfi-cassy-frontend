@@ -41,7 +41,7 @@ export default React.createClass({
 								<b>Role</b>
 							</div>
 							<div class="col-sm-6 col-lg-6 col md-6">
-								<b>Manager</b>
+								<b>Email</b>
 							</div>
 						</div>
 						<br />
@@ -54,8 +54,8 @@ export default React.createClass({
 		var renderStaff = () => {
 			return staff.map((staffMember) => {
 				return (
-					<Staff key={staffMember.id} onEdit={this.props.onEditStaff} onDelete={this.props.onDeleteStaff}
-					{...staffMember}/>
+					<Staff key={staffMember.id} onCancelEdit = {this.props.onCancelEditStaff} onEdit={this.props.onEditStaff} onDelete={this.props.onDeleteStaff}
+							validateEdit={this.props.onValidateEditStaff} {...staffMember}/>
 				);
 			});
 		};

@@ -14,12 +14,13 @@ export default React.createClass({
 			firstName: this.props.firstName,
 			lastName: this.props.lastName,
 			role: this.props.role,
-			manager: this.props.manager,
+			email: this.props.email,
 		};
 	},
 
 
 	cancelEdit(){
+		this.props.onCancelEdit();
 		this.setState({
 			isEditing: !this.state.isEditing
 		});
@@ -38,20 +39,32 @@ export default React.createClass({
 
 	saveEdit(e){
 
+		var firstName = this.refs.firstName.value;
+		var lastName = this.refs.lastName.value;
+
 		e.preventDefault(e);
 
-		this.props.onEdit({
-			id: this.state.id,
-			firstName: this.refs.firstName.value,
-			lastName: this.refs.lastName.value,
-			role: this.refs.role.value,
-			manager: this.refs.manager.value
-		});
+		if (!this.props.validateEdit(firstName, lastName)) {
+			if (firstName.length == 0){
+					this.refs.firstName.focus();
+			}
+			if (lastName.length == 0){
+					this.refs.lastName.focus();
+			}
+		}
+		else{
+			this.props.onEdit({
+				id: this.state.id,
+				firstName: this.refs.firstName.value,
+				lastName: this.refs.lastName.value,
+				role: this.refs.role.value,
+				email: this.refs.email.value
+			});
 
-		this.setState({
-			isEditing: !this.state.isEditing
-		});
-
+			this.setState({
+				isEditing: !this.state.isEditing
+			});
+		}
 	},
 
 	startEdit(){
@@ -62,7 +75,6 @@ export default React.createClass({
 
 
 	render(){
-
 		var renderStaff = () =>{
 			if (!this.state.isEditing){
 				return(
@@ -79,7 +91,7 @@ export default React.createClass({
 								{this.state.role}
 							</div>
 							<div class="col-sm-3 col-lg-3 col md-3">
-								{this.state.manager}
+								{this.state.email}
 							</div>
 							<div class="col-sm-3 col-lg-3 col md-3">
 
@@ -102,6 +114,7 @@ export default React.createClass({
 			else {
 				return(
 					<div>
+						<form onSubmit={this.saveEdit}>
 						<p></p>
 						<div class="row">
 							<div class="col-sm-2 col-lg-2 col md-2">
@@ -119,14 +132,10 @@ export default React.createClass({
                 </select>
 							</div>
 							<div class="col-sm-3 col-lg-3 col md-3">
-								<select class="form-ctrl" ref="manager">
-                    <option>Eve Johnson</option>
-                    <option>John Doe</option>
-                    <option>Jill Smith</option>
-              	</select>
+									<input type="text" ref="email" class="form-control" placeholder="" defaultValue={this.state.email} required/>
 							</div>
 							<div class="col-sm-3 col-lg-3 col md-3">
-								<button type="button" onClick={this.saveEdit} class="btn btn-sm btn-success">
+								<button type="submit" class="btn btn-sm btn-success">
                     <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
                     &nbsp; Save
                 </button>
@@ -139,6 +148,7 @@ export default React.createClass({
 	              </button>
 							</div>
 						</div>
+						</form>
 					</div>
 				);
 			}
