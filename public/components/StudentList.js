@@ -54,8 +54,8 @@ export default React.createClass({
 		var renderStudents = () => {
 			return students.map((student) => {
 				return (
-					<Student key={student.id} onEdit={this.props.onEditStudent} onDelete={this.props.onDeleteStudent}
-					{...student}/>
+					<Student key={student.id} onCancelEdit = {this.props.onCancelEditStudent} onEdit={this.props.onEditStudent} onDelete={this.props.onDeleteStudent}
+							validateEdit={this.props.onValidateEditStudent} {...student}/>
 				);
 			});
 		};

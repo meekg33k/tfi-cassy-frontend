@@ -54,7 +54,7 @@ export default React.createClass({
 		var renderStaff = () => {
 			return staff.map((staffMember) => {
 				return (
-					<Staff key={staffMember.id} onCancelEdit = {this.props.onCancelEditStaff} onEdit={this.props.onEditStaff} onDelete={this.props.onDeleteStaff}
+					<Staff key={staffMember.id} onCancelEdit = {this.props.onCancelEditStaff} onDelete={this.props.onDeleteStaff} onEdit={this.props.onEditStaff} 
 							validateEdit={this.props.onValidateEditStaff} {...staffMember}/>
 				);
 			});

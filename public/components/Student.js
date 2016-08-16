@@ -35,6 +35,7 @@ export default React.createClass({
 	},
 
 	cancelEdit(){
+		this.props.onCancelEdit();
 		this.setState({
 			isEditing: !this.state.isEditing
 		});
@@ -52,24 +53,41 @@ export default React.createClass({
 
 	saveEdit(e){
 
+		var firstName = this.refs.firstName.value;
+		var lastName = this.refs.lastName.value;
+
 		e.preventDefault(e);
 
-		this.props.onEdit({
-			id: this.state.id,
-			firstName: this.refs.firstName.value,
-			lastName: this.refs.lastName.value,
-			grade: this.refs.grade.value,
-			school: this.refs.school.value
-		});
+		if (!this.props.validateEdit(firstName, lastName)) {
 
-		this.setState({
-			isEditing: !this.state.isEditing,
-			firstName: this.refs.firstName.value,
-			lastName: this.refs.lastName.value,
-			grade: this.refs.grade.value,
-			school: this.refs.school.value
-		});
+			if ((firstName.length == 0) && (lastName.length == 0)){
+					this.refs.firstName.focus();
+			}
 
+			if (firstName.length == 0){
+					this.refs.firstName.focus();
+			}
+			if (lastName.length == 0){
+					this.refs.lastName.focus();
+			}
+		}
+		else {
+			this.props.onEdit({
+				id: this.state.id,
+				firstName: this.refs.firstName.value,
+				lastName: this.refs.lastName.value,
+				grade: this.refs.grade.value,
+				school: this.refs.school.value
+			});
+
+			this.setState({
+				isEditing: !this.state.isEditing,
+				firstName: this.refs.firstName.value,
+				lastName: this.refs.lastName.value,
+				grade: this.refs.grade.value,
+				school: this.refs.school.value
+			});
+		}
 	},
 
 	startEdit(){

@@ -17,6 +17,8 @@ export default React.createClass({
 	getInitialState(){
 		return {
       addStudent: false,
+			error: false,
+			errorMessage: "",
 			searchString: "",
 			students: [
 				{
@@ -41,7 +43,6 @@ export default React.createClass({
 	},
 
 	handleAddStudent(student){
-
 		this.setState({
 			students: [
 				...this.state.students,
@@ -51,24 +52,27 @@ export default React.createClass({
 		});
 	},
 
+	handleCancelEditStudent(){
+		if  (this.state.error == true){
+			this.setState({
+				error: false
+			});
+		}
+	},
 
 	handleDeleteStudent(student){
 
 		var victimId;
-
     if (confirm("Do you want to proceed to delete the student?") == true) {
-
       	for(var i = 0;  i < this.state.students.length; i++) {
   		    if (this.state.students[i].id === student.id) {
   		        victimId = i;
   		        break;
   		    }
   			}
-
   			var updatedStudents = this.state.students.splice(victimId, 1);
   			this.setState(updatedStudents);
     }
-
 	},
 
 
@@ -83,7 +87,6 @@ export default React.createClass({
 				student.gender = editedStudent.gender;
 			};
 		});
-
 		this.setState(updatedStudents);
 	},
 
@@ -105,10 +108,52 @@ export default React.createClass({
 		});
 	},
 
+	validateEditStudent(firstName, lastName){
+		if ((firstName.length == 0) || (lastName.length == 0)){
+			if ((firstName.length == 0) && (lastName.length == 0)){
+					this.setState({
+						error: true,
+						errorMessage: "Kindly enter student first name and last name"
+					});
+				return false;
+			}
+			else if (firstName.length == 0){
+				this.setState({
+					error: true,
+					errorMessage: "Kindly enter student first name"
+				});
+				return false;
+			}
+			else if (lastName.length == 0){
+				this.setState({
+					error: true,
+					errorMessage: "Kindly enter student last name"
+				});
+				return false;
+			}
+		}
+		else{
+			this.setState({
+				error: false
+			});
+			return true;
+		}
+	},
+
   	render() {
 
   		var {students, searchString} = this.state;
   		var filteredStudents = SearchProcessor.filter(students, searchString);
+
+			var displayErrorMessage = () =>{
+				if (this.state.error){
+					return(
+						<div>
+							<p class="error">{this.state.errorMessage}</p>
+						</div>
+					);
+				}
+			};
 
       var renderAddStudent = () =>{
   			if (this.state.addStudent){
@@ -147,7 +192,11 @@ export default React.createClass({
   			            	<Search onSearch={this.handleSearch} placeholder = "Enter student name here to search"/>
   			            </div>
                   </div>
-			            <StudentList students={filteredStudents} onEditStudent={this.handleEditStudent} onDeleteStudent={this.handleDeleteStudent}/>
+									<div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+										{displayErrorMessage()}
+									</div>
+			            <StudentList students={filteredStudents} onCancelEditStudent={this.handleCancelEditStudent} onDeleteStudent={this.handleDeleteStudent}
+											onEditStudent={this.handleEditStudent} onValidateEditStudent={this.validateEditStudent}/>
 			        </div>
 			    </div>
 			</div>

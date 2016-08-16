@@ -30,7 +30,6 @@ export default React.createClass({
 	delete(e){
 
 		e.preventDefault(e);
-
 		this.props.onDelete({
 			id: this.state.id
 		});
@@ -45,6 +44,11 @@ export default React.createClass({
 		e.preventDefault(e);
 
 		if (!this.props.validateEdit(firstName, lastName)) {
+
+			if ((firstName.length == 0) && (lastName.length == 0)){
+					this.refs.firstName.focus();
+			}
+
 			if (firstName.length == 0){
 					this.refs.firstName.focus();
 			}
