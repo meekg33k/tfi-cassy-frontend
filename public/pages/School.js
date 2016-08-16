@@ -6,7 +6,6 @@ import BreadCrumb from "react-breadcrumbs"
 import {connect} from "react-redux"
 
 import AddSchoolForm from "../components/AddSchoolForm"
-import Error from "../components/Error"
 import SchoolList from "../components/SchoolList"
 import Search from "../components/Searcher"
 import SearchProcessor from "../../apis/Helper"

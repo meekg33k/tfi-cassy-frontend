@@ -77,7 +77,8 @@ var AddFieldForm = React.createClass({
     				return(
     					<div>
                   <div class="row row-header">
-                    <div class="col-xs-12 col-sm-4 col-lg-8 col-md-6">
+                    <div class="col-xs-12 col-sm-8 col-lg-8 col-md-8">
+                      <p></p>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
                         <div class="form-group">

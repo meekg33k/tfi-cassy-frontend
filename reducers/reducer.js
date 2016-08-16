@@ -171,7 +171,35 @@ var defaultFormState = [
 		id: 189801,
 		name: "Event Type",
 		fieldValues: []
-	}, {
+	},
+	{
+		id: 551234,
+		name: "District",
+		fieldValues: []
+	},
+	{
+			id: 442219,
+			name: "Ethnicity",
+			fieldValues: [
+				  {
+				    "id": 1,
+				    "name": "Caucasian",
+				  },
+				  {
+				    "id": 2,
+				    "name": "Hispanic/Latino"
+				  },
+				  {
+				    "id": 3,
+				    "name": "Asian"
+				  },
+					{
+						"id": 4,
+						"name": "African American"
+					}
+				]
+		},
+		{
 		id: 777118,
 		name: "Grade",
 		fieldValues: [
@@ -194,28 +222,6 @@ var defaultFormState = [
 				{
 					"id": 5,
 					"name": "12th"
-				}
-			]
-	},
-	{
-		id: 442219,
-		name: "Ethnicity",
-		fieldValues: [
-			  {
-			    "id": 1,
-			    "name": "Caucasian",
-			  },
-			  {
-			    "id": 2,
-			    "name": "Hispanic/Latino"
-			  },
-			  {
-			    "id": 3,
-			    "name": "Asian"
-			  },
-				{
-					"id": 4,
-					"name": "African American"
 				}
 			]
 	},

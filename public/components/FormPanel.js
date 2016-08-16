@@ -38,8 +38,6 @@ var FormPanel = React.createClass({
 
 	handleSaveFieldValue(newFieldValue){
 		var {selectedField, dispatch} = this.props;
-		console.log("Form: New value added", newFieldValue);
-		console.log("Form: To field", selectedField);
 		dispatch(actions.addNewValueToField(selectedField, newFieldValue));
 	},
 

@@ -43,7 +43,6 @@ export default React.createClass({
 
 
 	delete(e){
-
 		e.preventDefault(e);
 		this.props.onDelete({
 			id: this.state.id
