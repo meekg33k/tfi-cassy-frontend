@@ -18,11 +18,12 @@ var Staff =  React.createClass({
 	getInitialState(){
 		return {
   		addStaff: this.props,
+			error: false,
+			errorMessage: "",
 			searchString: "",
 			staff: this.props
 		};
 	},
-
 
 	handleAddStaff(staff){
 		//To include REST API calls
@@ -31,36 +32,36 @@ var Staff =  React.createClass({
 		this.handleExitAddStaff();
 	},
 
+	handleCancelEditStaff(){
+		if  (this.state.error == true){
+			this.setState({
+				error: false
+			});
+		}
+	},
 
 	handleDeleteStaff(staff){
-
 	    if (confirm("Do you want to proceed to delete the staff?") == true) {
 	    	//TODO: Include REST API calls to delete staff
 	    	var { dispatch } = this.props;
-			dispatch(actions.deleteStaff(staff));
+				dispatch(actions.deleteStaff(staff));
 	    }
-
 	},
 
-
 	handleEditStaff(editedStaff){
-
 		var { dispatch } = this.props;
 		dispatch(actions.editStaff(editedStaff));
 	},
-
 
 	handleExitAddStaff(){
 		var { dispatch } = this.props;
 		dispatch(actions.enableAddStaff(false));
 	},
 
-
 	initiateAddStaff(){
 		var { dispatch } = this.props;
 		dispatch(actions.enableAddStaff(true));
 	},
-
 
 	handleSearch(searchString){
 		this.setState({
@@ -68,12 +69,53 @@ var Staff =  React.createClass({
 		});
 	},
 
+	validateEditStaff(firstName, lastName){
+		if ((firstName.length == 0) || (lastName.length == 0)){
+			if ((firstName.length == 0) && (lastName.length == 0)){
+					this.setState({
+						error: true,
+						errorMessage: "Kindly enter staff first name and last name"
+					});
+				return false;
+			}
+			else if (firstName.length == 0){
+				this.setState({
+					error: true,
+					errorMessage: "Kindly enter staff first name"
+				});
+				return false;
+			}
+			else if (lastName.length == 0){
+				this.setState({
+					error: true,
+					errorMessage: "Kindly enter staff last name"
+				});
+				return false;
+			}
+		}
+		else{
+			this.setState({
+				error: false
+			});
+			return true;
+		}
+	},
 
   	render() {
 
   		var {staff} = this.props;
   		var searchString= this.state.searchString;
   		var filteredStaff = SearchProcessor.filter(staff, searchString);
+
+			var displayErrorMessage = () =>{
+				if (this.state.error){
+					return(
+						<div>
+							<p class="error">{this.state.errorMessage}</p>
+						</div>
+					);
+				}
+			};
 
 			var renderAddStaff = () =>{
 				if (this.props.addStaff){
@@ -83,7 +125,6 @@ var Staff =  React.createClass({
 						</div>
 					);
 				}
-
 			};
 
 	    return (
@@ -93,7 +134,7 @@ var Staff =  React.createClass({
 					<BreadCrumb routes={this.props.routes} separator =" >> "/>
 					<br />
 					<br />
-			        <div class="row row-header report-form">
+	        <div class="row row-header report-form">
 						{renderAddStaff()}
 						<br />
 						<div class="row row-header">
@@ -112,7 +153,11 @@ var Staff =  React.createClass({
 	            	<Search onSearch={this.handleSearch} placeholder = "Enter staff name here to search"/>
 	            </div>
             	</div>
-			            <StaffList staff={filteredStaff} onEditStaff={this.handleEditStaff} onDeleteStaff={this.handleDeleteStaff}/>
+							<div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
+								{displayErrorMessage()}
+							</div>
+			            <StaffList staff={filteredStaff} onCancelEditStaff={this.handleCancelEditStaff} onEditStaff={this.handleEditStaff}
+										onDeleteStaff={this.handleDeleteStaff}	onValidateEditStaff={this.validateEditStaff} />
 			        </div>
 			    </div>
 			</div>

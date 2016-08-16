@@ -8,7 +8,7 @@ import * as reducer from "../reducers/reducer"
 
 export var configure = () => {
 
-	const middleware = applyMiddleware(logger());
+	const middleware = applyMiddleware(thunk, logger());
 
 	var appReducer = combineReducers({
 		addEventState: reducer.enableAddEventReducer,
@@ -26,7 +26,7 @@ export var configure = () => {
 		staff: reducer.staffReducer
 	});
 
-	var store = createStore(appReducer);
+	var store = createStore(appReducer, middleware);
 
 	return store;
 }

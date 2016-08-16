@@ -3,10 +3,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router";
+import {connect} from "react-redux";
+
+import * as actions from "../../actions/actions"
 
 
-
-export default React.createClass({
+var Schoool = React.createClass({
 
 	getInitialState(){
 		return {
@@ -18,7 +20,8 @@ export default React.createClass({
 			contact: this.props.contact,
 			contactEmail: this.props.contactEmail,
 			district: this.props.district,
-			siteCoordinator: this.props.siteCoordinator
+			siteCoordinator: this.props.siteCoordinator,
+			error: false
 		};
 	},
 
@@ -38,6 +41,7 @@ export default React.createClass({
 	},
 
 	cancelEdit(){
+		this.props.onCancelEdit();
 		this.setState({
 			isEditing: !this.state.isEditing
 		});
@@ -45,7 +49,6 @@ export default React.createClass({
 
 
 	delete(e){
-
 		e.preventDefault(e);
 		this.props.onDelete({
 			id: this.state.id
@@ -56,21 +59,26 @@ export default React.createClass({
 	saveEdit(e){
 
 		e.preventDefault();
-		this.props.onEdit({
-			id: this.state.id,
-			name: this.refs.name.value,
-			address: this.state.address,
-			principal: this.state.principal,
-			contact: this.state.contact,
-			contactEmail: this.refs.contactEmail.value,
-			district: this.refs.district.value,
-			siteCoordinator: this.refs.siteCoordinator.value
-		});
 
-		this.setState({
-			isEditing: !this.state.isEditing
-		});
+		if (!this.props.validateEdit(this.refs.name.value)) {
+			this.refs.name.focus();
+		}
+		else {
+			this.props.onEdit({
+				id: this.state.id,
+				name: this.refs.name.value,
+				address: this.state.address,
+				principal: this.state.principal,
+				contact: this.state.contact,
+				contactEmail: this.refs.contactEmail.value,
+				district: this.refs.district.value,
+				siteCoordinator: this.refs.siteCoordinator.value
+			});
 
+			this.setState({
+				isEditing: !this.state.isEditing
+			});
+		}
 	},
 
 	startEdit(){
@@ -81,7 +89,6 @@ export default React.createClass({
 
 
 	render(){
-
 		var renderSchool = () =>{
 			if (!this.state.isEditing){
 				return(
@@ -135,7 +142,7 @@ export default React.createClass({
 								<input type="text" ref="name" class="form-control" placeholder="" defaultValue={this.state.name} />
 							</div>
 							<div class="col-sm-2 col-lg-2 col-md-2">
-								<input type="email" ref="contactEmail" class="form-control" placeholder="" defaultValue={this.state.contactEmail} />
+								<input type="email" ref="contactEmail" class="form-control" placeholder="" defaultValue={this.state.contactEmail} required/>
 							</div>
 							<div class="col-sm-2 col-lg-2 col-md-2">
 								<select class="form-ctrl" ref="district">
@@ -179,3 +186,12 @@ export default React.createClass({
 	}
 
 });
+module.exports = connect(
+	(store) => {
+		return {
+      formFields: store.formFields,
+      selectedField: store.selectedField,
+      formFieldValues: store.formFieldValues
+		};
+	}
+)(Schoool);

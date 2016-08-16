@@ -77,18 +77,15 @@ var AddFieldForm = React.createClass({
     				return(
     					<div>
                   <div class="row row-header">
-                    <div class="col-xs-12 col-sm-4 col-lg-6 col-md-4">
+                    <div class="col-xs-12 col-sm-4 col-lg-8 col-md-6">
                     </div>
-                    <div class="col-xs-12 col-sm-4 col-lg-2 col-md-2">
+                    <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
                         <div class="form-group">
                             <button type="submit" class="btn btn-form" disabled={this.props.addFieldButtonDisabled} onClick={this.displayAddFieldValueForm}>
                               <span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
                             &nbsp; Add New Value
                           </button>
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
-                      <Search onSearch={this.handleSearch} placeholder = "Search for field value here"/>
                     </div>
                   </div>
   					  </div>

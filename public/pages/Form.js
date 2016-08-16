@@ -3,6 +3,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import BreadCrumb from "react-breadcrumbs"
+import axios from "axios"
 import {connect} from "react-redux"
 
 import AddSchoolForm from "../components/AddSchoolForm"
@@ -15,6 +16,20 @@ import * as actions from "../../actions/actions"
 
 
 var Form =  React.createClass({
+
+
+		componentWillMount(){
+			var { dispatch } = this.props;
+
+			axios.get('http://ipinfo.io').then(function(res){
+				var location = res.data.loc;
+
+				dispatch({
+					type: "TEST_COMPLETE",
+					payload: location
+				});
+			});
+		},
 
 		getInitialState(){
 			return {

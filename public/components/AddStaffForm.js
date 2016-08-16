@@ -243,16 +243,6 @@ export default React.createClass({
                       </select>
                   </div>
               </div>
-              <div class="form-group">
-                  <label for="manager" class="col-sm-2 control-label">Manager</label>
-                  <div class="col-sm-5">
-                      <select class="form-control" ref="manager">
-                          <option>Eve Johnson</option>
-                          <option>John Doe</option>
-                          <option>Jill Smith</option>
-                      </select>
-                  </div>
-              </div>
 							<div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-success" onClick={this.addStaff}>

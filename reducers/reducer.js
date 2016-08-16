@@ -8,6 +8,7 @@ export var searchReducer = (state = '', action) => {
 };
 
 
+
 /** Event Reducers **/
 export var enableAddEventReducer = (state = false, action) => {
 	switch(action.type){
@@ -271,17 +272,12 @@ export var addFieldButtonReducer = (state = false, action) => {
 export var formFieldReducer = (state = defaultFormState, action) => {
 	switch(action.type){
 		case 'ADD_FIELD_VALUE':
-
-			console.log("Reducer: Value to be added", action.value);
-			console.log("Reducer: Field", action.field);
-
 			var fieldId;
 			var mutatedField;
 
 			for(var i = 0;  i < state.length; i++) {
 			    if (state[i].name === action.field) {
 							mutatedField = state[i];
-							console.log("*******ADD",mutatedField);
 							mutatedField.fieldValues.push({
 								id: Date.now(),
 								name: action.value
@@ -301,42 +297,30 @@ export var formFieldReducer = (state = defaultFormState, action) => {
 			console.log("Reducer: Value to be deleted", action.value);
 			console.log("Reducer: Field object", action.field);
 
-			var victimFieldId;
 			var fieldName;
-			var newFieldValues;
+			var victimFieldId;
+			var mutatedField;
 			var victimValueId;
-			var fieldId;
 
 			for(var i = 0;  i < state.length; i++) {
-					console.log("Comparing store id "+state[i].id+" and "+action.field.id);
-					if (state[i].name === action.field.name) {
-							fieldName = state[i].name;
-							newFieldValues = state[i].fieldValues;
-							victimFieldId = i;
-							for(var j = 0;  j < newFieldValues.length; j++) {
-									if (newFieldValues[j].name === action.value) {
-											victimValueId = newFieldValues[j].id;
-									}
+				if (state[i].name === action.field) {
+						fieldName = state[i].name;
+						mutatedField = state[i];
+						for (var j = 0; j < mutatedField.fieldValues.length; j++){
+							if (mutatedField.fieldValues[0].name == action.value){
+									victimValueId = j;
+									mutatedField.splice(victimValueId, 1);
 							}
-							break;
-					}
+						}
+						victimFieldId = i;
+				}
+				break;
 			}
-
-			console.log("Id of value to be deleted", victimValueId);
-			//amutatedField.fieldValues.splice(victimValueId, 1);
-
-			var newFieldObject = {
-					id: Date.now(),
-					name: fieldName,
-					fieldValues: [...newFieldValues.slice(0,victimValueId), ...newFieldValues.slice(victimValueId+1)]
-			}
-
-			console.log("This is it!",newFieldObject);
 
 			return [
 				    ...state.slice(0, victimFieldId),
 				    ...state.slice(victimFieldId + 1),
-				    newFieldObject
+						mutatedField
 				];
 
 		case 'EDIT_FIELD_VALUE':
@@ -501,21 +485,21 @@ var staffState = [
 					firstName: "Christy",
 					lastName: "Hayes",
 					role: "Executive",
-					manager: "Christy Hayes"
+					email: "christy@cassybayarea.org"
 
 				}, {
 					id: 456,
 					firstName: "Eve",
 					lastName: "Jackson",
 					role: "Administrator",
-					manager: "Christy Hayes"
+					email: "evejackson@gmail.com"
 
 				}, {
 					id: 789,
 					firstName: "John",
 					lastName: "Doe",
 					role: "Program Manager",
-					manager: "Eve Jackson"
+					email: "jdoe@live.com"
 
 				},
 			];

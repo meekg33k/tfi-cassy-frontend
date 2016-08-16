@@ -6,6 +6,7 @@ import BreadCrumb from "react-breadcrumbs"
 import {connect} from "react-redux"
 
 import AddSchoolForm from "../components/AddSchoolForm"
+import Error from "../components/Error"
 import SchoolList from "../components/SchoolList"
 import Search from "../components/Searcher"
 import SearchProcessor from "../../apis/Helper"
@@ -18,11 +19,12 @@ var School =  React.createClass({
 		getInitialState(){
 			return {
 	  		addSchool: this.props,
+				error: false,
+				errorMessage: "Kindly enter school name",
 				searchString: "",
 				schools: this.props
 			};
 		},
-
 
 		handleAddSchool(school){
 			//To include REST API calls
@@ -31,17 +33,21 @@ var School =  React.createClass({
 			this.handleExitAddSchool();
 		},
 
+		handleCancelEditSchool(){
+			if  (this.state.error == true){
+				this.setState({
+					error: false
+				});
+			}
+		},
 
 		handleDeleteSchool(school){
-
 		    if (confirm("Do you want to proceed to delete the school?") == true) {
 		    	//TODO: Include REST API calls to delete school
 		    	var { dispatch } = this.props;
 				dispatch(actions.deleteSchool(school));
 		    }
-
 		},
-
 
 		handleEditSchool(editedSchool){
 			var { dispatch } = this.props;
@@ -49,18 +55,10 @@ var School =  React.createClass({
 			dispatch(actions.editSchool(editedSchool));
 		},
 
-
 		handleExitAddSchool(){
 			var { dispatch } = this.props;
 			dispatch(actions.enableAddSchool(false));
 		},
-
-
-		initiateAddSchool(){
-			var { dispatch } = this.props;
-			dispatch(actions.enableAddSchool(true));
-		},
-
 
 		handleSearch(searchString){
 			this.setState({
@@ -68,12 +66,41 @@ var School =  React.createClass({
 			});
 		},
 
+		initiateAddSchool(){
+			var { dispatch } = this.props;
+			dispatch(actions.enableAddSchool(true));
+		},
+
+		validateEditSchool(schoolName){
+			if (schoolName.length == 0){
+					this.setState({
+						error: true
+					});
+				return false;
+			}
+			else{
+				this.setState({
+					error: false
+				});
+				return true;
+			}
+		},
+
 
   	render() {
-
   		var {schools} = this.props;
   		var searchString= this.state.searchString;
   		var filteredSchools = SearchProcessor.filterEvents(schools, searchString);
+
+			var displayErrorMessage = () =>{
+				if (this.state.error){
+					return(
+						<div>
+							<p class="error">{this.state.errorMessage}</p>
+						</div>
+					);
+				}
+			};
 
 			var renderAddSchool = () =>{
 				if (this.props.addSchool){
@@ -83,7 +110,6 @@ var School =  React.createClass({
 						</div>
 					);
 				}
-
 			};
 
 	    return (
@@ -112,7 +138,11 @@ var School =  React.createClass({
 			            	<Search onSearch={this.handleSearch} placeholder = "Enter school name here to search"/>
 			            </div>
 	            	</div>
-			            <SchoolList schools={filteredSchools} onEditSchool={this.handleEditSchool} onDeleteSchool={this.handleDeleteSchool}/>
+								<div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
+									{displayErrorMessage()}
+								</div>
+			            <SchoolList schools={filteredSchools} onCancelEditSchool = {this.handleCancelEditSchool}
+											onDeleteSchool={this.handleDeleteSchool} onEditSchool={this.handleEditSchool} onValidateEditSchool = {this.validateEditSchool} />
 			        </div>
 			    </div>
 			</div>
@@ -124,7 +154,9 @@ module.exports = connect(
 	(store) => {
 		return {
 			schools: store.schools,
-			addSchool: store.addSchoolState
+			addSchool: store.addSchoolState,
+			editSchoolErr: store.editSchoolErrorState,
+			editSchoolErrMsg: store.editSchoolErrorMessage
 		};
 	}
 )(School);
