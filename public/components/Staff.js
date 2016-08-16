@@ -38,21 +38,19 @@ export default React.createClass({
 
 	saveEdit(e){
 
+		e.preventDefault(e);
 		var firstName = this.refs.firstName.value;
 		var lastName = this.refs.lastName.value;
+		var validator = this.props.validateEdit(firstName, lastName);
 
-		e.preventDefault(e);
-
-		if (!this.props.validateEdit(firstName, lastName)) {
-
-			if ((firstName.length == 0) && (lastName.length == 0)){
+		if (!validator.state) {
+			if ((validator.field == "both")){
 					this.refs.firstName.focus();
 			}
-
-			if (firstName.length == 0){
+			if (validator.field == "firstName"){
 					this.refs.firstName.focus();
 			}
-			if (lastName.length == 0){
+			if ((validator.field == "lastName")){
 					this.refs.lastName.focus();
 			}
 		}
@@ -136,7 +134,7 @@ export default React.createClass({
                 </select>
 							</div>
 							<div class="col-sm-3 col-lg-3 col md-3">
-									<input type="text" ref="email" class="form-control" placeholder="" defaultValue={this.state.email} required/>
+									<input type="email" ref="email" class="form-control" placeholder="" defaultValue={this.state.email} required/>
 							</div>
 							<div class="col-sm-3 col-lg-3 col md-3">
 								<button type="submit" class="btn btn-sm btn-success">

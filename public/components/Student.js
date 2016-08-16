@@ -53,21 +53,20 @@ export default React.createClass({
 
 	saveEdit(e){
 
-		var firstName = this.refs.firstName.value;
-		var lastName = this.refs.lastName.value;
-
 		e.preventDefault(e);
 
-		if (!this.props.validateEdit(firstName, lastName)) {
+		var firstName = this.refs.firstName.value;
+		var lastName = this.refs.lastName.value;
+		var validator = this.props.validateEdit(firstName, lastName);
 
-			if ((firstName.length == 0) && (lastName.length == 0)){
+		if (!validator.state) {
+			if ((validator.field == "both")){
 					this.refs.firstName.focus();
 			}
-
-			if (firstName.length == 0){
+			if (validator.field == "firstName"){
 					this.refs.firstName.focus();
 			}
-			if (lastName.length == 0){
+			if ((validator.field == "lastName")){
 					this.refs.lastName.focus();
 			}
 		}

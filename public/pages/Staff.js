@@ -8,7 +8,7 @@ import {connect} from "react-redux"
 import AddStaffForm from "../components/AddStaffForm"
 import StaffList from "../components/StaffList"
 import Search from "../components/Searcher"
-import SearchProcessor from "../../apis/Helper"
+import Util from "../../apis/Helper"
 
 import * as actions from "../../actions/actions"
 
@@ -76,28 +76,53 @@ var Staff =  React.createClass({
 						error: true,
 						errorMessage: "Kindly enter staff first name and last name"
 					});
-				return false;
+					return {
+						state: false,
+						field: "firstName"
+					};
 			}
 			else if (firstName.length == 0){
 				this.setState({
 					error: true,
 					errorMessage: "Kindly enter staff first name"
 				});
-				return false;
+				return {
+					state: false,
+					field: "firstName"
+				};
 			}
 			else if (lastName.length == 0){
 				this.setState({
 					error: true,
 					errorMessage: "Kindly enter staff last name"
 				});
-				return false;
+				return {
+					state: false,
+					field: "lastName"
+				};
 			}
 		}
 		else{
-			this.setState({
-				error: false
-			});
-			return true;
+			var inputValidator = Util.validateUserInput(firstName, lastName);
+			if (!inputValidator.state){
+				this.setState({
+					error: true,
+					errorMessage: inputValidator.errorMessage
+				});
+				return {
+					state: false,
+					field: inputValidator.field
+				};
+			}
+			else{
+				this.setState({
+					error: false
+				});
+				return {
+					state: true,
+					field: "lastName"
+				};
+			}
 		}
 	},
 
@@ -105,7 +130,7 @@ var Staff =  React.createClass({
 
   		var {staff} = this.props;
   		var searchString= this.state.searchString;
-  		var filteredStaff = SearchProcessor.filter(staff, searchString);
+  		var filteredStaff = Util.filter(staff, searchString);
 
 			var displayErrorMessage = () =>{
 				if (this.state.error){

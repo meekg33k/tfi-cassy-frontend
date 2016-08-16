@@ -8,7 +8,7 @@ import BreadCrumb from "react-breadcrumbs"
 import AddStudentForm from "../components/AddStudentForm"
 import StudentList from "../components/StudentList"
 import Search from "../components/Searcher"
-import SearchProcessor from "../../apis/Helper"
+import Util from "../../apis/Helper"
 
 
 
@@ -115,35 +115,60 @@ export default React.createClass({
 						error: true,
 						errorMessage: "Kindly enter student first name and last name"
 					});
-				return false;
+					return {
+						state: false,
+						field: "firstName"
+					};
 			}
 			else if (firstName.length == 0){
 				this.setState({
 					error: true,
 					errorMessage: "Kindly enter student first name"
 				});
-				return false;
+				return {
+					state: false,
+					field: "firstName"
+				};
 			}
 			else if (lastName.length == 0){
 				this.setState({
 					error: true,
 					errorMessage: "Kindly enter student last name"
 				});
-				return false;
+				return {
+					state: false,
+					field: "lastName"
+				};
 			}
 		}
 		else{
-			this.setState({
-				error: false
-			});
-			return true;
+			var inputValidator = Util.validateUserInput(firstName, lastName);
+			if (!inputValidator.state){
+				this.setState({
+					error: true,
+					errorMessage: inputValidator.errorMessage
+				});
+				return {
+					state: false,
+					field: inputValidator.field
+				};
+			}
+			else{
+				this.setState({
+					error: false
+				});
+				return {
+					state: true,
+					field: ""
+				};
+			}
 		}
 	},
 
   	render() {
 
   		var {students, searchString} = this.state;
-  		var filteredStudents = SearchProcessor.filter(students, searchString);
+  		var filteredStudents = Util.filter(students, searchString);
 
 			var displayErrorMessage = () =>{
 				if (this.state.error){
