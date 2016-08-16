@@ -546,7 +546,7 @@ export var staffReducer = (state = staffState, action) => {
 			    	firstName: action.payload.firstName,
 			    	lastName: action.payload.lastName,
 			    	role: action.payload.role,
-			    	manager: action.payload.manager
+			    	email: action.payload.email
 			    }
 			];
 

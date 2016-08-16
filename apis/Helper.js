@@ -51,5 +51,39 @@ module.exports = {
 		});
 
 		return filteredArray;
-	}
+	},
+
+	validateUserInput(firstName, lastName){
+
+		var regex = /\d/;
+		var regexTwo = /^[a-zA-Z]+$/;
+
+		if (((firstName.match(regex) != null) || (firstName.match(regexTwo) == null))  &&
+			((lastName.match(regex) != null) || (lastName.match(regexTwo) == null))){
+			return {
+				state: false,
+				errorMessage: "Invalid input for first name and last name",
+				field: "both"
+			};
+		}
+		else if ((firstName.match(regex) != null) || (firstName.match(regexTwo) == null)){
+			return {
+				state: false,
+				errorMessage: "Invalid input for first name",
+				field: "firstName"
+			};
+		}
+		else if ((lastName.match(regex) != null) || (lastName.match(regexTwo) == null)){
+			return {
+				state: false,
+				errorMessage: "Invalid input for last name",
+				field: "lastName"
+			};
+		}
+		return {
+			state: true,
+			errorMessage: ""
+		};
+	},
+
 };
