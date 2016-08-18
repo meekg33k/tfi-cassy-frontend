@@ -12,7 +12,7 @@ import * as actions from "../../actions/actions"
 
 
 
-export default class Index extends React.Component {
+var Index = React.createClass( {
 
 	handleUserLogin(user){
 		var {dispatch} = this.props;
@@ -37,7 +37,7 @@ export default class Index extends React.Component {
 				console.log(err);
 		});
 
-	}
+	},
 
 	render(){
 		var showLoginError = () =>{
@@ -77,7 +77,7 @@ export default class Index extends React.Component {
 			    </div>
 		);
 	}
-}
+});
 module.exports = connect(
 	(store) => {
 		return {
