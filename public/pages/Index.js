@@ -22,12 +22,10 @@ export default class Index extends React.Component {
 			console.log("Received from server" ,res);
 			dispatch(actions.setLoginError("Valid"));
 
-			localStorage.setItem('user', JSON.stringify(res[0]);
-
 			if (res[0].role === "administrator"){
-			window.location.replace(
-			  window.location.pathname + window.location.search + '#/admin'
-			);
+				window.location.replace(
+				  window.location.pathname + window.location.search + '#/admin'
+				);
 			}
 			else{
 				window.location.replace(
