@@ -1,18 +1,27 @@
-/** Search Actions **/
+/** Error Actions **/
 
-export var setSearchText = (searchText) => {
+export var setAdminError = (error) => {
 	return {
-		type: 'SET_SEARCH_TEXT',
-		payload: searchText
+		type: 'SET_ADMIN_ERROR',
+		payload: error
 	};
 }
 
-export var setSearchEventString = (searchString) => {
+export var setLoginError = (errorMessage) => {
 	return {
-		type: 'SET_SEARCH_EVENT',
-		payload: searchString
+		type: 'SET_LOGIN_ERROR',
+		payload: errorMessage
 	};
 }
+
+export var setUserError = (errorMessage) => {
+	return {
+		type: 'SET_USER_ERROR',
+		payload: errorMessage
+	};
+}
+
+
 
 
 

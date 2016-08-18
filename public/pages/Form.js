@@ -17,20 +17,6 @@ import * as actions from "../../actions/actions"
 
 var Form =  React.createClass({
 
-
-		componentWillMount(){
-			var { dispatch } = this.props;
-
-			axios.get('http://ipinfo.io').then(function(res){
-				var location = res.data.loc;
-
-				dispatch({
-					type: "TEST_COMPLETE",
-					payload: location
-				});
-			});
-		},
-
 		getInitialState(){
 			return {
 	  		isEditing: this.props,

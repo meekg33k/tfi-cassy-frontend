@@ -3,20 +3,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Route, Link, browserHistory } from "react-router";
+import {connect} from "react-redux";
+
 import LoginForm from "../components/LoginForm"
 import ApiRequester from "../../apis/ApiRequester.js"
+
+import * as actions from "../../actions/actions"
 
 
 
 export default class Index extends React.Component {
 
 	handleUserLogin(user){
+		var {dispatch} = this.props;
 		console.log("User object", user);
 
 		ApiRequester.loginUser(user).then(function(res){
 			console.log("Received from server" ,res);
+			dispatch(actions.setLoginError("Valid"));
 
-			if (res.role === "administrator"){
+			localStorage.setItem('user', JSON.stringify(res[0]);
+
+			if (res[0].role === "administrator"){
 			window.location.replace(
 			  window.location.pathname + window.location.search + '#/admin'
 			);
@@ -27,12 +35,25 @@ export default class Index extends React.Component {
 				);
 			}
 		}, function(err){
-			console.log(err);
+				dispatch(actions.setLoginError("Invalid"));
+				console.log(err);
 		});
 
 	}
 
 	render(){
+		var showLoginError = () =>{
+			if (this.props.loginError === "Invalid"){
+				return(
+					<p class="error">Invalid login credentials</p>
+				);
+			}
+			if (this.props.loginError === "Valid"){
+				return(
+					<p></p>
+				);
+			}
+		};
 		return(
 			    <div class="jumbotron">
 			        <div class="container">
@@ -50,7 +71,7 @@ export default class Index extends React.Component {
 			                </div>
 			                <div class="col-xs-12 col-sm-5 col-lg-4 col-md-5">
 			                    <p class="line-breaker" />
-			                    <p class="line-breaker" />
+			                    {showLoginError()}
 			                    <LoginForm onUserLogin={this.handleUserLogin}/>
 			                </div>
 		                </div>
@@ -59,3 +80,14 @@ export default class Index extends React.Component {
 		);
 	}
 }
+module.exports = connect(
+	(store) => {
+		return {
+			adminError: store.adminError,
+			loginError: store.loginError,
+			events: store.events,
+			addEvent: store.addEventState,
+			isEditing: store.editEventState
+		};
+	}
+)(Index);

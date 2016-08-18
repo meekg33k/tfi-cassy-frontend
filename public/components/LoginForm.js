@@ -37,12 +37,12 @@ export default React.createClass({
 				<form id="loginForm" class="form-horizontal" role="form" onSubmit={this.onLogin}>
             <div class="form-group has-feedback">
                 <label htmlFor="username" class="control-label">Username</label>
-                <input type="text" name="username" ref="username" class="form-control" placeholder="Enter email address" />
+                <input type="text" name="username" ref="username" class="form-control" placeholder="Enter email address" required/>
                 <i class="glyphicon glyphicon-user form-control-feedback"></i>
             </div>
             <div class="form-group has-feedback" >
                 <label htmlFor="password" class="control-label">Password</label>
-                <input type="password" name="password" ref="password" class="form-control" placeholder="Enter password" />
+                <input type="password" name="password" ref="password" class="form-control" placeholder="Enter password" required/>
                 <i class="glyphicon glyphicon-eye-open form-control-feedback"></i>
             </div>
             <div class="form-group">
