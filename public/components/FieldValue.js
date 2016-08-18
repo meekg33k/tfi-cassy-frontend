@@ -8,12 +8,12 @@ import * as actions from "../../actions/actions"
 
 var FieldValue = React.createClass({
 
-	componentWillMount(){
-		this.setState ({
+	getInitialState(){
+		return {
 			isEditing: false,
 			id: this.props.id,
 			name: this.props.name
-		});
+		};
 	},
 
 
@@ -40,16 +40,11 @@ var FieldValue = React.createClass({
 
 		e.preventDefault(e);
 
-		this.props.onEdit({
-			id: this.state.id,
-			name: this.refs.firstName.value,
-			lastName: this.refs.lastName.value,
-			role: this.refs.role.value,
-			manager: this.refs.manager.value
-		});
+		console.log("Typed in ", this.refs.name.value);
 
 		this.setState({
-			isEditing: !this.state.isEditing
+			isEditing: !this.state.isEditing,
+			name: this.refs.name.value
 		});
 
 	},
@@ -63,7 +58,7 @@ var FieldValue = React.createClass({
 
 	render(){
 
-		var renderStaff = () =>{
+		var renderFieldValue = () =>{
 			if (!this.state.isEditing){
 				return(
 					<div>
@@ -73,7 +68,7 @@ var FieldValue = React.createClass({
                 <p></p>
               </div>
 							<div class="col-sm-3 col-lg-3 col-md-3">
-								{this.props.name}
+								{this.state.name}
 							</div>
 							<div class="col-sm-6 col-lg-6 col-md-6">
 
@@ -99,37 +94,22 @@ var FieldValue = React.createClass({
 						<p></p>
 						<div class="row">
 							<div class="col-sm-2 col-lg-2 col md-2">
+								<p></p>
+							</div>
+							<div class="col-sm-3 col-lg-3 col md-3">
 								<input type="text" ref="name" class="form-control" placeholder="" defaultValue={this.state.name} />
 							</div>
-							<div class="col-sm-2 col-lg-2 col md-2">
-								<input type="text" ref="lastName" class="form-control" placeholder="" defaultValue={this.state.lastName} />
-							</div>
-							<div class="col-sm-2 col-lg-2 col md-2">
-								<select class="form-control" ref="role">
-                    <option>Administrator</option>
-                    <option>Program Manager</option>
-                    <option>Site Coordinator</option>
-                    <option>Therapist</option>
-                </select>
-							</div>
-							<div class="col-sm-3 col-lg-3 col md-3">
-								<select class="form-ctrl" ref="manager">
-                    <option>Eve Johnson</option>
-                    <option>John Doe</option>
-                    <option>Jill Smith</option>
-              	</select>
-							</div>
-							<div class="col-sm-3 col-lg-3 col md-3">
+							<div class="col-sm-6 col-lg-6 col md-6">
 								<button type="button" onClick={this.saveEdit} class="btn btn-sm btn-success">
                     <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                    &nbsp; Save
+                    &nbsp; Save Changes
                 </button>
                 &emsp;
                 &emsp;
 
 								<button type="button" onClick={this.cancelEdit} class="btn btn-sm btn-danger">
 	                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-	                  &nbsp; Cancel
+	                  &nbsp; Discard Changes
 	              </button>
 							</div>
 						</div>
@@ -140,7 +120,7 @@ var FieldValue = React.createClass({
 
 		return(
 			<div>
-				{renderStaff()}
+				{renderFieldValue()}
 			</div>
 		);
 	}
