@@ -43,7 +43,7 @@ var Index = React.createClass( {
 		var showLoginError = () =>{
 			if (this.props.loginError === "Invalid"){
 				return(
-					<p class="error">Invalid login credentials</p>
+					<p class="error">Invalid username or password</p>
 				);
 			}
 			if (this.props.loginError === "Valid"){
