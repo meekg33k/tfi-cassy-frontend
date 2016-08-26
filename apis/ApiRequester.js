@@ -2,17 +2,39 @@
 
 import axios from "axios";
 
-var CASSY_URL;
+//var CASSY_URL;
 
-///const CASSY_WEBSERV_URL = "https://cassy-server.herokuapp.com/" https://cassydataportal.herokuapp.com/;
-if (process.env.NODE_ENV === "production"){
-	CASSY_URL = "https://cassy-server.herokuapp.com/";
-}
-else {
-	CASSY_URL = "http://localhost:8888/";
-}
+var CASSY_URL = "https://cassy-server.herokuapp.com/";
+// if (process.env.NODE_ENV === "production"){
+// 	CASSY_URL = "https://cassy-server.herokuapp.com/";
+// }
+// else {
+// 	CASSY_URL = "http://localhost:8888/";
+// }
 
 module.exports = {
+
+	addSchool: function(school){
+		return axios.post(CASSY_URL+"schools", {
+			"name": school.name,
+			"address": school.address,
+			"principal": school.principal,
+			"primaryContact": school.contact,
+			"contactEmail": school.contactEmail,
+			"district": school.district
+		}).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				console.log(res.data);
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
 
 	loginUser: function(user){
 

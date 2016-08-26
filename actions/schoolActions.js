@@ -1,5 +1,39 @@
 "use strict";
 
+import ApiRequester from "../apis/ApiRequester.js";
+
+
+export var startFetchSchools = (userId) => {
+	return (dispatch, getState) => {
+
+		ApiRequester.getAllSchools(userId).then(function(res){
+			console.log("SCHOOLS OOOO!!!!!" ,res);
+
+		}, function(err){
+				//dispatch(actions.setLoginError("Invalid"));
+				console.log(err);
+		});
+
+	};
+}
+
+export var startAddSchool = (school) => {
+	return (dispatch, getState) => {
+
+		console.log("This is the school to be added", school);
+
+		ApiRequester.addSchool(school).then(function(res){
+			console.log("ADDED SCHOOL" ,res);
+			dispatch(addSchool(school));
+
+		}, function(err){
+			//dispatch(actions.setLoginError("Invalid"));
+			console.log(err);
+		});
+
+	};
+}
+
 export var addSchool = (newSchool) => {
 	return {
 		type: 'ADD_SCHOOL',

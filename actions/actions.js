@@ -2,6 +2,7 @@
 
 import * as ErrorActions from "./errorActions.js"
 import * as EventActions from "./eventActions.js"
+import * as FormActions from "./formActions.js"
 import * as SchoolActions from "./schoolActions.js"
 import * as StaffActions from "./staffActions.js"
 //import * as StudentActions from "./studentActions.js"
@@ -32,6 +33,8 @@ export var setFieldValues = FormActions.setFieldValues;
 
 
 /** School Actions **/
+export var startFetchSchools = SchoolActions.startFetchSchools;
+export var startAddSchool = SchoolActions.startAddSchool;
 export var addSchool = SchoolActions.addSchool;
 export var deleteSchool = SchoolActions.deleteSchool;
 export var editSchool = SchoolActions.editSchool;

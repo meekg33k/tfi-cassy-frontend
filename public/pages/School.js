@@ -28,7 +28,8 @@ var School =  React.createClass({
 		handleAddSchool(school){
 			//To include REST API calls
 			var { dispatch } = this.props;
-			dispatch(actions.addSchool(school));
+			//dispatch(actions.addSchool(school));
+			dispatch(actions.startAddSchool(school));
 			this.handleExitAddSchool();
 		},
 

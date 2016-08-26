@@ -8,7 +8,7 @@ import * as reducer from "../reducers/reducer"
 
 export var configure = () => {
 
-	const middleware = applyMiddleware(thunk, logger());
+	//const middleware = applyMiddleware(thunk, logger());
 
 	var appReducer = combineReducers({
 		addEventState: reducer.enableAddEventReducer,
@@ -29,7 +29,7 @@ export var configure = () => {
 		timelineState: reducer.timelineReducer
 	});
 
-	var store = createStore(appReducer, middleware);
+	var store = createStore(appReducer,applyMiddleware(thunk));
 
 	return store;
 }
