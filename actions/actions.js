@@ -1,191 +1,51 @@
+"use strict";
+
+import * as ErrorActions from "./errorActions.js"
+import * as EventActions from "./eventActions.js"
+import * as SchoolActions from "./schoolActions.js"
+import * as StaffActions from "./staffActions.js"
+//import * as StudentActions from "./studentActions.js"
+
+
 /** Error Actions **/
-
-export var setAdminError = (error) => {
-	return {
-		type: 'SET_ADMIN_ERROR',
-		payload: error
-	};
-}
-
-export var setLoginError = (errorMessage) => {
-	return {
-		type: 'SET_LOGIN_ERROR',
-		payload: errorMessage
-	};
-}
-
-export var setUserError = (errorMessage) => {
-	return {
-		type: 'SET_USER_ERROR',
-		payload: errorMessage
-	};
-}
-
-
-
+export var setAdminError = ErrorActions.setAdminError;
+export var setLoginError = ErrorActions.setLoginError;
+export var setUserError = ErrorActions.setUserError;
 
 
 /** Event Actions **/
-
-export var addEvent = (event) => {
-	return {
-		type: 'ADD_EVENT',
-		payload: event
-	};
-}
-
-export var deleteEvent = (victimEvent) => {
-	return {
-		type: 'DELETE_EVENT',
-		payload: victimEvent
-	};
-}
-
-export var disableEditButton = (value) => {
-	return {
-		type: 'DISABLE_EDIT_BTN',
-		payload: value
-	};
-}
-
-export var exitEditEvent = (notEditedEvent) => {
-	return {
-		type: 'EXIT_EDIT_EVENT',
-		payload: notEditedEvent
-	};
-}
-
-export var saveEditedEvent = (editedEvent) => {
-	return {
-		type: 'EDIT_EVENT',
-		payload: editedEvent
-	};
-}
-
-export var enableAddEvent = (value) => {
-	return {
-		type: 'ENABLE_ADD_EVENT',
-		payload: value
-	};
-}
-
-export var enableEditEvent = (value) => {
-	return {
-		type: 'ENABLE_EDIT_EVENT',
-		payload: value
-	};
-}
-
+export var addEvent = EventActions.addEvent;
+export var deleteEvent = EventActions.deleteEvent;
+export var disableEditButton = EventActions.disableEditButton;
+export var exitEditEvent = EventActions.exitEditEvent;
+export var saveEditedEvent = EventActions.saveEditedEvent;
+export var enableAddEvent = EventActions.enableAddEvent;
+export var enableEditEvent = EventActions.enableEditEvent;
 
 
 /** Form Actions **/
-
-export var addNewValueToField = (field, value) => {
-	return {
-		type: 'ADD_FIELD_VALUE',
-		field: field,
-		value: value
-	};
-}
-
-export var deleteValueFromField = (field, value) => {
-	return {
-		type: 'DELETE_FIELD_VALUE',
-		field: field,
-		value: value
-	};
-}
-
-export var toggleAddFieldButton = (value) => {
-	return {
-		type: 'TOGGLE_ADD_FIELD_BTN',
-		payload: value
-	};
-}
-
-export var setSelectedField = (value) => {
-	return {
-		type: 'SET_FIELD',
-		payload: value
-	};
-}
-
-export var setFieldValues = (field) => {
-	return {
-		type: 'SET_FIELD_VALUES',
-		payload: field
-	};
-}
+export var addNewValueToField = FormActions.addNewValueToField;
+export var deleteValueFromField = FormActions.deleteValueFromField;
+export var toggleAddFieldButton = FormActions.toggleAddFieldButton;
+export var setSelectedField = FormActions.setSelectedField;
+export var setFieldValues = FormActions.setFieldValues;
 
 
 /** School Actions **/
-
-export var addSchool = (newSchool) => {
-	return {
-		type: 'ADD_SCHOOL',
-		payload: newSchool
-	};
-}
-
-export var deleteSchool = (victimSchool) => {
-	return {
-		type: 'DELETE_SCHOOL',
-		payload: victimSchool
-	};
-}
-
-export var editSchool = (school) => {
-	return {
-		type: 'EDIT_SCHOOL',
-		payload: school
-	};
-}
-
-export var enableAddSchool = (value) => {
-	return {
-		type: 'ENABLE_ADD_SCHOOL',
-		payload: value
-	};
-}
-
-
+export var addSchool = SchoolActions.addSchool;
+export var deleteSchool = SchoolActions.deleteSchool;
+export var editSchool = SchoolActions.editSchool;
+export var enableAddSchool = SchoolActions.enableAddSchool;
 
 
 /** Staff Actions **/
-
-export var addStaff = (newStaff) => {
-	return {
-		type: 'ADD_STAFF',
-		payload: newStaff
-	};
-}
-
-export var deleteStaff = (victimStaff) => {
-	return {
-		type: 'DELETE_STAFF',
-		payload: victimStaff
-	};
-}
-
-export var editStaff = (staff) => {
-	return {
-		type: 'EDIT_STAFF',
-		payload: staff
-	};
-}
-
-export var enableAddStaff = (value) => {
-	return {
-		type: 'ENABLE_ADD_STAFF',
-		payload: value
-	};
-}
-
-
+export var addStaff = StaffActions.addStaff;
+export var deleteStaff = StaffActions.deleteStaff;
+export var editStaff = StaffActions.editStaff;
+export var enableAddStaff = StaffActions.enableAddStaff;
 
 
 /** TimeLine Actions **/
-
 export var addToTimeLine = (timelineObject) => {
 	return {
 		type: 'ADD_TO_TIMELINE',
