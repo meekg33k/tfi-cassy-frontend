@@ -4,7 +4,8 @@ import axios from "axios";
 
 //var CASSY_URL;
 
-var CASSY_URL = "https://cassy-server.herokuapp.com/";
+var CASSY_URL = "http://localhost:8888/";//"https://cassy-server.herokuapp.com/";
+
 // if (process.env.NODE_ENV === "production"){
 // 	CASSY_URL = "https://cassy-server.herokuapp.com/";
 // }
@@ -22,6 +23,26 @@ module.exports = {
 			"primaryContact": school.contact,
 			"contactEmail": school.contactEmail,
 			"district": school.district
+		}).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				console.log(res.data);
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+	addStaff: function(staff){
+		return axios.post(CASSY_URL+"users", {
+			"firstname": staff.firstName,
+			"lastname": staff.lastName,
+			"username": staff.email,
+			"role": staff.role,
+			"managerid": null
 		}).then(function(res) {
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);

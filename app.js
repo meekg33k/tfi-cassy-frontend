@@ -1,65 +1,52 @@
 var express = require('express');
+var cors = require('cors');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var connection = require('./database/connection')
+var passport = require('./services/passport-config');
 
 // routes files
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var students = require('./routes/students');
-
-var User = require('./model/User');
+var schools = require('./routes/schools');
+/*var students = require('./routes/students');
+var formFields = require('./routes/form-fields');
+var schoolUsers = require('./routes/school-users');
+var eventAttendances = require('./routes/event-attendances');*/
 
 var app = express();
 
-
 // view engine setup
- app.set('views', path.join(__dirname, 'views'));
- app.set('view engine', 'hjs');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hjs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: 'banana' }));
+app.use(session({ 
+  secret: 'banana',
+  resave: false,
+  saveUninitialized: false
+ }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
-
-
-passport.use(new LocalStrategy(function(username, password, done) {
-   new User.UserModel({username: username}).fetch().then(function(data) {
-      var user = data;
-      if(user === null) {
-         return done(null, false, {message: 'Invalid username or password'});
-      } else {
-         user = data.toJSON();
-         return done(null, user);
-      }
-   });
-}));
-
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(id, done) {
-  connection.query("SELECT * FROM users WHERE id = ? ",[id], function(err, rows){
-           done(err, rows[0]);
-       });
-});
+app.use(cors());
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/students', students);
+app.use('/schools', schools);
+/*app.use('/students', students);
+app.use('/form-fields', formFields);
+app.use('/school-users', schoolUsers);
+app.use('/event-attendances', eventAttendances)*/
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
