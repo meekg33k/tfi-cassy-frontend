@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var apiManager = require('../services/api-manager');
-var passport = require('passport');
+var passport = require('../services/passport-config');
 
 
 /* GET home page. */
@@ -12,21 +12,13 @@ router.get('/', (req, res, next) => {
 
 
 // Login
-router.post('/login', function(req, res, next) {
-  var username = req.body.username;
-  var password = req.body.password;
-
-  apiManager.validateLogin({username, password}, (err, result) => {
+router.post('/login', passport.authenticate('local'), (req, res) => {
+  apiManager.firstLogin(JSON.stringify(req.user[0].user_id), (err, result) => {
     if (err) {
-      console.error('No user for the given id ' + req.params.userid + err);
-      res.status(500).send({err: err.message});
+      console.error(`Error updating first login status ${err}`);
     }
-
-    if (result.length = 0){
-      res.status(403).send({err: "No such user found"});
-    }
-
-    res.status(200).json(JSON.stringify(result[0]));
+    
+    res.status(200).send(req.user);
   });
 });
 
