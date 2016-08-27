@@ -177,8 +177,8 @@ export default React.createClass({
 				id: Date.now(),
 				firstName: this.refs.firstName.value,
 				lastName: this.refs.lastName.value,
-				role: this.refs.role.value,
-				manager: this.refs.manager.value
+				role: this.refs.role.value/*,
+				manager: this.refs.manager.value*/
 			});
 			this.refs.firstName.value = '';
 			this.refs.lastName.value = '';
@@ -243,20 +243,20 @@ export default React.createClass({
                       </select>
                   </div>
               </div>
-							<div class="form-group">
+			  <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-success" onClick={this.addStaff}>
                       	<span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
                     	&nbsp; Save
                   	</button>&nbsp; &nbsp; &nbsp;
-										<button type="submit" class="btn btn-danger" onClick={this.exitAddStaff}>
-											<span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
-										&nbsp; Cancel
-									</button>
+					<button type="submit" class="btn btn-danger" onClick={this.exitAddStaff}>
+						<span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
+						&nbsp; Cancel
+					</button>
                 </div>
               </div>
           </form>
-			</div>
+		</div>
 		);
 	}
 

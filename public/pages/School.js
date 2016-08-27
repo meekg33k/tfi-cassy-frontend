@@ -15,6 +15,23 @@ import * as actions from "../../actions/actions"
 
 var School =  React.createClass({
 
+		componentWillMount(){
+			var user = JSON.parse(localStorage.getItem('user'));
+			console.log(user);
+			var {dispatch} = this.props;
+
+			if (user.role !== "administrator"){
+				window.location.replace(
+				  window.location.pathname + window.location.search + '#/'
+				);
+				dispatch(actions.setAdminError("No access"));
+			}
+			else{
+				dispatch(actions.startFetchSchools(user.id));
+			}
+
+		},
+
 		getInitialState(){
 			return {
 	  		addSchool: this.props,

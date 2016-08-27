@@ -28,7 +28,8 @@ var Staff =  React.createClass({
 	handleAddStaff(staff){
 		//To include REST API calls
 		var { dispatch } = this.props;
-		dispatch(actions.addStaff(staff));
+		//dispatch(actions.addStaff(staff));
+		dispatch(actions.startAddStaff(staff));
 		this.handleExitAddStaff();
 	},
 

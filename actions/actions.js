@@ -42,6 +42,7 @@ export var enableAddSchool = SchoolActions.enableAddSchool;
 
 
 /** Staff Actions **/
+export var startAddStaff = StaffActions.startAddStaff;
 export var addStaff = StaffActions.addStaff;
 export var deleteStaff = StaffActions.deleteStaff;
 export var editStaff = StaffActions.editStaff;

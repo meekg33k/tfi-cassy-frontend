@@ -10,8 +10,7 @@ export var startFetchSchools = (userId) => {
 			console.log("SCHOOLS OOOO!!!!!" ,res);
 
 		}, function(err){
-				//dispatch(actions.setLoginError("Invalid"));
-				console.log(err);
+			console.log(err);
 		});
 
 	};
