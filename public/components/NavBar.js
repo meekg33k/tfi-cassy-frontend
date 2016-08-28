@@ -6,6 +6,15 @@ import { IndexLink, Link } from "react-router";
 
 
 export default React.createClass({
+	logOut(){
+
+		ApiRequester.logoutUser().then(function(res){
+			localStorage.removeItem('user');
+		}, function(err){
+			console.log(err);
+		});
+	},
+
 	render(){
 		const active = { color: 'white', backgroundColor: '#909439' };
 		return(
@@ -25,23 +34,23 @@ export default React.createClass({
 		            </div>
 		            <div id="navbar" class="navbar-collapse collapse">
 		                <ul class="nav navbar-nav">
-											<li>
-												<IndexLink to="/students" activeStyle={active}>
-														<i class="fa fa-group "></i>
-															&nbsp;Students
-												</IndexLink>
-											</li>
+							<li>
+								<IndexLink to="/students" activeStyle={active}>
+									<i class="fa fa-group "></i>
+										&nbsp;Students
+								</IndexLink>
+							</li>
 	                    <li>
 	                    	<IndexLink to="/events" activeStyle={active}>
 	                      		<span class="glyphicon glyphicon-calendar"></span>
 		                            &nbsp;Events
-                        </IndexLink>
+                        	</IndexLink>
 	                    </li>
 	                    <li>
-												<IndexLink to="/reports" activeStyle={active}>
+							<IndexLink to="/reports" activeStyle={active}>
 	                      		<span class="glyphicon glyphicon-pencil"></span>
 		                            &nbsp;Reports
-                        </IndexLink>
+                        	</IndexLink>
 	                    </li>
 		                </ul>
 		                <ul class="nav navbar-nav navbar-right">

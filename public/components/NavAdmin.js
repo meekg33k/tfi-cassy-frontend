@@ -4,9 +4,22 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { IndexLink, Link } from "react-router";
 
+import ApiRequester from "../../apis/ApiRequester";
+
 
 //className Layout extends React.Component {
 export default React.createClass({
+
+	logOut(){
+		ApiRequester.logoutUser().then(function(res){
+
+			console.log("User logged out!");
+			localStorage.removeItem('user');
+		}, function(err){
+			console.log(err);
+		});
+	},
+
 	render(){
 		const active = { color: 'white', backgroundColor: '#909439' };
 		return(
@@ -30,32 +43,32 @@ export default React.createClass({
 		                    	<IndexLink to="/admin/schools" activeStyle={active}>
 		                      		<i class="fa fa-university"></i>
 		                            &nbsp;Schools
-	                        </IndexLink>
+	                        	</IndexLink>
 		                    </li>
 		                    <li>
 		                    	<IndexLink to="/admin/students" activeStyle={active}>
 		                        	<i class="fa fa-group "></i>
 	                            	&nbsp;Students
-	                        </IndexLink>
+	                        	</IndexLink>
 		                    </li>
 		                    <li>
 		                    	<IndexLink to="/admin/staff" activeStyle={active}>
 		                        	<i class="fa fa-user "></i>
 	                            	&nbsp;Staff
-	                        </IndexLink>
+	                        	</IndexLink>
 		                    </li>
 		                    <li>
-													<IndexLink to="/admin/forms" activeStyle={active}>
-	                            <span class="fa fa-edit" aria-hidden="true">
-	                            </span>
+								<IndexLink to="/admin/forms" activeStyle={active}>
+		                            <span class="fa fa-edit" aria-hidden="true">
+		                            </span>
 		                            &nbsp;Forms
-													</IndexLink>
+								</IndexLink>
 		                    </li>
 		                </ul>
 		                <ul class="nav navbar-nav navbar-right">
 		                    <li>
 		                    	<Link to="/">
-		                    		<span id="logout" class="glyphicon glyphicon-log-in" title="Logout Here"></span>
+		                    		<span id="logout" onClick={this.logOut} class="glyphicon glyphicon-log-in" title="Logout Here"></span>
 	                    		</Link>
 	                    	</li>
 		                </ul>
