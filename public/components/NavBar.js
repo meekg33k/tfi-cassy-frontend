@@ -56,7 +56,7 @@ export default React.createClass({
 		                <ul class="nav navbar-nav navbar-right">
 		                    <li>
 		                    	<Link to="/">
-		                    		<span id="logout" class="glyphicon glyphicon-log-in" title="Logout Here"></span>
+		                    		<span id="logout" onClick={this.logOut} class="glyphicon glyphicon-log-in" title="Logout Here"></span>
 	                    		</Link>
 	                    	</li>
 		                </ul>

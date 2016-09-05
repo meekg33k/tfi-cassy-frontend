@@ -6,7 +6,7 @@ import * as FormReducer from "./formReducer.js"
 import * as SchoolsReducer from "./schoolReducer.js"
 import * as StaffsReducer from "./staffReducer.js"
 import * as TimelinesReducer from "./timelineReducer.js"
-//import * as StudentReducer from "./studentReducer.js"
+import * as StudentsReducer from "./studentReducer.js"
 
 
 /** Error Reducers **/
@@ -25,18 +25,25 @@ export var eventReducer = EventsReducer.mainEventReducer;
 /** Form Reducers **/
 export var addFieldButtonReducer = FormReducer.addFieldButtonReducer;
 export var formFieldReducer = FormReducer.formFieldReducer;
-export var setSelectedFieldReducer = FormReducer.setSelectedFieldReducer;
+export var setSelectedFieldReducer = FormReducer.setSelectedFieldReducer; 
 export var setFieldValuesReducer = FormReducer.setFieldValuesReducer;
 
 
 /** School Reducers **/
 export var enableAddSchoolReducer = SchoolsReducer.enableAddSchoolReducer;
+export var selectedSchoolReducer = SchoolsReducer.selectedSchoolReducer;
 export var schoolReducer = SchoolsReducer.schoolReducer;
 
 
 /** Staff Reducers **/
 export var enableAddStaffReducer = StaffsReducer.enableAddStaffReducer;
 export var staffReducer = StaffsReducer.staffReducer;
+
+
+/** Student Reducers **/
+export var enableAddStudentReducer = StudentsReducer.enableAddStudentReducer;
+export var selectedStudentReducer = SchoolsReducer.selectedStudentReducer;
+export var studentReducer = StudentsReducer.studentReducer;
 
 
 /** Timeline Reducer **/

@@ -18,9 +18,6 @@ export default React.createClass({
 	render(){
 
 		var {schools} = this.props;
-
-		console.log(schools);
-
 		var renderMessage = () => {
 			if (schools.length == 0){
 				return(
@@ -33,20 +30,20 @@ export default React.createClass({
 				return(
 					<div>
         		<div class="row">
-							<div class="col-sm-2 col-lg-2 col-md-2">
-								<b>School Name</b>
-							</div>
-							<div class="col-sm-3 col-lg-3 col-md-3">
-								<b>Contact Email</b>
-							</div>
-							<div class="col-sm-1 col-lg-1 col-md-1">
-								<b>District</b>
-							</div>
-							<div class="col-sm-6 col-lg-6 col-md-6">
-								<b>Site Coordinator</b>
-							</div>
-						</div>
-						<br />
+					<div class="col-sm-2 col-lg-2 col-md-2">
+						<b>School Name</b>
+					</div>
+					<div class="col-sm-3 col-lg-3 col-md-3">
+						<b>Contact Email</b>
+					</div>
+					<div class="col-sm-1 col-lg-1 col-md-1">
+						<b>District</b>
+					</div>
+					<div class="col-sm-6 col-lg-6 col-md-6">
+						<b>Site Coordinator</b>
+					</div>
+				</div>
+				<br />
       			{renderSchools()}
     			</div>
       		);
@@ -56,7 +53,7 @@ export default React.createClass({
 		var renderSchools = () => {
 			return schools.map((school) => {
 				return (
-					<School key={school.id} onCancelEdit = {this.props.onCancelEditSchool} onDelete={this.props.onDeleteSchool} onEdit={this.props.onEditSchool} 
+					<School key={school.school_id} onCancelEdit = {this.props.onCancelEditSchool} onDelete={this.props.onDeleteSchool} onEdit={this.props.onEditSchool} 
 						validateEdit = {this.props.onValidateEditSchool} {...school}/>
 				);
 			});
@@ -65,7 +62,7 @@ export default React.createClass({
 		return(
 			<div>
 				<div class="container">
-							<br />
+					<br />
 			        <div class="row row-header">
 				        <div class="well width-well">
 				        	{renderMessage()}

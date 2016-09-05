@@ -3,53 +3,51 @@
 import uuid from "node-uuid";
 import React from "react";
 import ReactDOM from "react-dom";
-import BreadCrumb from "react-breadcrumbs"
+import BreadCrumb from "react-breadcrumbs";
+import {connect} from "react-redux";
 
 import AddStudentForm from "../components/AddStudentForm"
 import StudentList from "../components/StudentList"
 import Search from "../components/Searcher"
 import Util from "../../apis/Helper"
 
+import * as actions from "../../actions/actions"
 
 
-export default React.createClass({
+
+var Student = React.createClass({
+
+	componentWillMount(){
+		var user = JSON.parse(localStorage.getItem('user'));
+		var {dispatch} = this.props;
+
+		if (user){
+			//User is logged in
+			dispatch(actions.asyncFetchStudents());
+		}
+		else {
+			//User needs to login
+			window.location.replace(
+			  window.location.pathname + window.location.search + '#/'
+			);
+			//dispatch(actions.setUserError());
+		}
+	},
 
 	getInitialState(){
 		return {
-      addStudent: false,
+      		addStudent: false,
 			error: false,
 			errorMessage: "",
 			searchString: "",
-			students: [
-				{
-					id: 898091,
-					firstName: "Jermain",
-					lastName: "Dupril",
-					gender: "Male",
-					grade: "5th",
-					school: "Loyola College",
-					ethnicity: "African American"
-				}, {
-					id: 777118,
-					firstName: "Priyanka",
-					lastName: "Miya",
-					gender: "Female",
-					grade: "12th",
-					school: "Ranswood School",
-					ethnicity: "Asian Indian"
-				},
-			]
+			students: this.props
 		};
 	},
 
 	handleAddStudent(student){
-		this.setState({
-			students: [
-				...this.state.students,
-				student
-			],
-      addStudent: !this.state.addStudent
-		});
+		var { dispatch } = this.props;
+		dispatch(actions.asyncAddStudent(student));
+		this.handleExitAddStudent();
 	},
 
 	handleCancelEditStudent(){
@@ -61,46 +59,28 @@ export default React.createClass({
 	},
 
 	handleDeleteStudent(student){
-
-		var victimId;
-    if (confirm("Do you want to proceed to delete the student?") == true) {
-      	for(var i = 0;  i < this.state.students.length; i++) {
-  		    if (this.state.students[i].id === student.id) {
-  		        victimId = i;
-  		        break;
-  		    }
-  			}
-  			var updatedStudents = this.state.students.splice(victimId, 1);
-  			this.setState(updatedStudents);
-    }
+		if (confirm("Do you want to proceed to delete the student?") == true) {
+	    	var { dispatch } = this.props;
+	    	dispatch(actions.asyncDeleteStudent(student));
+	    }
 	},
 
 
 	handleEditStudent(editedStudent){
-
-		var updatedStudents = this.state.students.map((student) => {
-			if (student.id === editedStudent.id){
-				student.firstName = editedStudent.firstName;
-				student.lastName = editedStudent.lastName;
-				student.grade = editedStudent.grade;
-				student.school = editedStudent.school;
-				student.gender = editedStudent.gender;
-			};
-		});
-		this.setState(updatedStudents);
+		var { dispatch } = this.props;
+		dispatch(actions.asyncEditStudent(editedStudent));
 	},
 
-  handleExitAddStudent(){
-    this.setState({
-      addStudent: false
-    });
-  },
 
-  initiateAddStudent(){
-    this.setState({
-      addStudent: true
-    });
-  },
+	handleExitAddStudent(){
+	    var { dispatch } = this.props;
+		dispatch(actions.enableAddStudent(false));
+	  },
+
+    initiateAddStudent(){
+	    var { dispatch } = this.props;
+		dispatch(actions.enableAddStudent(true));
+    },
 
 	handleSearch(searchString){
 		this.setState({
@@ -167,8 +147,9 @@ export default React.createClass({
 
   	render() {
 
-  		var {students, searchString} = this.state;
-  		var filteredStudents = Util.filter(students, searchString);
+  		var {students} = this.props;
+  		var searchString= this.state.searchString;
+  		var filteredStudents = Util.filterStudents(students, searchString);
 
 			var displayErrorMessage = () =>{
 				if (this.state.error){
@@ -180,11 +161,11 @@ export default React.createClass({
 				}
 			};
 
-      var renderAddStudent = () =>{
-  			if (this.state.addStudent){
+      	var renderAddStudent = () =>{
+  			if (this.props.addStudent){
   				return(
   					<div>
-	            <AddStudentForm onAddStudent={this.handleAddStudent} onExitAddStudent={this.handleExitAddStudent}/>
+	            		<AddStudentForm onAddStudent={this.handleAddStudent} onExitAddStudent={this.handleExitAddStudent}/>
   					</div>
   				);
   			}
@@ -193,38 +174,47 @@ export default React.createClass({
 
 	    return (
 	    	<div>
-				    <div class="container">
-              <p class="line-breaker" />
-              <BreadCrumb routes={this.props.routes} separator =" >> "/>
-              <br />
-              <br />
+			    <div class="container">
+	                <p class="line-breaker" />
+	                <BreadCrumb routes={this.props.routes} separator =" >> "/>
+	                <br />
+	                <br />
 			        <div class="row row-header report-form">
-          				{renderAddStudent()}
+	      				{renderAddStudent()}
 			            <br />
-                  <div class="row row-header">
-                    <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
-                        <p class="student-header">Student List</p>
-                    </div>
-                    <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2">
-                      <div class="form-group">
-                            <button type="submit" class="btn btn-success" onClick={this.initiateAddStudent}>
-                              <span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
-                            &nbsp; Add Student
-                          </button>
-                      </div>
-                    </div>
-  			            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
-  			            	<Search onSearch={this.handleSearch} placeholder = "Enter student name here to search"/>
-  			            </div>
-                  </div>
-									<div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
-										{displayErrorMessage()}
-									</div>
+	                    <div class="row row-header">
+		                    <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+		                        <p class="student-header">Student List</p>
+		                    </div>
+		                    <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2">
+		                        <div class="form-group">
+		                            <button type="submit" class="btn btn-success" onClick={this.initiateAddStudent}>
+		                              <span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
+		                            &nbsp; Add Student
+		                          </button>
+		                        </div>
+		                    </div>
+	  			            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
+	  			            	<Search onSearch={this.handleSearch} placeholder = "Enter student name here to search"/>
+	  			            </div>
+	                    </div>
+						<div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+							{displayErrorMessage()}
+						</div>
 			            <StudentList students={filteredStudents} onCancelEditStudent={this.handleCancelEditStudent} onDeleteStudent={this.handleDeleteStudent}
-											onEditStudent={this.handleEditStudent} onValidateEditStudent={this.validateEditStudent}/>
+							onEditStudent={this.handleEditStudent} onValidateEditStudent={this.validateEditStudent}/>
 			        </div>
 			    </div>
 			</div>
 		);
   }
 });
+
+module.exports = connect(
+	(store) => {
+		return {
+			students: store.students,
+			addStudent: store.addStudentState
+		};
+	}
+)(Student);

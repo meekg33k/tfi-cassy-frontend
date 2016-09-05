@@ -12,10 +12,10 @@ var passport = require('./services/passport-config');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var schools = require('./routes/schools');
-/*var students = require('./routes/students');
 var formFields = require('./routes/form-fields');
-var schoolUsers = require('./routes/school-users');
-var eventAttendances = require('./routes/event-attendances');*/
+var students = require('./routes/students');
+var eventAttendances = require('./routes/event-attendances');
+/*var schoolUsers = require('./routes/school-users');*/
 
 var app = express();
 
@@ -42,10 +42,10 @@ app.use(cors());
 app.use('/', routes);
 app.use('/users', users);
 app.use('/schools', schools);
-/*app.use('/students', students);
 app.use('/form-fields', formFields);
-app.use('/school-users', schoolUsers);
-app.use('/event-attendances', eventAttendances)*/
+app.use('/students', students);
+app.use('/event-attendances', eventAttendances);
+/*app.use('/school-users', schoolUsers);*/
 
 
 // catch 404 and forward to error handler

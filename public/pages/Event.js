@@ -18,9 +18,26 @@ import * as actions from "../../actions/actions"
 
 var Event = React.createClass({
 
+	componentWillMount(){
+		var user = JSON.parse(localStorage.getItem('user'));
+		var {dispatch} = this.props;
+
+		if (user){
+			//User is logged in
+			dispatch(actions.asyncFetchEvents());
+		}
+		else {
+			//User needs to login
+			window.location.replace(
+			  window.location.pathname + window.location.search + '#/'
+			);
+			//dispatch(actions.setUserError());
+		}
+	},
+
 	getInitialState(){
 		return {
-  		addEvent: this.props,
+  			addEvent: this.props,
 			isEditing: this.props, //app-wide state of editing
 			showEditForm: false, //component state to determine if form should be displayed
 			searchString: "",
@@ -33,7 +50,8 @@ var Event = React.createClass({
 	handleAddEvent(event){
 		var { dispatch } = this.props;
 		if (!this.props.showEditForm){
-			dispatch(actions.addEvent(event));
+			//dispatch(actions.addEvent(event));
+			dispatch(actions.asyncAddEvent(event));
 			this.handleExitAddEvent();
 		}
 	},
@@ -43,7 +61,7 @@ var Event = React.createClass({
 
     	if (confirm("Do you want to proceed to delete the event?") == true) {
     		var { dispatch } = this.props;
-			dispatch(actions.deleteEvent(event));
+			dispatch(actions.asyncDeleteEvent(event));
     	}
 
 	},
@@ -79,7 +97,8 @@ var Event = React.createClass({
 		var { dispatch } = this.props;
 
 		//Does actual editing.. makes API calls
-		dispatch(actions.saveEditedEvent(eventEdited));
+		//dispatch(actions.saveEditedEvent(eventEdited));
+		dispatch(actions.asyncEditEvent(eventEdited));
 		dispatch(actions.enableEditEvent(false));
 
 		this.setState({

@@ -29,7 +29,7 @@ export default React.createClass({
 			else {
 				return(
 					<div>
-		        <div class="row">
+		        		<div class="row">
 							<div class="col-sm-2 col-lg-2 col md-2">
 								<b>First Name</b>
 							</div>
@@ -44,16 +44,16 @@ export default React.createClass({
 							</div>
 						</div>
 						<br />
-            {renderStaff()}
-          </div>
-          );
+		            	{renderStaff()}
+		          	</div>
+	          	);
 			}
 		};
 
 		var renderStaff = () => {
 			return staff.map((staffMember) => {
 				return (
-					<Staff key={staffMember.id} onCancelEdit = {this.props.onCancelEditStaff} onDelete={this.props.onDeleteStaff} onEdit={this.props.onEditStaff}
+					<Staff key={staffMember.user_id} onCancelEdit = {this.props.onCancelEditStaff} onDelete={this.props.onDeleteStaff} onEdit={this.props.onEditStaff}
 							validateEdit={this.props.onValidateEditStaff} {...staffMember}/>
 				);
 			});
@@ -62,9 +62,9 @@ export default React.createClass({
 		return(
 			<div>
 				<div class="container">
-							<br />
+					<br />
 			        <div class="row row-header">
-				        <div class="well width-well">
+				        <div class="well width-well list-div">
 				        	{renderMessage()}
 				        </div>
 			        </div>

@@ -194,7 +194,8 @@ apiManager.deleteUser = (adminId, id, callback) => {
     last_modified_at: rightNow,
     last_modified_by: adminId
   };
-  connection.query('UPDATE user SET ? WHERE user_id = ?', [user, id], (err, result) => {
+  //connection.query('UPDATE user SET ? WHERE user_id = ?', [user, id], (err, result) => {
+  connection.query('UPDATE user SET active = ? WHERE user_id = ?', [user, id], (err, result) => {
     if (err) {
       callback(err);
     }
@@ -791,7 +792,7 @@ apiManager.deleteStudentNote = (adminId, id, callback) => {
 // Create a school
 apiManager.createSchool = (adminId, params, callback) => {
   var school = {
-    react_id: rightNow,
+    react_id: params.react_id, //Date.now(), moment().format('YYYY-MM-DD HH:mm:ss') //rightNow,
     school_name: params.name,
     address: params.address,
     principal: params.principal,

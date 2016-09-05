@@ -16,13 +16,14 @@ var Index = React.createClass( {
 
 	handleUserLogin(user){
 		var {dispatch} = this.props;
-		console.log("User object", user);
 
 		ApiRequester.loginUser(user).then(function(res){
 			console.log("Received from server" ,res);
 			dispatch(actions.setLoginError("Valid"));
 
-			if (res[0].role === "administrator"){
+			localStorage.setItem('user', JSON.stringify(res[0]));
+			
+			if (res[0].role.toLowerCase() === "administrator"){
 				window.location.replace(
 				  window.location.pathname + window.location.search + '#/admin'
 				);

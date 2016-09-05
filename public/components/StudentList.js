@@ -30,7 +30,7 @@ export default React.createClass({
 			else {
 				return(
 					<div>
-		        <div class="row">
+		        		<div class="row">
 							<div class="col-sm-2 col-lg-2 col md-2">
 								<b>First Name</b>
 							</div>
@@ -45,16 +45,16 @@ export default React.createClass({
 							</div>
 						</div>
 						<br />
-            {renderStudents()}
-          </div>
-        );
+            			{renderStudents()}
+          			</div>
+        		);
 			}
 		};
 
 		var renderStudents = () => {
 			return students.map((student) => {
 				return (
-					<Student key={student.id} onCancelEdit = {this.props.onCancelEditStudent} onEdit={this.props.onEditStudent} onDelete={this.props.onDeleteStudent}
+					<Student key={student.student_id} onCancelEdit = {this.props.onCancelEditStudent} onEdit={this.props.onEditStudent} onDelete={this.props.onDeleteStudent}
 							validateEdit={this.props.onValidateEditStudent} {...student}/>
 				);
 			});
@@ -65,7 +65,7 @@ export default React.createClass({
 				<div class="container">
 			        <br />
 			        <div class="row row-header">
-				        <div class="well width-well">
+				        <div class="well width-well list-div">
 				        	{renderMessage()}
 				        </div>
 			        </div>

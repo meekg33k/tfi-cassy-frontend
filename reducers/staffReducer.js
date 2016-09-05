@@ -36,7 +36,7 @@ var staffState = [
 			];
 
 
-export var staffReducer = (state = staffState, action) => {
+export var staffReducer = (state = [], action) => {
 	switch(action.type){
 		case 'ADD_STAFF':
 			console.log(action.payload);
@@ -80,6 +80,10 @@ export var staffReducer = (state = staffState, action) => {
 			    	email: action.payload.email
 			    }
 			];
+
+		case 'SET_STAFF_LIST':
+			return action.payload;
+
 		default:
 			return state;
 	}

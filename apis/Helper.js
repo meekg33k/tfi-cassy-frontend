@@ -53,6 +53,89 @@ module.exports = {
 		return filteredArray;
 	},
 
+	filterSchools(array, searchText){
+		var filteredArray;
+		
+		filteredArray = array.filter((school) => {
+			var schoolName = school.school_name.toLowerCase();9
+			return searchText.length === 0 || schoolName.indexOf(searchText) > -1;
+		});
+
+		filteredArray.sort((a,b) => {
+
+			if (a.school_id < b.school_id){
+				return 1;
+			}
+			else if (a.school_id > b.school_id){
+				return -1;
+			}
+			else{
+				return 0;
+			}
+
+		});
+
+		return filteredArray;
+	},
+
+	filterStaff(array, searchText){
+
+		console.log(array);
+		var filteredArray = array;
+
+		filteredArray = array.filter((element) => {
+			var fieldOne = element.first_name.toLowerCase();
+			var fieldTwo = element.last_name.toLowerCase();
+
+			return searchText.length === 0 || fieldOne.indexOf(searchText) > -1 || fieldTwo.indexOf(searchText) > -1;
+		});
+
+		filteredArray.sort((a,b) => {
+
+			if (a.user_id < b.user_id){
+				return 1;
+			}
+			else if (a.user_id > b.user_id){
+				return -1;
+			}
+			else{
+				return 0;
+			}
+
+		});
+
+		return filteredArray;
+	},
+
+	filterStudents(array, searchText){
+
+		console.log(array);
+		var filteredArray = array;
+
+		filteredArray = array.filter((element) => {
+			var fieldOne = element.first_name.toLowerCase();
+			var fieldTwo = element.last_name.toLowerCase();
+
+			return searchText.length === 0 || fieldOne.indexOf(searchText) > -1 || fieldTwo.indexOf(searchText) > -1;
+		});
+
+		filteredArray.sort((a,b) => {
+
+			if (a.student_id < b.student_id){
+				return 1;
+			}
+			else if (a.student_id > b.student_id){
+				return -1;
+			}
+			else{
+				return 0;
+			}
+
+		});
+
+		return filteredArray;
+	},
+
 	genericSort(array){
 
 		array.sort((a,b) => {

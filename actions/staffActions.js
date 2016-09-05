@@ -1,46 +1,68 @@
 "use strict";
 
 import ApiRequester from "../apis/ApiRequester.js";
-import axios from "axios";
 
 
-export var startAddStaff = (staff) => {
+/** Async Server Actions **/
+
+export var asyncAddStaff = (staff) => {
 	return (dispatch, getState) => {
 
-		console.log("This is the staff to be added", staff);
-
-		axios.post("https://cassy-server.herokuapp.com/users", {
-			"firstname": staff.firstName,
-			"lastname": staff.lastName,
-			"username": staff.email,
-			"role": staff.role,
-			"managerid": null
-		}).then(function(res) {
-			if (res.data.cod && res.data.message){
-				throw new Error(res.data.message);
-			}
-			else {
-				console.log(res.data);
-				return res.data;
-			}
-		}, function(res) {
-			throw new Error(res.data.message);
-		});
-
-
-		/*ApiRequester.addStaff(staff).then(function(res){
-			console.log("Staff addition successful!!!" ,res);
-			//dispatch(addSchool(school));
+		ApiRequester.addStaff(staff).then(function(res){
+			alert("New staff added successfully");  //<============ Change all alerts to modals
+			dispatch(asyncFetchStaff());
 
 		}, function(err){
-			//dispatch(actions.setLoginError("Invalid"));
 			console.log(err);
-		});*/
+		});
+
+	};
+}
+
+export var asyncDeleteStaff = (staff) => {
+	return (dispatch, getState) => {
+
+		ApiRequester.deleteStaff(staff).then(function(res){
+			alert("Staff deleted successfully"); //<============ Change all alerts to modals
+			//Update changes in Staff view
+			dispatch(asyncFetchStaff());
+
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+export var asyncEditStaff = (staff) => {
+	return (dispatch, getState) => {
+
+		ApiRequester.editStaff(staff).then(function(res){
+			alert("Changes saved successfully"); //<============ Change all alerts to modals
+			dispatch(asyncFetchStaff());
+
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+export var asyncFetchStaff = () => {
+	return (dispatch, getState) => {
+
+		ApiRequester.getAllStaff().then(function(res){
+			dispatch(setStaffList(res));
+		}, function(err){
+			console.log(err);
+		});
 
 	};
 }
 
 
+
+/** User Interface Actions **/
 export var addStaff = (newStaff) => {
 	return {
 		type: 'ADD_STAFF',
@@ -66,5 +88,12 @@ export var enableAddStaff = (value) => {
 	return {
 		type: 'ENABLE_ADD_STAFF',
 		payload: value
+	};
+}
+
+export var setStaffList = (staff) => {
+	return {
+		type: 'SET_STAFF_LIST',
+		payload: staff
 	};
 }

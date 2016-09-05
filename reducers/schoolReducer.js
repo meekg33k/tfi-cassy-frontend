@@ -9,6 +9,14 @@ export var enableAddSchoolReducer = (state = false, action) => {
 	}
 };
 
+export var selectedSchoolReducer = (state = {}, action) => {
+	switch(action.type){
+		case 'SET_SCHOOL':
+			return action.payload;
+		default:
+			return state;
+	}
+};
 
 var schoolState = [
 				{
@@ -42,7 +50,7 @@ var schoolState = [
 				},
 			];
 
-export var schoolReducer = (state = schoolState, action) => {
+export var schoolReducer = (state = [], action) => {
 	switch(action.type){
 		case 'ADD_SCHOOL':
 			console.log(action.payload);
@@ -89,6 +97,9 @@ export var schoolReducer = (state = schoolState, action) => {
 			    	siteCoordinator: action.payload.siteCoordinator
 			    }
 			];
+
+		case 'SET_SCHOOL_LIST':
+			return action.payload;
 
 		default:
 			return state;

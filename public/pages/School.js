@@ -15,99 +15,97 @@ import * as actions from "../../actions/actions"
 
 var School =  React.createClass({
 
-		componentWillMount(){
-			var user = JSON.parse(localStorage.getItem('user'));
-			console.log(user);
-			var {dispatch} = this.props;
+	componentWillMount(){
+		var user = JSON.parse(localStorage.getItem('user'));
+		var {dispatch} = this.props;
 
-			if (user.role !== "administrator"){
-				window.location.replace(
-				  window.location.pathname + window.location.search + '#/'
-				);
-				dispatch(actions.setAdminError("No access"));
-			}
-			else{
-				dispatch(actions.startFetchSchools(user.id));
-			}
+		if (user.role !== "administrator"){
+			window.location.replace(
+			  window.location.pathname + window.location.search + '#/'
+			);
+			dispatch(actions.setAdminError("No access"));
+		}
+		else{
+			dispatch(actions.asyncFetchSchools());
+			dispatch(actions.asyncFetchStaff());
+		}
 
-		},
+	},
 
-		getInitialState(){
-			return {
-	  		addSchool: this.props,
-				error: false,
-				errorMessage: "Kindly enter school name",
-				searchString: "",
-				schools: this.props
-			};
-		},
+	getInitialState(){
+		return {
+  			addSchool: this.props,
+			error: false,
+			errorMessage: "Kindly enter school name",
+			searchString: "",
+			schools: this.props
+		};
+	},
 
-		handleAddSchool(school){
-			//To include REST API calls
-			var { dispatch } = this.props;
-			//dispatch(actions.addSchool(school));
-			dispatch(actions.startAddSchool(school));
-			this.handleExitAddSchool();
-		},
+	handleAddSchool(school){
+		var { dispatch } = this.props;
+		dispatch(actions.asyncAddSchool(school));
+		this.handleExitAddSchool();
+	},
 
-		handleCancelEditSchool(){
-			if  (this.state.error == true){
-				this.setState({
-					error: false
-				});
-			}
-		},
-
-		handleDeleteSchool(school){
-		    if (confirm("Do you want to proceed to delete the school?") == true) {
-		    	//TODO: Include REST API calls to delete school
-		    	var { dispatch } = this.props;
-				dispatch(actions.deleteSchool(school));
-		    }
-		},
-
-		handleEditSchool(editedSchool){
-			var { dispatch } = this.props;
-			console.log("Edited School in School", editedSchool);
-			dispatch(actions.editSchool(editedSchool));
-		},
-
-		handleExitAddSchool(){
-			var { dispatch } = this.props;
-			dispatch(actions.enableAddSchool(false));
-		},
-
-		handleSearch(searchString){
+	handleCancelEditSchool(){
+		if  (this.state.error == true){
 			this.setState({
-				searchString: searchString.toLowerCase()
+				error: false
 			});
-		},
+		}
+	},
 
-		initiateAddSchool(){
-			var { dispatch } = this.props;
-			dispatch(actions.enableAddSchool(true));
-		},
+	handleDeleteSchool(victimSchool){
+	    if (confirm("Do you want to proceed to delete the school?") == true) {
+	    	//TODO: Include REST API calls to delete school
+	    	var { dispatch } = this.props;
+			dispatch(actions.asyncDeleteSchool(victimSchool));
+	    }
+	},
 
-		validateEditSchool(schoolName){
-			if (schoolName.length == 0){
-					this.setState({
-						error: true
-					});
-				return false;
-			}
-			else{
-				this.setState({
-					error: false
-				});
-				return true;
-			}
-		},
+	handleEditSchool(editedSchool){
+		var { dispatch } = this.props;
+		console.log("Edited School in School", editedSchool);
+		dispatch(actions.asyncEditSchool(editedSchool));
+		//dispatch(actions.editSchool(editedSchool));
+	},
 
+	handleExitAddSchool(){
+		var { dispatch } = this.props;
+		dispatch(actions.enableAddSchool(false));
+	},
+
+	handleSearch(searchString){
+		this.setState({
+			searchString: searchString.toLowerCase()
+		});
+	},
+
+	initiateAddSchool(){
+		var { dispatch } = this.props;
+		dispatch(actions.enableAddSchool(true));
+	},
+
+	validateEditSchool(schoolName){
+		if (schoolName.length == 0){
+			this.setState({
+				error: true
+			});
+			return false;
+		}
+		else{
+			this.setState({
+				error: false
+			});
+			return true;
+		}
+	},
 
   	render() {
   		var {schools} = this.props;
   		var searchString= this.state.searchString;
-  		var filteredSchools = SearchProcessor.filterEvents(schools, searchString);
+  		var filteredSchools = SearchProcessor.filterSchools(schools, searchString);
 
 			var displayErrorMessage = () =>{
 				if (this.state.error){
@@ -131,15 +129,15 @@ var School =  React.createClass({
 
 	    return (
 	    	<div>
-					<div class="container">
-		        <p class="line-breaker" />
-						<BreadCrumb routes={this.props.routes} separator =" >> "/>
-						<br />
-						<br />
+				<div class="container">
+		        	<p class="line-breaker" />
+					<BreadCrumb routes={this.props.routes} separator =" >> "/>
+					<br />
+					<br />
 			        <div class="row row-header report-form">
-								{renderAddSchool()}
-								<br />
-								<div class="row row-header">
+						{renderAddSchool()}
+						<br />
+						<div class="row row-header">
 	                <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
 	                    <p class="school-header">School List</p>
 	                </div>
@@ -155,11 +153,11 @@ var School =  React.createClass({
 			            	<Search onSearch={this.handleSearch} placeholder = "Enter school name here to search"/>
 			            </div>
 	            	</div>
-								<div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
-									{displayErrorMessage()}
-								</div>
+						<div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
+							{displayErrorMessage()}
+						</div>
 			            <SchoolList schools={filteredSchools} onCancelEditSchool = {this.handleCancelEditSchool}
-											onDeleteSchool={this.handleDeleteSchool} onEditSchool={this.handleEditSchool} onValidateEditSchool = {this.validateEditSchool} />
+							onDeleteSchool={this.handleDeleteSchool} onEditSchool={this.handleEditSchool} onValidateEditSchool = {this.validateEditSchool} />
 			        </div>
 			    </div>
 			</div>

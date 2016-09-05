@@ -105,7 +105,7 @@ var defaultFormState = [
 			]
 	}
 ];
-
+	
 
 
 /** Form Reducers **/
@@ -118,7 +118,17 @@ export var addFieldButtonReducer = (state = false, action) => {
 	}
 };
 
-export var formFieldReducer = (state = defaultFormState, action) => {
+var formState = [
+	{
+		id: 8989819898989898,
+		field_name: "--None--"
+	},
+];
+
+
+
+//export var formFieldReducer = (state = defaultFormState, action) => {
+export var formFieldReducer = (state = formState, action) => {
 	switch(action.type){
 		case 'ADD_FIELD_VALUE':
 			var fieldId;
@@ -126,11 +136,11 @@ export var formFieldReducer = (state = defaultFormState, action) => {
 
 			for(var i = 0;  i < state.length; i++) {
 			    if (state[i].name === action.field) {
-							mutatedField = state[i];
-							mutatedField.fieldValues.push({
-								id: Date.now(),
-								name: action.value
-							})
+					mutatedField = state[i];
+					mutatedField.fieldValues.push({
+						id: Date.now(),
+						name: action.value
+					})
 			        fieldId = i;
 			        break;
 			    }
@@ -157,8 +167,8 @@ export var formFieldReducer = (state = defaultFormState, action) => {
 						mutatedField = state[i];
 						for (var j = 0; j < mutatedField.fieldValues.length; j++){
 							if (mutatedField.fieldValues[0].name == action.value){
-									victimValueId = j;
-									mutatedField.splice(victimValueId, 1);
+								victimValueId = j;
+								mutatedField.splice(victimValueId, 1);
 							}
 						}
 						victimFieldId = i;
@@ -169,7 +179,7 @@ export var formFieldReducer = (state = defaultFormState, action) => {
 			return [
 				    ...state.slice(0, victimFieldId),
 				    ...state.slice(victimFieldId + 1),
-						mutatedField
+					mutatedField
 				];
 
 		case 'EDIT_FIELD_VALUE':
@@ -185,16 +195,27 @@ export var formFieldReducer = (state = defaultFormState, action) => {
 			    ...state.slice(0, eventId),
 			    ...state.slice(eventId + 1),
 			    {
-				    	id: Date.now(),
-				    	name: action.payload.name,
-							type: action.payload.type,
-							school: action.payload.school,
+			    	id: Date.now(),
+			    	name: action.payload.name,
+					type: action.payload.type,
+					school: action.payload.school,
 	        		other: action.payload.other,
-							description: action.payload.description,
-							date: action.payload.date,
+					description: action.payload.description,
+					date: action.payload.date,
 	        		students: action.payload.attendingStudents,
 				}
 			];
+
+		case 'SET_FORMFIELDS_LIST':
+			var newState = state;
+
+			for(var i = 0;  i < action.payload.length; i++) {
+			    newState.push(action.payload[i]);
+			}
+
+			console.log("Form Fields from server", newState);
+			return newState;
+
 		default:
 			return state;
 	}

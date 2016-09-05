@@ -9,25 +9,37 @@ import { Link } from "react-router";
 export default React.createClass({
 
 	getInitialState(){
+
+		var userRole = JSON.parse(localStorage.getItem('user')).role.toLowerCase() == "administrator" ? "admin" : "";
+
 		return {
 			isEditing: false,
-			id: this.props.id,
-			firstName: this.props.firstName,
-			lastName: this.props.lastName,
+			id: this.props.student_id,
+			studentId: this.props.student_id,
+			firstName: this.props.first_name,
+			lastName: this.props.last_name,
 			gender: this.props.gender,
-			grade: this.props.grade,
+/*			grade: this.props.grade,
 			school: this.props.school,
-			userType: "",
+			lunchOption: this.props.lunchOption,
+			presentingIssue: this.props.presentingIssue,
+			referral: this.props.referral,
+			school: this.props.school,*/
+			userType: userRole
 		};
 	},
 
 	getStudent(){
 		var student = {
 			id: this.state.id,
-			firstName: this.state.firstName,
-			lastName: this.state.lastName,
+			student_id: this.state.studentId,
+			firstname: this.state.firstName,
+			lastname: this.state.lastName,
 			gender: this.state.gender,
-			grade: this.state.grade,
+/*			grade: this.state.grade,
+			lunchOption: this.state.lunchOption,
+			presentingIssue: this.state.presentingIssue,
+			referral: this.state.referral,*/
 			school: this.state.school
 		};
 
@@ -44,9 +56,7 @@ export default React.createClass({
 
 	delete(e){
 		e.preventDefault(e);
-		this.props.onDelete({
-			id: this.state.id
-		});
+		this.props.onDelete(this.getStudent());
 	},
 
 
@@ -74,15 +84,25 @@ export default React.createClass({
 				id: this.state.id,
 				firstName: this.refs.firstName.value,
 				lastName: this.refs.lastName.value,
+				gender: this.state.gender,
 				grade: this.refs.grade.value,
+				/*	gender: this.state.grade,
+				lunchOption: this.state.lunchOption,
+				presentingIssue: this.state.presentingIssue,
+				referral: this.state.referral,*/
 				school: this.refs.school.value
 			});
 
+			//change this to work only after async call succeeds
 			this.setState({
 				isEditing: !this.state.isEditing,
 				firstName: this.refs.firstName.value,
 				lastName: this.refs.lastName.value,
 				grade: this.refs.grade.value,
+				/*	gender: this.state.grade,
+				lunchOption: this.state.lunchOption,
+				presentingIssue: this.state.presentingIssue,
+				referral: this.state.referral,*/
 				school: this.refs.school.value
 			});
 		}
@@ -110,7 +130,7 @@ export default React.createClass({
 								{this.state.lastName}
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
-								{this.state.grade}
+								{this.state.gender}
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
 								{this.state.school}
@@ -118,22 +138,22 @@ export default React.createClass({
 							<div class="col-sm-4 col-lg-4 col md-4">
 								<Link to={`${this.state.userType}/students/${this.state}`}>
 									<button type="button" class="btn btn-sm btn-primary">
-											<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-											&nbsp; Profile
+										<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+										&nbsp; Profile
 									</button>
 								</Link>
 								&nbsp;
 
 								<button type="button" onClick={this.startEdit} class="btn btn-sm btn-warning">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                    &nbsp; Edit
-                </button>
+				                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+				                    &nbsp; Edit
+				                </button>
 								&nbsp;
 
 								<button type="button" onClick={this.delete} class="btn btn-sm btn-danger">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true">  </span>
-                    &nbsp; Delete
-                </button>
+				                    <span class="glyphicon glyphicon-trash" aria-hidden="true">  </span>
+				                    &nbsp; Delete
+				                </button>
 							</div>
 						</div>
 					</div>
@@ -152,51 +172,49 @@ export default React.createClass({
 							</div>
 							<div class="col-sm-2 col-lg-2 col md-2">
 								<select class="form-ctrl" ref="grade">
-                  <option>1st</option>
-                  <option>2nd</option>
-                  <option>3rd</option>
-                  <option>4th</option>
-                  <option>5th</option>
-                  <option>6th</option>
-                  <option>7th</option>
-                  <option>8th</option>
-                  <option>9th</option>
-                  <option>10th</option>
-                  <option>11th</option>
-                  <option>12th</option>
-                  <option>Kindergarten</option>
-              </select>
+				                  	<option>1st</option>
+				                  	<option>2nd</option>
+				                  	<option>3rd</option>
+				                  	<option>4th</option>
+				                  	<option>5th</option>
+				                  	<option>6th</option>
+				                  	<option>7th</option>
+				                  	<option>8th</option>
+				                  	<option>9th</option>
+				                  	<option>10th</option>
+				                  	<option>11th</option>
+				                  	<option>12th</option>
+				                  	<option>Kindergarten</option>
+				              </select>
 							</div>
 							<div class="col-sm-3 col-lg-3 col md-3">
-                <select class="form-control" ref="school">
-                    <option>ABC School</option>
-                    <option>XYZ College</option>
-                </select>
+				                <select class="form-control" ref="school">
+				                    <option>ABC School</option>
+				                    <option>XYZ College</option>
+				                </select>
 							</div>
 							<div class="col-sm-3 col-lg-3 col-md-3">
 								<button type="button" onClick={this.saveEdit} class="btn btn-sm btn-success">
-                    <span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
-                    &nbsp; Save
-                </button>
-                &emsp;
-                &emsp;
+				                    <span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
+				                    &nbsp; Save
+				                </button>
+				                &emsp;
+				                &emsp;
 
 								<button type="button" onClick={this.cancelEdit} class="btn btn-sm btn-danger">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
-                    &nbsp; Cancel
-                </button>
+				                    <span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
+				                    &nbsp; Cancel
+				                </button>
 							</div>
 						</div>
 					</div>
 				);
 			}
 		};
-
 		return(
 			<div>
 				{renderStudent()}
 			</div>
 		);
 	}
-
 });

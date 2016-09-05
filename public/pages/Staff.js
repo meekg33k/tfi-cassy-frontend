@@ -15,9 +15,34 @@ import * as actions from "../../actions/actions"
 
 var Staff =  React.createClass({
 
+	componentWillMount(){
+		var user = JSON.parse(localStorage.getItem('user'));
+		var {dispatch} = this.props;
+
+		if (user){
+			if (user.role !== "administrator"){
+				window.location.replace(
+				  window.location.pathname + window.location.search + '#/'
+				);
+				dispatch(actions.setAdminError("No access"));
+			}
+			else{
+				//User has admin access
+				dispatch(actions.asyncFetchStaff());
+			}
+		}
+		else {
+			//User needs to login
+			window.location.replace(
+			  window.location.pathname + window.location.search + '#/'
+			);
+			//dispatch(actions.setUserError());
+		}
+	},
+
 	getInitialState(){
 		return {
-  		addStaff: this.props,
+  			addStaff: this.props,
 			error: false,
 			errorMessage: "",
 			searchString: "",
@@ -26,10 +51,8 @@ var Staff =  React.createClass({
 	},
 
 	handleAddStaff(staff){
-		//To include REST API calls
 		var { dispatch } = this.props;
-		//dispatch(actions.addStaff(staff));
-		dispatch(actions.startAddStaff(staff));
+		dispatch(actions.asyncAddStaff(staff));
 		this.handleExitAddStaff();
 	},
 
@@ -43,15 +66,14 @@ var Staff =  React.createClass({
 
 	handleDeleteStaff(staff){
 	    if (confirm("Do you want to proceed to delete the staff?") == true) {
-	    	//TODO: Include REST API calls to delete staff
 	    	var { dispatch } = this.props;
-				dispatch(actions.deleteStaff(staff));
+	    	dispatch(actions.asyncDeleteStaff(staff));
 	    }
 	},
 
 	handleEditStaff(editedStaff){
 		var { dispatch } = this.props;
-		dispatch(actions.editStaff(editedStaff));
+		dispatch(actions.asyncEditStaff(editedStaff));
 	},
 
 	handleExitAddStaff(){
@@ -131,7 +153,7 @@ var Staff =  React.createClass({
 
   		var {staff} = this.props;
   		var searchString= this.state.searchString;
-  		var filteredStaff = Util.filter(staff, searchString);
+  		var filteredStaff = Util.filterStaff(staff, searchString);
 
 			var displayErrorMessage = () =>{
 				if (this.state.error){
@@ -156,34 +178,34 @@ var Staff =  React.createClass({
 	    return (
 	    	<div>
 				<div class="container">
-	        <p class="line-breaker" />
+	        		<p class="line-breaker" />
 					<BreadCrumb routes={this.props.routes} separator =" >> "/>
 					<br />
 					<br />
-	        <div class="row row-header report-form">
+		        	<div class="row row-header report-form">
 						{renderAddStaff()}
 						<br />
 						<div class="row row-header">
-                <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
-                    <p class="staff-header">Staff List</p>
-                </div>
-                <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2">
-                  	<div class="form-group">
-                        <button type="submit" class="btn btn-danger" onClick={this.initiateAddStaff}>
-                          <span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
-                        &nbsp; Add Staff
-                      </button>
-                  	</div>
-                </div>
-	            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
-	            	<Search onSearch={this.handleSearch} placeholder = "Enter staff name here to search"/>
-	            </div>
-            	</div>
-							<div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
-								{displayErrorMessage()}
-							</div>
+			                <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+			                    <p class="staff-header">Staff List</p>
+			                </div>
+			                <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2">
+			                  	<div class="form-group">
+			                        <button type="submit" class="btn btn-danger" onClick={this.initiateAddStaff}>
+			                          <span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
+			                        &nbsp; Add Staff
+			                      </button>
+			                  	</div>
+			                </div>
+				            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
+				            	<Search onSearch={this.handleSearch} placeholder = "Enter staff name here to search"/>
+				            </div>
+		            	</div>
+						<div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
+							{displayErrorMessage()}
+						</div>
 			            <StaffList staff={filteredStaff} onCancelEditStaff={this.handleCancelEditStaff} onEditStaff={this.handleEditStaff}
-										onDeleteStaff={this.handleDeleteStaff}	onValidateEditStaff={this.validateEditStaff} />
+							onDeleteStaff={this.handleDeleteStaff}	onValidateEditStaff={this.validateEditStaff} />
 			        </div>
 			    </div>
 			</div>

@@ -1,5 +1,27 @@
 "use strict";
 
+import ApiRequester from "../apis/ApiRequester.js";
+
+
+/** Async Server Actions **/
+
+export var asyncFetchFormFields = () => {
+	return (dispatch, getState) => {
+
+		ApiRequester.getFormFieldNames().then(function(res){
+			console.log("Form Fields in Form Actions", res);
+			dispatch(setFormFields(res));
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+
+
+/** User Interface Actions **/
+
 export var addNewValueToField = (field, value) => {
 	return {
 		type: 'ADD_FIELD_VALUE',
@@ -16,9 +38,9 @@ export var deleteValueFromField = (field, value) => {
 	};
 }
 
-export var toggleAddFieldButton = (value) => {
+export var setFormFields = (value) => {
 	return {
-		type: 'TOGGLE_ADD_FIELD_BTN',
+		type: 'SET_FORMFIELDS_LIST',
 		payload: value
 	};
 }
@@ -34,5 +56,12 @@ export var setFieldValues = (field) => {
 	return {
 		type: 'SET_FIELD_VALUES',
 		payload: field
+	};
+}
+
+export var toggleAddFieldButton = (value) => {
+	return {
+		type: 'TOGGLE_ADD_FIELD_BTN',
+		payload: value
 	};
 }

@@ -3,9 +3,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import StudentTag from "../components/StudentTag"
+import {connect} from "react-redux";
+
+import ApiRequester from "../../apis/ApiRequester";
+
+import * as actions from "../../actions/actions";
 
 
-export default React.createClass({
+var AddEventForm = React.createClass({
+
+  componentWillMount(){
+    var {dispatch} = this.props;
+    dispatch(actions.asyncFetchStudents);
+  },
 
 	getInitialState(){
 		return {
@@ -34,12 +44,23 @@ export default React.createClass({
 		};
 	},
 
-  retrieveSuggestions(){
+/*  retrieveSuggestions(){
     var suggestions = [];
 
     this.state.students.map((student) =>{
       suggestions.push(student.firstName+ " "+student.lastName);
     })
+    return suggestions;
+  },*/
+
+  retrieveSuggestions(){
+    var suggestions = [];
+
+    this.props.students.map((student) =>{
+      suggestions.push(student.first_name+ " "+student.last_name);
+    })
+
+    console.log("Suggestions", suggestions);
     return suggestions;
   },
 
@@ -247,5 +268,14 @@ export default React.createClass({
 			</div>
 		);
 	}
-
 });
+module.exports = connect(
+  (store) => {
+    return {
+        formFields: store.formFields,
+        schools: store.schools,
+        students: store.students
+    };
+  }
+)(AddEventForm);
+

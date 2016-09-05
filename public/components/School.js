@@ -13,21 +13,25 @@ var Schoool = React.createClass({
 	getInitialState(){
 		return {
 			isEditing: false,
-			id: this.props.id,
-			name: this.props.name,
+			id: this.props.school_id,
+			schoolId: this.props.school_id,
+			react_id: this.props.react_id,
+			name: this.props.school_name,
 			address: this.props.address,
 			principal: this.props.principal,
-			contact: this.props.contact,
-			contactEmail: this.props.contactEmail,
-			district: this.props.district,
-			siteCoordinator: this.props.siteCoordinator,
+			contact: this.props.primary_contact,
+			contactEmail: this.props.primary_contact_email,
+			district: this.props.school_district,
+			siteCoordinator: "Not Set",
 			error: false
 		};
 	},
 
 	getSchool(){
-		var student = {
+		var school = {
 			id: this.state.id,
+			school_id: this.state.schoolId,
+			react_id: this.state.react_id,
 			name: this.state.name,
 			address: this.state.address,
 			principal: this.state.principal,
@@ -37,7 +41,7 @@ var Schoool = React.createClass({
 			siteCoordinator: this.state.siteCoordinator
 		};
 
-		return student;
+		return school;
 	},
 
 	cancelEdit(){
@@ -49,15 +53,12 @@ var Schoool = React.createClass({
 
 
 	delete(e){
-		e.preventDefault(e);
-		this.props.onDelete({
-			id: this.state.id
-		});
+		e.preventDefault();
+		this.props.onDelete(this.getSchool());
 	},
 
 
 	saveEdit(e){
-
 		e.preventDefault();
 
 		if (!this.props.validateEdit(this.refs.name.value)) {
@@ -66,17 +67,26 @@ var Schoool = React.createClass({
 		else {
 			this.props.onEdit({
 				id: this.state.id,
-				name: this.refs.name.value,
+				school_id: this.state.schoolId,
+				school_name: this.refs.name.value,
 				address: this.state.address,
 				principal: this.state.principal,
-				contact: this.state.contact,
-				contactEmail: this.refs.contactEmail.value,
+				primary_contact: this.state.contact,
+				primary_contact_email: this.refs.contactEmail.value,
 				district: this.refs.district.value,
 				siteCoordinator: this.refs.siteCoordinator.value
 			});
 
+			//change this to work only after async call succeeds
 			this.setState({
-				isEditing: !this.state.isEditing
+				isEditing: !this.state.isEditing,
+				name: this.refs.name.value,
+				address: this.state.address,
+				principal: this.state.principal,
+				primary_contact: this.state.contact,
+				primary_contact_email: this.refs.contactEmail.value,
+				district: this.refs.district.value,
+				siteCoordinator: this.refs.siteCoordinator.value
 			});
 		}
 	},
@@ -108,7 +118,7 @@ var Schoool = React.createClass({
 								{this.state.siteCoordinator}
 							</div>
 							<div class="col-sm-4 col-lg-4 col-md-4">
-								<Link to={`admin/schools/${this.state}`}>
+								<Link to={`admin/schools/${this.state.schoolId}`}>
 									<button type="button" class="btn btn-sm btn-primary">
 										<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 										&nbsp; View
@@ -116,17 +126,16 @@ var Schoool = React.createClass({
 								</Link>
 								&nbsp;
 
-								<button type="button" onClick={this.startEdit} class="btn btn-sm btn-warning">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                    &nbsp; Edit
-                </button>
+									<button type="button" onClick={this.startEdit} class="btn btn-sm btn-warning">
+					                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+					                    &nbsp; Edit
+					                </button>
 								&nbsp;
 
-								<button type="button" onClick={this.delete} class="btn btn-sm btn-danger">
-	                  <span class="glyphicon glyphicon-trash" aria-hidden="true">  </span>
-	                  &nbsp; Delete
-	              </button>
-
+									<button type="button" onClick={this.delete} class="btn btn-sm btn-danger">
+					                  <span class="glyphicon glyphicon-trash" aria-hidden="true">  </span>
+					                  &nbsp; Delete
+					              </button>
 							</div>
 						</div>
 					</div>

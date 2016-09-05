@@ -25,6 +25,11 @@
   overflow: auto;
 }
 
+.list-div{
+  height:400px;
+  overflow: auto;
+}
+
 .nowrap{
    word-wrap: break-word;
  }    /* IE */

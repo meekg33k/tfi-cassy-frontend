@@ -14,6 +14,7 @@ export var configure = () => {
 		addEventState: reducer.enableAddEventReducer,
 		addFieldButtonState: reducer.addFieldButtonReducer,
 		addSchoolState: reducer.enableAddSchoolReducer,
+		addStudentState: reducer.enableAddStudentReducer,
 		addStaffState: reducer.enableAddStaffReducer,
 		adminError: reducer.adminErrorReducer,
 		editButtonState: reducer.editButtonEventReducer,
@@ -24,7 +25,10 @@ export var configure = () => {
 		loginError: reducer.loginErrorReducer,
 		searchText: reducer.searchReducer,
 		selectedField: reducer.setSelectedFieldReducer,
+		selectedSchool: reducer.selectedSchoolReducer,
+		selectedStudent: reducer.selectedStudentReducer,
 		schools: reducer.schoolReducer,
+		students: reducer.studentReducer,
 		staff: reducer.staffReducer,
 		timelineState: reducer.timelineReducer
 	});
