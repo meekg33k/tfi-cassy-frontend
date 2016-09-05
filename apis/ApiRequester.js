@@ -4,7 +4,7 @@ import axios from "axios";
 
 //var CASSY_URL;
 
-var CASSY_URL = "http://localhost:8888/";//"https://cassy-server.herokuapp.com/";
+var CASSY_URL = "/";//"https://cassy-server.herokuapp.com/";
 
 // if (process.env.NODE_ENV === "production"){
 // 	CASSY_URL = "https://cassy-server.herokuapp.com/";

@@ -12,8 +12,8 @@ export default React.createClass({
 
 	logOut(){
 		ApiRequester.logoutUser().then(function(res){
-
 			localStorage.removeItem('user');
+			console.log("User logged out!");
 		}, function(err){
 			console.log(err);
 		});
