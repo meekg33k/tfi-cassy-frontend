@@ -155,30 +155,30 @@ var Schoool = React.createClass({
 							</div>
 							<div class="col-sm-2 col-lg-2 col-md-2">
 								<select class="form-ctrl" ref="district">
-                  	<option>Milpitas</option>
-                  	<option>Palo Alto</option>
-                  	<option>Cupertino</option>
-                  	<option>San Diego</option>
-              	</select>
+				                  	<option>Milpitas</option>
+				                  	<option>Palo Alto</option>
+				                  	<option>Cupertino</option>
+				                  	<option>San Diego</option>
+				              	</select>
 							</div>
 							<div class="col-sm-3 col-lg-3 col-md-3">
-                <select class="form-control" ref="siteCoordinator">
-                    <option>Eve Jackson</option>
-                    <option>John Doe</option>
-                    <option>Jill Smith</option>
-                </select>
+				                <select class="form-control" ref="siteCoordinator">
+				                    <option>Eve Jackson</option>
+				                    <option>John Doe</option>
+				                    <option>Jill Smith</option>
+				                </select>
 							</div>
 							<div class="col-sm-3 col-lg-3 col-md-3">
 								<button type="submit"  class="btn btn-sm btn-success">
-                    <span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
-                    &nbsp; Save
-                </button>
-                &emsp;
+				                    <span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
+				                    &nbsp; Save
+				                </button>
+				                &emsp;
 
 								<button type="button" onClick={this.cancelEdit} class="btn btn-sm btn-danger">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
-                    &nbsp; Cancel
-                </button>
+				                    <span class="glyphicon glyphicon-remove" aria-hidden="true">  </span>
+				                    &nbsp; Cancel
+				                </button>
 							</div>
 						</div>
 					</form>
@@ -198,9 +198,9 @@ var Schoool = React.createClass({
 module.exports = connect(
 	(store) => {
 		return {
-      formFields: store.formFields,
-      selectedField: store.selectedField,
-      formFieldValues: store.formFieldValues
+	      formFields: store.formFields,
+	      selectedField: store.selectedField,
+	      formFieldValues: store.formFieldValues
 		};
 	}
 )(Schoool);

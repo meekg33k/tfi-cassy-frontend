@@ -53,6 +53,31 @@ module.exports = {
 		return filteredArray;
 	},
 
+	filterFormFields(array, searchText){
+		var filteredArray;
+
+		filteredArray = array.filter((field) => {
+			var fieldName = field.field_value.toLowerCase();
+			return searchText.length === 0 || fieldName.indexOf(searchText) > -1;
+		});
+
+		filteredArray.sort((a,b) => {
+
+			if (a.field_id < b.field_id){
+				return 1;
+			}
+			else if (a.field_id > b.field_id){
+				return -1;
+			}
+			else{
+				return 0;
+			}
+
+		});
+
+		return filteredArray;
+	},
+
 	filterSchools(array, searchText){
 		var filteredArray;
 		

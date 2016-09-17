@@ -3,9 +3,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router";
+import {connect} from "react-redux"
+
+import * as actions from "../../actions/actions"
 
 
-export default React.createClass({
+var Admin = React.createClass({
+	componentWillMount(){
+		var user = JSON.parse(localStorage.getItem('user'));
+		var {dispatch} = this.props;
+
+		//Check if user is admin....
+		if (user){
+			//dispatch(actions.asyncFetchFormFields());
+		}
+		else{
+			//User not logged in.. re-route
+			//dispatch(actions.setUserError("Login 	"));
+		}	
+	},
+
 	render(){
 		return(
 			<div>
@@ -23,12 +40,12 @@ export default React.createClass({
 				                </Link>
 				            </div>
 				            <div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
-											<Link to="/admin/staff">
-												<div class="well">
-													<p><i class = "fa fa-user-plus"></i></p>
-													<p class="btn-text"><b> Add/Edit Staff </b></p>
-													</div>
-												</Link>
+								<Link to="/admin/staff">
+									<div class="well">
+										<p><i class = "fa fa-user-plus"></i></p>
+										<p class="btn-text"><b> Add/Edit Staff </b></p>
+										</div>
+									</Link>
 				            </div>
 				            <div class="col-xs-12 col-sm-4 col-lg-4 col md-4">
 					            <Link to="/admin/schools">
@@ -72,3 +89,15 @@ export default React.createClass({
 		);
 	}
 });
+module.exports = connect(
+	(store) => {
+		return {
+			schools: store.schools,
+      		currentlyEditing: store.formFieldState,
+			addSchool: store.addSchoolState,
+		    formFields: store.formFields,
+		    formFieldValues: store.formFieldValues
+		};
+	}
+)(Admin);
+
