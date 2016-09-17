@@ -5,12 +5,63 @@ import ApiRequester from "../apis/ApiRequester.js";
 
 /** Async Server Actions **/
 
+export var asyncAddValueToField = (fieldID, fieldValue) => {
+	return (dispatch, getState) => {
+
+		ApiRequester.addFieldValue(fieldID, fieldValue).then(function(res){
+			dispatch(asyncFetchFormFieldValues(fieldID));
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
 export var asyncFetchFormFields = () => {
 	return (dispatch, getState) => {
 
 		ApiRequester.getFormFieldNames().then(function(res){
-			console.log("Form Fields in Form Actions", res);
 			dispatch(setFormFields(res));
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+export var asyncFetchFormFieldValues = (fieldID) => {
+	var field_id = fieldID;
+	return (dispatch, getState) => {
+
+		ApiRequester.getFormFieldValues(field_id).then(function(res){
+			dispatch(setFormFieldValues(res));
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+export var asyncDeleteFieldValue = (fieldValueID, fieldID) => {
+	return (dispatch, getState) => {
+
+		ApiRequester.deleteFieldValue(fieldValueID).then(function(res){
+			dispatch(asyncFetchFormFieldValues(fieldID));
+
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+export var asyncEditFieldValue = (fieldValueID, fieldID, fieldValue) => {
+	return (dispatch, getState) => {
+
+		ApiRequester.editFieldValue(fieldValueID, fieldID, fieldValue).then(function(res){
+			alert("Changes saved successfully");
+			dispatch(asyncFetchFormFieldValues(fieldID));
+
 		}, function(err){
 			console.log(err);
 		});
@@ -22,10 +73,10 @@ export var asyncFetchFormFields = () => {
 
 /** User Interface Actions **/
 
-export var addNewValueToField = (field, value) => {
+export var addNewValueToField = (fieldId, value) => {
 	return {
 		type: 'ADD_FIELD_VALUE',
-		field: field,
+		fieldId: fieldId,
 		value: value
 	};
 }
@@ -45,6 +96,13 @@ export var setFormFields = (value) => {
 	};
 }
 
+export var setFormFieldValues = (fieldValues) => {
+	return {
+		type: 'SET_FIELD_VALUES',
+		payload: fieldValues
+	};
+}
+
 export var setSelectedField = (value) => {
 	return {
 		type: 'SET_FIELD',
@@ -52,10 +110,10 @@ export var setSelectedField = (value) => {
 	};
 }
 
-export var setFieldValues = (field) => {
+export var setSelectedFieldID = (value) => {
 	return {
-		type: 'SET_FIELD_VALUES',
-		payload: field
+		type: 'SET_FIELD_ID',
+		payload: value
 	};
 }
 

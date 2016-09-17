@@ -12,12 +12,12 @@ var FormFieldList = React.createClass({
 
 	render(){
     var searchString = "";
-    var values = SearchProcessor.filterEvents(this.props.formFieldValues, searchString);
+    var values = SearchProcessor.filterFormFields(this.props.formFieldValues, searchString);
     var renderValues = () => {
-      return values.map((event) => {
+      return values.map((fieldValue) => {
         return (
-          <FieldValue key={event.id} onEdit={this.props.onEditEvent} onDelete={this.props.onDeleteEvent}
-          {...event}/>
+          <FieldValue key={fieldValue.field_id} onEdit={this.props.onEditEvent} onDelete={this.props.onDeleteEvent}
+          {...fieldValue}/>
         );
       });
     };

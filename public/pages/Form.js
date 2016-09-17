@@ -19,11 +19,13 @@ var Form =  React.createClass({
 
 	componentWillMount(){
 		var user = JSON.parse(localStorage.getItem('user'));
-		var {dispatch} = this.props;
+		var {dispatch, formFields } = this.props;
 
 		//Check if user is admin....
 		if (user){
-			dispatch(actions.asyncFetchFormFields());
+			if (formFields.length == 1){
+				dispatch(actions.asyncFetchFormFields());
+			}
 		}
 		else{
 			//User not logged in.. re-route
@@ -47,16 +49,19 @@ var Form =  React.createClass({
 	},
 
     renderField(){
-      console.log("Selected field Form", this.refs.name.value);
-      var { dispatch, formFields } = this.props;
-			var selectedField;
+      	var { dispatch, formFields } = this.props;
+		var selectedField;
+		var selectedFieldID;
 
-			console.log(formFields);
+		console.log(formFields);
 
-			for(var i = 0;  i < this.props.formFields.length; i++) {
-	        if (formFields[i].name === this.refs.name.value) {
-	            selectedField = formFields[i].name;
-      	      	dispatch(actions.setSelectedField(selectedField));
+		for(var i = 0;  i < this.props.formFields.length; i++) {
+	        if (formFields[i].field_name === this.refs.name.value) {
+	            selectedField = formFields[i].field_name;
+	            selectedFieldID = formFields[i].field_name_id;
+	  	      	dispatch(actions.asyncFetchFormFieldValues(selectedFieldID));
+	  	      	dispatch(actions.setSelectedField(selectedField));
+	  	      	dispatch(actions.setSelectedFieldID(selectedFieldID));
 	            break;
 	        }
 	    }
@@ -66,17 +71,19 @@ var Form =  React.createClass({
 	    });
     },
 
+    renderFields (){
+      	var {formFields} = this.props;
+  		return formFields.map((formField) => {
+  			return (
+              	<option key={formField.field_name_id}>{formField.field_name}</option>
+  			);
+  		});
+  	},
+
   	render() {
       	var {formFields} = this.props;
   		var searchString= this.state.searchString;
 
-	    var renderFields = () => {
-  			return formFields.map((formField) => {
-  				return (
-              		<option key={formField.id}>{formField.field_name}</option>
-  				);
-  			});
-	  	};
 
 		var renderFormField = () =>{
 			if (!this.state.showField){
@@ -116,7 +123,7 @@ var Form =  React.createClass({
 				            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
 			                    <div class="form-group">
 			                      <select class="form-control" onChange={this.renderField} ref="name">
-			                          {renderFields()}
+			                          {this.renderFields()}
 			                      </select>
 			                    </div>
 				            </div>

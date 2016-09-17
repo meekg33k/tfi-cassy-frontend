@@ -35,16 +35,6 @@ router.get('/:fieldid', (req, res, next) => {
   });
 });
 
-// GET a field by name
-router.get('/:fieldname', (req, res, next) => {
-  apiManager.getFormFieldByName(req.params.fieldname, (err, result) => {
-    if (err) {
-      console.error(`Error getting form field ${req.params.fieldname}, Error ${err}`);
-    }
-    
-    res.status(200).send(result);
-  });
-});
 
 // POST create a form field
 router.post('/', (req, res, next) => {
@@ -60,7 +50,7 @@ router.post('/', (req, res, next) => {
 
 // PUT update a form field
 router.put('/:fieldid', (req, res, next) => {
-  apiManager.updateFormField(JSON.stringify(req.user[0].user_id), req.params.fieldid, (err, result) => {
+  apiManager.updateFormField(JSON.stringify(req.user[0].user_id), req.params.fieldid, req.body, (err, result) => {
     if (err) {
       console.error(`Error updating form field id ${req.params.fieldid}, Error ${err}`);
     }

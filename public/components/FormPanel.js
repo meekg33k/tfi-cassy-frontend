@@ -19,8 +19,8 @@ var FormPanel = React.createClass({
 	getInitialState(){
 		return {
 			isEditing: false,
-      fieldValues: this.props.values,
-      selectedField: this.props
+      		fieldValues: this.props.values,
+      		selectedField: this.props
 		};
 	},
 
@@ -37,16 +37,17 @@ var FormPanel = React.createClass({
 
 
 	handleSaveFieldValue(newFieldValue){
-		var {selectedField, dispatch} = this.props;
-		dispatch(actions.addNewValueToField(selectedField, newFieldValue));
+		var {selectedField, selectedFieldID, dispatch} = this.props;
+		dispatch(actions.asyncAddValueToField(selectedFieldID, newFieldValue));
 	},
 
 
 	render(){
 
 		var selectedFieldValues;
-    var {formFields, dispatch} = this.props;
-    console.log("Selected field in Form Panel", this.props.selectedField);
+	    var {formFields, dispatch} = this.props;
+	    console.log("Selected field in Form Panel", this.props.selectedField);
+	    console.log("With ID", this.props.selectedFieldID);
 
 		if (this.props.selectedField == "--None--"){
 			dispatch(actions.toggleAddFieldButton(true));
@@ -55,30 +56,29 @@ var FormPanel = React.createClass({
 			dispatch(actions.toggleAddFieldButton(false));
 		}
 
-    for (var i = 0;  i < formFields.length; i++) {
-        if (formFields[i].name === this.props.selectedField) {
-            selectedFieldValues = formFields[i].fieldValues;
-          	dispatch(actions.setFieldValues(selectedFieldValues));
-            break;
-        }
-    }
+	    for (var i = 0;  i < formFields.length; i++) {
+	        if (formFields[i].name === this.props.selectedField) {
+	            selectedFieldValues = formFields[i].fieldValues;
+	          	dispatch(actions.setFieldValues(selectedFieldValues));
+	            break;
+	        }
+	    }
 
 		return(
 			<div>
-        <div class="row row-header">
-          <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
-              <p>You have selected: <b><i>{this.props.selectedField}</i></b></p>
-          </div>
-          <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2">
-              <p></p>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
-              <p></p>
-          </div>
-        </div>
-        <AddFieldForm onSaveFieldValue={this.handleSaveFieldValue}/>
-        <FormFieldList onEditValue={this.handleEditFieldValue}
-              onDeleteValue={this.handleDeleteFieldValue}/>
+        		<div class="row row-header">
+          			<div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+              			<p>You have selected: <b><i>{this.props.selectedField}</i></b></p>
+          			</div>
+          			<div class="col-xs-12 col-sm-2 col-lg-2 col-md-2">
+              			<p></p>
+          			</div>
+          			<div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
+              			<p></p>
+          			</div>
+    			</div>
+        		<AddFieldForm onSaveFieldValue={this.handleSaveFieldValue}/>
+        		<FormFieldList onEditValue={this.handleEditFieldValue} onDeleteValue={this.handleDeleteFieldValue}/>
 			</div>
 		);
 	}
@@ -88,9 +88,10 @@ module.exports = connect(
 	(store) => {
 		return {
 			schools: store.schools,
-      selectedField: store.selectedField,
-      formFields: store.formFields,
-      formFieldValues: store.formFieldValues,
+      		selectedField: store.selectedField,
+      		selectedFieldID: store.selectedFieldID,
+      		formFields: store.formFields,
+      		formFieldValues: store.formFieldValues,
 			addSchool: store.addSchoolState
 		};
 	}

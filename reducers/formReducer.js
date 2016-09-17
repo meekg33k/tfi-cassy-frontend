@@ -120,7 +120,7 @@ export var addFieldButtonReducer = (state = false, action) => {
 
 var formState = [
 	{
-		id: 8989819898989898,
+		field_name_id: 8989819898989898,
 		field_name: "--None--"
 	},
 ];
@@ -130,27 +130,6 @@ var formState = [
 //export var formFieldReducer = (state = defaultFormState, action) => {
 export var formFieldReducer = (state = formState, action) => {
 	switch(action.type){
-		case 'ADD_FIELD_VALUE':
-			var fieldId;
-			var mutatedField;
-
-			for(var i = 0;  i < state.length; i++) {
-			    if (state[i].name === action.field) {
-					mutatedField = state[i];
-					mutatedField.fieldValues.push({
-						id: Date.now(),
-						name: action.value
-					})
-			        fieldId = i;
-			        break;
-			    }
-			}
-
-			return [
-			    ...state.slice(0, fieldId),
-			    ...state.slice(fieldId + 1),
-			    mutatedField
-			];
 
 		case 'DELETE_FIELD_VALUE':
 			console.log("Reducer: Value to be deleted", action.value);
@@ -207,19 +186,19 @@ export var formFieldReducer = (state = formState, action) => {
 			];
 
 		case 'SET_FORMFIELDS_LIST':
-			var newState = state;
-
-			for(var i = 0;  i < action.payload.length; i++) {
-			    newState.push(action.payload[i]);
-			}
+			var previousState = state;
+			var newState = action.payload;
+			newState.push(previousState[0]);
 
 			console.log("Form Fields from server", newState);
+			//return action.payload;
 			return newState;
 
 		default:
 			return state;
 	}
 };
+
 
 export var setSelectedFieldReducer = (state = {}, action) => {
 	switch(action.type){
@@ -230,10 +209,27 @@ export var setSelectedFieldReducer = (state = {}, action) => {
 	}
 };
 
+export var setSelectedFieldIDReducer = (state = "", action) => {
+	switch(action.type){
+		case 'SET_FIELD_ID':
+			return action.payload;
+		default:
+			return state;
+	}
+};
+
 export var setFieldValuesReducer = (state = [], action) => {
 	switch(action.type){
+
+		case 'ADD_FIELD_VALUE':
+			return 	[
+				...state,
+				action.payload
+			];
+
 		case 'SET_FIELD_VALUES':
 			return action.payload;
+			
 		default:
 			return state;
 	}

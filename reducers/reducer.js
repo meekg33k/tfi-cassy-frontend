@@ -25,8 +25,9 @@ export var eventReducer = EventsReducer.mainEventReducer;
 /** Form Reducers **/
 export var addFieldButtonReducer = FormReducer.addFieldButtonReducer;
 export var formFieldReducer = FormReducer.formFieldReducer;
+export var formFieldValuesReducer = FormReducer.setFieldValuesReducer;
 export var setSelectedFieldReducer = FormReducer.setSelectedFieldReducer; 
-export var setFieldValuesReducer = FormReducer.setFieldValuesReducer;
+export var setSelectedFieldIDReducer = FormReducer.setSelectedFieldIDReducer; 
 
 
 /** School Reducers **/

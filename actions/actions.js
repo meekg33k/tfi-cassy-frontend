@@ -30,10 +30,15 @@ export var enableEditEvent = EventActions.enableEditEvent;
 
 /** Form Actions **/
 export var addNewValueToField = FormActions.addNewValueToField;
+export var asyncAddValueToField = FormActions.asyncAddValueToField;
+export var asyncDeleteFieldValue = FormActions.asyncDeleteFieldValue;
+export var asyncEditFieldValue = FormActions.asyncEditFieldValue;
 export var asyncFetchFormFields = FormActions.asyncFetchFormFields;
+export var asyncFetchFormFieldValues = FormActions.asyncFetchFormFieldValues;
 export var deleteValueFromField = FormActions.deleteValueFromField;
 export var toggleAddFieldButton = FormActions.toggleAddFieldButton;
 export var setSelectedField = FormActions.setSelectedField;
+export var setSelectedFieldID = FormActions.setSelectedFieldID;
 export var setFieldValues = FormActions.setFieldValues;
 
 

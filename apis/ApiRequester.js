@@ -109,9 +109,73 @@ module.exports = {
 
 
 	/** Form-Related API Calls **/
+	addFieldValue: function(fieldId, fieldValue){
+
+		return axios.post(CASSY_URL+"form-fields", {
+			"field_name_id": fieldId,
+			"value": fieldValue
+		}).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+	deleteFieldValue: function(fieldValueId){
+
+		return axios.delete(CASSY_URL+"form-fields/"+fieldValueId).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+
+	editFieldValue: function(fieldValueId, fieldId, fieldValue){
+
+		return axios.put(CASSY_URL+"form-fields/"+fieldValueId, {
+			"field_name_id": fieldId,
+			"value": fieldValue
+		}).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return true;
+				//return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
 	getFormFieldNames: function(){
 
 		return axios.get(CASSY_URL+"form-fields/names").then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+	getFormFieldValues: function(fieldId){
+
+		return axios.get(CASSY_URL+"form-fields/"+fieldId).then(function(res) {
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);
 			}
