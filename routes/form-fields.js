@@ -24,6 +24,19 @@ router.get('/names', (req, res, next) => {
   });
 });
 
+// GET all form field values per name
+router.get('/names/:name', (req, res, next) => {
+  console.log("Params type ", req.params.name);
+  
+  apiManager.getFormFieldsByName(req.params.name, (err, result) => {
+    if (err) {
+      console.error(`Error getting form field names ${err}`);
+    }
+    
+    res.status(200).send(result);
+  });
+});
+
 // GET a field by id
 router.get('/:fieldid', (req, res, next) => {
   apiManager.getFormField(req.params.fieldid, (err, result) => {
