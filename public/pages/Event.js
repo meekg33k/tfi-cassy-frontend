@@ -24,7 +24,10 @@ var Event = React.createClass({
 
 		if (user){
 			//User is logged in
-			dispatch(actions.asyncFetchEvents());
+			dispatch(actions.asyncFetchEvents(user.user_id));
+			dispatch(actions.asyncFetchStudentsByUser());
+			dispatch(actions.asyncFetchSchools()); //change to asynFetchSchoolsByUser
+			dispatch(actions.asyncFetchFormFieldValuesByName("Event Type"));
 		}
 		else {
 			//User needs to login
@@ -50,7 +53,6 @@ var Event = React.createClass({
 	handleAddEvent(event){
 		var { dispatch } = this.props;
 		if (!this.props.showEditForm){
-			//dispatch(actions.addEvent(event));
 			dispatch(actions.asyncAddEvent(event));
 			this.handleExitAddEvent();
 		}
@@ -189,7 +191,7 @@ var Event = React.createClass({
   			            	<Search onSearch={this.handleSearch} placeholder = "Search by event name here"/>
   			            </div>
                   	</div>
-										<EventList events={filteredEvents} onEditEvent={this.handleEditEvent} onDeleteEvent={this.handleDeleteEvent}/>
+							<EventList events={filteredEvents} onEditEvent={this.handleEditEvent} onDeleteEvent={this.handleDeleteEvent}/>
 			        </div>
 			    </div>
 			</div>
@@ -200,8 +202,9 @@ var Event = React.createClass({
 module.exports = connect(
 	(store) => {
 		return {
-			events: store.events,
 			addEvent: store.addEventState,
+			events: store.events,
+			formFieldValues: store.formFieldValues,
 			isEditing: store.editEventState
 		};
 	}

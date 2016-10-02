@@ -43,7 +43,7 @@ export var staffReducer = StaffsReducer.staffReducer;
 
 /** Student Reducers **/
 export var enableAddStudentReducer = StudentsReducer.enableAddStudentReducer;
-export var selectedStudentReducer = SchoolsReducer.selectedStudentReducer;
+export var selectedStudentReducer = StudentsReducer.selectedStudentReducer;
 export var studentReducer = StudentsReducer.studentReducer;
 
 

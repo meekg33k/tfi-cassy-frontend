@@ -14,7 +14,7 @@ var AddEventForm = React.createClass({
 
   componentWillMount(){
     var {dispatch} = this.props;
-    dispatch(actions.asyncFetchStudents);
+    dispatch(actions.asyncFetchStudents());
   },
 
 	getInitialState(){
@@ -44,17 +44,10 @@ var AddEventForm = React.createClass({
 		};
 	},
 
-/*  retrieveSuggestions(){
-    var suggestions = [];
-
-    this.state.students.map((student) =>{
-      suggestions.push(student.firstName+ " "+student.lastName);
-    })
-    return suggestions;
-  },*/
-
   retrieveSuggestions(){
     var suggestions = [];
+
+    console.log(this.props.students);
 
     this.props.students.map((student) =>{
       suggestions.push(student.first_name+ " "+student.last_name);
@@ -155,6 +148,24 @@ var AddEventForm = React.createClass({
     })
   },
 
+  renderSchools (){
+    var {schools} = this.props;
+    return schools.map((school) => {
+      return (
+          <option key={school.school_id}>{school.school_name}</option>
+      );
+    });
+  },
+
+  renderEventTypes (){
+    var {formFieldValues} = this.props;
+    return formFieldValues.map((formFieldValue) => {
+      return (
+          <option key={formFieldValue.field_id}>{formFieldValue.field_value}</option>
+      );
+    });
+  },
+
 	render(){
 		var displayError = () =>{
 			if (this.state.error){
@@ -190,13 +201,7 @@ var AddEventForm = React.createClass({
                     <label for="eventType" class="col-sm-2 control-label">Event Type</label>
                     <div class="col-sm-5">
                         <select class="form-control" ref="eventType">
-                            <option>Individual Session</option>
-                            <option>Group Session</option>
-                            <option>Crisis Hours</option>
-                            <option>Parent Consultations</option>
-                            <option>Staff Consultations</option>
-                            <option>Classroom Presentations/Lessons</option>
-                            <option>Other (Please specify)</option>
+                            {this.renderEventTypes()}
                         </select>
                     </div>
                     <div class="col-sm-5">
@@ -207,9 +212,7 @@ var AddEventForm = React.createClass({
                     <label for="school" class="col-sm-2 control-label">School</label>
                     <div class="col-sm-5">
                         <select class="form-control" ref="school">
-                            <option>Ranswood Elementary</option>
-                            <option>ABC HighSchool</option>
-                            <option>XYZ College</option>
+                            {this.renderSchools()}
                         </select>
                     </div>
                 </div>
@@ -238,18 +241,18 @@ var AddEventForm = React.createClass({
 											<input type="number" class="form-control" ref="attendees" required />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="file" class="col-sm-2 control-label">Attach File</label>
+                    <div class="col-sm-5">
+                      <input type="file" class="form-control" ref="file" required />
+                    </div>
+                </div>                
 								<div class="form-group">
 										<label for="attendingStudents" class="col-sm-2 control-label">Attending Students</label>
 										<div class="col-sm-10">
 												<StudentTag onAddStudent={this.handleAddStudent} onDeleteStudent={this.handleDeleteStudent} suggestions={this.retrieveSuggestions()}></StudentTag>
 										</div>
 								</div>
-								<div class="form-group">
-                    <label for="file" class="col-sm-2 control-label">Attach File</label>
-                    <div class="col-sm-5">
-											<input type="file" class="form-control" ref="file" required />
-                    </div>
-                </div>
                 <p class="line-breaker"></p>
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
@@ -273,6 +276,7 @@ module.exports = connect(
   (store) => {
     return {
         formFields: store.formFields,
+        formFieldValues: store.formFieldValues,
         schools: store.schools,
         students: store.students
     };

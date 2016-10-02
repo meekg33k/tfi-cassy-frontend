@@ -1,22 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { WithContext as ReactTags } from 'react-tag-input';
+import {connect} from "react-redux";
+
+
 
 const StudentTag = React.createClass({
 
     getInitialState() {
+
+        console.log(this.props.suggestions);
+
         return {
             tags: [ ],
             suggestions: this.props.suggestions,
             placeholder:"Enter student name here"
         }
     },
+
     handleDelete(i) {
         let tags = this.state.tags;
         tags.splice(i, 1);
         this.setState({tags: tags});
         this.props.onDeleteStudent(i);
     },
+
     handleAddition(tag) {
         let tags = this.state.tags;
         tags.push({
@@ -26,6 +34,7 @@ const StudentTag = React.createClass({
         this.setState({tags: tags});
         this.props.onAddStudent(tag);
     },
+
     handleDrag(tag, currPos, newPos) {
         let tags = this.state.tags;
 
@@ -36,9 +45,11 @@ const StudentTag = React.createClass({
         // re-render
         this.setState({ tags: tags });
     },
+
     render() {
+        console.log("Suggestionslk;jklj", this.props.suggestions);
         let tags = this.state.tags;
-        let suggestions = this.state.suggestions;
+        let suggestions = this.props.suggestions;
         let placeholder = this.state.placeholder;
         return (
             <div>
@@ -53,4 +64,12 @@ const StudentTag = React.createClass({
     }
 });
 
-export default StudentTag;
+module.exports = connect(
+  (store) => {
+    return {
+        formFields: store.formFields,
+        schools: store.schools,
+        students: store.students
+    };
+  }
+)(StudentTag);

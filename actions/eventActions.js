@@ -9,7 +9,7 @@ export var asyncAddEvent = (theEvent) => {
 	return (dispatch, getState) => {
 
 		ApiRequester.createEvent(theEvent).then(function(res){
-			alert("New event created successfully");  //<============ Change all alerts to modals
+			alert("New event created successfully"); 
 			dispatch(asyncFetchEvents());
 
 		}, function(err){
@@ -23,8 +23,7 @@ export var asyncDeleteEvent = (theEvent) => {
 	return (dispatch, getState) => {
 
 		ApiRequester.deleteEvent(theEvent).then(function(res){
-			alert("Event deleted successfully"); //<============ Change all alerts to modals
-			//Update changes in Staff view
+			alert("Event deleted successfully"); 
 			dispatch(asyncFetchEvents());
 
 		}, function(err){
@@ -48,10 +47,10 @@ export var asyncEditEvent = (theEvent) => {
 	};
 }
 
-export var asyncFetchEvents = () => {
+export var asyncFetchEvents = (userId) => {
 	return (dispatch, getState) => {
 
-		ApiRequester.getAllEvents().then(function(res){
+		ApiRequester.getUserEvents(userId).then(function(res){
 			dispatch(setEventList(res));
 		}, function(err){
 			console.log(err);
@@ -115,7 +114,7 @@ export var enableEditEvent = (value) => {
 export var setEventList = (events) => {
 	return {
 		type: 'SET_EVENT_LIST',
-		payload: students
+		payload: events
 	};
 }
 

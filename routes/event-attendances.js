@@ -6,7 +6,7 @@ var apiManager = require('../services/api-manager');
 // EVENT ATTENDANCE
 // GET all event attendances
 router.get('/', (req, res, next) => {
-  apiManager.getAllEventAttendances((err, result) => {
+  apiManager.getAllEventAttendances(JSON.stringify(req.user[0].user_id),(err, result) => {
     if (err) {
       console.error(`Error getting all attendances ${err}`);
     }
