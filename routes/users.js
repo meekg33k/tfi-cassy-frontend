@@ -56,6 +56,20 @@ router.get('/:userid', (req, res, next) => {
   });
 });
 
+
+// GET students by user
+router.get('/students', (req, res, next) => {
+    
+    apiManager.getStudentsByUser((err, result) => {
+      if (err) {
+        console.error(`Error getting students for id ${JSON.stringify(req.user[0].user_id)}, ${err}`);
+      }
+    
+      res.status(200).send(result);
+    });
+});
+
+
 // POST create a new user
 router.post('/', (req, res, next) => {
   apiManager.hasAdministratorAccess(JSON.stringify(req.user[0].user_id), (err, admin) => {
@@ -121,6 +135,19 @@ router.put('/:userid/change-password', (req, res, next) => {
     });
   });
 });
+
+
+// GET all events for a user
+router.get('/:userid/events', (req, res, next) => {
+  apiManager.getUserEvents(req.params.userid, (err, result) => {
+    if (err) {
+      console.error(`Error getting events for school id ${req.params.userid}, Error ${err}`);
+    }
+    
+    res.status(200).send(result);
+  });
+});
+
 
 // DELETE a user
 router.delete('/:userid', (req, res, next) => {

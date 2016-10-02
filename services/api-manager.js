@@ -213,7 +213,9 @@ apiManager.createStudent = (adminId, params, callback) => {
     first_name: params.firstname,
     last_name: params.lastname,
     gender: params.gender,
+    //grade: params.grade,
     ethnicity: params.ethnicity,
+    school: params.school,
     created_at: rightNow,
     created_by: adminId,
     last_modified_at: rightNow,
@@ -277,12 +279,15 @@ apiManager.getStudentAccessByUser = (userId, studentId, callback) => {
 
 // Update a student
 apiManager.updateStudent = (adminId, id, params, callback) => {
+
   var student = {
     react_id: rightNow,
     first_name: params.firstname,
     last_name: params.lastname,
     gender: params.gender,
+    //grade: params.grade,
     ethnicity: params.ethnicity,
+    school: params.school,
     last_modified_at: rightNow,
     last_modified_by: adminId
   };
@@ -950,6 +955,18 @@ apiManager.getEvent = (id, callback) => {
   });
 };
 
+
+// Get all events for a user
+apiManager.getUserEvents = (id, callback) => {
+  connection.query('SELECT * FROM event WHERE active = ? AND created_by = ?', [true, id], (err, result) => {
+    if (err) {
+      callback(err);
+    }
+    
+    callback(null, result);
+  });
+};
+
 // Update an event
 apiManager.updateEvent = (adminId, id, params, callback) => {
   var event = {
@@ -1300,8 +1317,8 @@ apiManager.getFormField = (id, callback) => {
 };
 
 // Get a form field by name
-apiManager.getFormFieldByName = (name, callback) => {
-  connection.query('SELECT field_id, field_value FROM form_field WHERE active = ? AND field_name = ?', [true, name], (err, result) => {
+apiManager.getFormFieldsByName = (name, callback) => {
+  connection.query('SELECT field_id, field_value FROM form_field WHERE active = ? AND field_name_id = (SELECT field_name_id FROM form_field_name WHERE field_name = ?)', [true, name], (err, result) => {
     if (err) {
       callback(err);
     }
@@ -1349,6 +1366,7 @@ apiManager.updateFormField = (adminId, id, params, callback) => {
   });
 };
 
+
 // Delete a form field
 apiManager.deleteFormField = (adminId, id, callback) => {
   var field = {
@@ -1357,6 +1375,18 @@ apiManager.deleteFormField = (adminId, id, callback) => {
     last_modified_by: adminId
   };
   connection.query('UPDATE form_field SET active = ? WHERE field_id = ?', [field, id], (err, result) => {
+    if (err) {
+      callback(err);
+    }
+    
+    callback(null, result);
+  });
+};
+
+
+// Student timeline
+apiManager.getStudentTimeline = (id, callback) => {
+  connection.query('SELECT * FROM student_timeline WHERE student_id = ?', id, (err, result) => {
     if (err) {
       callback(err);
     }
