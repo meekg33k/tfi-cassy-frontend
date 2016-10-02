@@ -71,7 +71,88 @@ var defaultEventState = [
 ];
 
 
-export var mainEventReducer = (state = defaultEventState, action) => {
+export var mainEventReducer = (state = [], action) => {
+	switch(action.type){
+		case 'ADD_EVENT':
+			return 	[
+				...state,
+				action.payload
+			];
+
+		case 'DELETE_EVENT':
+			var victimId;
+
+			for(var i = 0;  i < state.length; i++) {
+			    if (state[i].id === action.payload.id) {
+			        victimId = i;
+			        break;
+			    }
+			}
+			return [
+			    ...state.slice(0, victimId),
+			    ...state.slice(victimId + 1)
+			];
+
+		case 'EDIT_EVENT':
+			var eventId;
+
+			for(var i = 0;  i < state.length; i++) {
+			    if (state[i].id === action.payload.id) {
+			        eventId = i;
+			        break;
+			    }
+			}
+			return [
+			    ...state.slice(0, eventId),
+			    ...state.slice(eventId + 1),
+			    {
+				    	id: Date.now(),
+				    	name: action.payload.name,
+							type: action.payload.type,
+							school: action.payload.school,
+	      			other: action.payload.other,
+							description: action.payload.description,
+							date: action.payload.date,
+	        		students: action.payload.attendingStudents,
+					}
+			];
+
+		case 'EXIT_EDIT_EVENT':
+			var eventId;
+
+			console.log("Almost Edited Event", action.payload);
+			for(var i = 0;  i < state.length; i++) {
+			    if (state[i].id === action.payload.id) {
+			        eventId = i;
+			        break;
+			    }
+			}
+			return [
+			    ...state.slice(0, eventId),
+			    ...state.slice(eventId + 1),
+			    {
+				    	id: Date.now(),
+				    	name: action.payload.name,
+							type: action.payload.type,
+							school: action.payload.school,
+	        		other: action.payload.other,
+							description: action.payload.description,
+							date: action.payload.date,
+	        		students: action.payload.attendingStudents,
+					}
+			];
+
+		case 'SET_EVENT_LIST':
+			return action.payload;
+
+		default:
+			return state;
+	}
+};
+
+
+
+/*export var mainEventReducer = (state = [defaultEventState], action) => {
 	switch(action.type){
 		case 'ADD_EVENT':
 			return 	[
@@ -145,3 +226,4 @@ export var mainEventReducer = (state = defaultEventState, action) => {
 			return state;
 	}
 };
+*/

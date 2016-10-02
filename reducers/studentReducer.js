@@ -13,7 +13,10 @@ export var enableAddStudentReducer = (state = false, action) => {
 export var selectedStudentReducer = (state = {}, action) => {
 	switch(action.type){
 		case 'SET_STUDENT':
-			return action.payload;
+			if (action.payload)
+				return action.payload;
+			else
+				return state;
 		default:
 			return state;
 	}

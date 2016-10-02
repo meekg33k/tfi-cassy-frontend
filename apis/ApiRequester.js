@@ -76,9 +76,9 @@ module.exports = {
 		});
 	},
 
-	getAllEvents: function(){
+	getUserEvents: function(userId){
 
-		return axios.get(CASSY_URL+"event-attendances").then(function(res) {
+		return axios.get(CASSY_URL+"users/"+userId+"/events").then(function(res) {
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);
 			}
@@ -90,7 +90,7 @@ module.exports = {
 		});
 	},
 
-	getAllEvents: function(){
+/*	getAllEvents: function(){
 
 		return axios.get(CASSY_URL+"event-attendances").then(function(res) {
 			if (res.data.cod && res.data.message){
@@ -102,7 +102,7 @@ module.exports = {
 		}, function(res) {
 			throw new Error(res.data.message);
 		});
-	},
+	},*/
 
 
 
@@ -187,6 +187,19 @@ module.exports = {
 		});
 	},
 
+	getFormFieldValuesByName: function(fieldName){
+
+		return axios.get(CASSY_URL+"form-fields/names/"+fieldName).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
 
 
 
@@ -283,7 +296,6 @@ module.exports = {
 
 	/** Student-Related API Calls **/
 	addStudent: function(student){
-
 		return axios.post(CASSY_URL+"students", {
 			"firstname": student.firstName,
 			"lastname": student.lastName,
@@ -349,6 +361,20 @@ module.exports = {
 	getAllStudents: function(){
 
 		return axios.get(CASSY_URL+"students").then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+	getStudentsByUser: function(userId){
+
+		return axios.get(CASSY_URL+"users/students").then(function(res) {
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);
 			}
