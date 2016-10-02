@@ -55,15 +55,15 @@ Local server runs on port 8888. To extend the front-end subsystem of the CASSY a
 
 Actions:
   * Create action: `/actions/{ENTITY_NAME}Action.js`. For example, /actions/studentActions.js`
-  * Include the action module you created in the `/actions` path in the root directory of the project
+  * Include the action module you created in the `/actions/actions.js` index file in the root directory of the project
 
 Data Sources
   * Create data source: `/apis/{NAME}.js`
   * Data sources include modules that make API calls to the server and local storage modules
 
 Reducers:
-  * Create action: `/reducers/{ENTITY_NAME}Reducer.js`. For example, /reducers/schoolReducers.js`
-  * Include the reducer module you created in the `/reducers` path in the root directory of the project
+  * Create reducer: `/reducers/{ENTITY_NAME}Reducer.js`. For example, /reducers/schoolReducers.js`
+  * Include the reducer module you created in the `/reducers/reducer.js` index file in the root directory of the project
   * Add the reducer module created to the list of registered reducers in the store configuration file `/store/configureStore.js`
 
 View
@@ -71,6 +71,7 @@ View
   * Create page: `/public/pages/` either as a js or jsx file `/public/pages/{NAME}.js`
   * Make sure to import the page and add it to the specific route in `/public/client.js` using the right naming convention. For example, `import {NAME}Page from "./pages/{NAME}.js"`
   * (Optional) Include components as aliases in ./webpack.config.js
+
 
 
 
