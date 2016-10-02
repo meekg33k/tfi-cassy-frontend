@@ -24,6 +24,7 @@ var Student = React.createClass({
 		if (user){
 			//User is logged in
 			dispatch(actions.asyncFetchStudents());
+			dispatch(actions.asyncFetchSchools());
 		}
 		else {
 			//User needs to login
@@ -151,15 +152,15 @@ var Student = React.createClass({
   		var searchString= this.state.searchString;
   		var filteredStudents = Util.filterStudents(students, searchString);
 
-			var displayErrorMessage = () =>{
-				if (this.state.error){
-					return(
-						<div>
-							<p class="error">{this.state.errorMessage}</p>
-						</div>
-					);
-				}
-			};
+		var displayErrorMessage = () =>{
+			if (this.state.error){
+				return(
+					<div>
+						<p class="error">{this.state.errorMessage}</p>
+					</div>
+				);
+			}
+		};
 
       	var renderAddStudent = () =>{
   			if (this.props.addStudent){

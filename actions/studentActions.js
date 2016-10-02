@@ -7,7 +7,6 @@ import ApiRequester from "../apis/ApiRequester.js";
 
 export var asyncAddStudent = (student) => {
 	return (dispatch, getState) => {
-
 		ApiRequester.addStudent(student).then(function(res){
 			alert("New student added successfully");  //<============ Change all alerts to modals
 			dispatch(asyncFetchStudents());
@@ -23,7 +22,7 @@ export var asyncDeleteStudent = (student) => {
 	return (dispatch, getState) => {
 
 		ApiRequester.deleteStudent(student).then(function(res){
-			alert("Student deleted successfully"); //<============ Change all alerts to modals
+			alert("Student deleted successfully"); 
 			//Update changes in Staff view
 			dispatch(asyncFetchStudents());
 
@@ -38,7 +37,7 @@ export var asyncEditStudent = (student) => {
 	return (dispatch, getState) => {
 
 		ApiRequester.editStudent(student).then(function(res){
-			alert("Changes saved successfully"); //<============ Change all alerts to modals
+			alert("Changes saved successfully"); 
 			dispatch(asyncFetchStudents());
 
 		}, function(err){
@@ -60,11 +59,37 @@ export var asyncFetchStudents = () => {
 	};
 }
 
+export var asyncFetchStudentsByStaff = () => {
+	return (dispatch, getState) => {
+
+		ApiRequester.getStudentsByUser().then(function(res){
+			dispatch(setStudentList(res));
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+
 export var asyncFetchStudentById = (studentId) => {
 	return (dispatch, getState) => {
 
 		ApiRequester.getOneStudent(studentId).then(function(res){
 			dispatch(setSelectedStudent(res[0]));
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+
+export var asyncFetchStudentProblems = () => {
+	return (dispatch, getState) => {
+
+		ApiRequester.getStudentProblems().then(function(res){
+			dispatch(setStudentList(res));
 		}, function(err){
 			console.log(err);
 		});

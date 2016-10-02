@@ -52,6 +52,7 @@ export default React.createClass({
 		};
 
 		var renderStudents = () => {
+			console.log("StudentList: ",students);
 			return students.map((student) => {
 				return (
 					<Student key={student.student_id} onCancelEdit = {this.props.onCancelEditStudent} onEdit={this.props.onEditStudent} onDelete={this.props.onDeleteStudent}

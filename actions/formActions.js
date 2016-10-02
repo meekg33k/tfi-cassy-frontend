@@ -42,6 +42,19 @@ export var asyncFetchFormFieldValues = (fieldID) => {
 	};
 }
 
+export var asyncFetchFormFieldValuesByName = (fieldName) => {
+	var field_name = fieldName;
+	return (dispatch, getState) => {
+
+		ApiRequester.getFormFieldValuesByName(field_name).then(function(res){
+			dispatch(setFormFieldValues(res));
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
 export var asyncDeleteFieldValue = (fieldValueID, fieldID) => {
 	return (dispatch, getState) => {
 

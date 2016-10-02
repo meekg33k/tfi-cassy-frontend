@@ -3,10 +3,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router";
+import {connect} from "react-redux";
 
 
+import * as actions from "../../actions/actions"
 
-export default React.createClass({
+var StudentComponent =  React.createClass({
 
 	getInitialState(){
 
@@ -18,13 +20,13 @@ export default React.createClass({
 			studentId: this.props.student_id,
 			firstName: this.props.first_name,
 			lastName: this.props.last_name,
+			ethnicity: this.props.ethnicity,
 			gender: this.props.gender,
-/*			grade: this.props.grade,
+			grade: this.props.grade,
 			school: this.props.school,
-			lunchOption: this.props.lunchOption,
+/*			lunchOption: this.props.lunchOption,
 			presentingIssue: this.props.presentingIssue,
-			referral: this.props.referral,
-			school: this.props.school,*/
+			referral: this.props.referral,*/
 			userType: userRole
 		};
 	},
@@ -35,9 +37,10 @@ export default React.createClass({
 			student_id: this.state.studentId,
 			firstname: this.state.firstName,
 			lastname: this.state.lastName,
+			ethnicity: this.state.ethnicity,
 			gender: this.state.gender,
-/*			grade: this.state.grade,
-			lunchOption: this.state.lunchOption,
+			grade: this.state.grade,
+/*			lunchOption: this.state.lunchOption,
 			presentingIssue: this.state.presentingIssue,
 			referral: this.state.referral,*/
 			school: this.state.school
@@ -57,6 +60,12 @@ export default React.createClass({
 	delete(e){
 		e.preventDefault(e);
 		this.props.onDelete(this.getStudent());
+	},
+
+
+	fetchDetails(){
+		var {dispatch} = this.props;
+		dispatch(actions.asyncFetchStudentById(this.state.id));
 	},
 
 
@@ -84,6 +93,7 @@ export default React.createClass({
 				id: this.state.id,
 				firstName: this.refs.firstName.value,
 				lastName: this.refs.lastName.value,
+				ethnicity: this.state.ethnicity,
 				gender: this.state.gender,
 				grade: this.refs.grade.value,
 				/*	gender: this.state.grade,
@@ -117,6 +127,15 @@ export default React.createClass({
 
 	render(){
 
+		var renderSchools = () => {
+			return this.props.schools.map((school) => {
+				var schoolName = school.school_name
+				return (
+					<option key={school.school_id}>{schoolName}</option>
+				);
+			});
+		};
+
 		var renderStudent = () =>{
 			if (!this.state.isEditing){
 				return(
@@ -136,8 +155,8 @@ export default React.createClass({
 								{this.state.school}
 							</div>
 							<div class="col-sm-4 col-lg-4 col md-4">
-								<Link to={`${this.state.userType}/students/${this.state}`}>
-									<button type="button" class="btn btn-sm btn-primary">
+								<Link to={`${this.state.userType}/students/${this.state.studentId}`}>
+									<button type="button" onClick={this.fetchDetails} class="btn btn-sm btn-primary">
 										<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 										&nbsp; Profile
 									</button>
@@ -189,8 +208,7 @@ export default React.createClass({
 							</div>
 							<div class="col-sm-3 col-lg-3 col md-3">
 				                <select class="form-control" ref="school">
-				                    <option>ABC School</option>
-				                    <option>XYZ College</option>
+				                    {renderSchools()}
 				                </select>
 							</div>
 							<div class="col-sm-3 col-lg-3 col-md-3">
@@ -218,3 +236,14 @@ export default React.createClass({
 		);
 	}
 });
+module.exports = connect(
+	(store) => {
+		return {
+			selectedSchool: store.selectedSchool,
+			schools: store.schools,
+			addSchool: store.addSchoolState,
+			editSchoolErr: store.editSchoolErrorState,
+			editSchoolErrMsg: store.editSchoolErrorMessage
+		};
+	}
+)(StudentComponent);

@@ -1,21 +1,23 @@
 import React from 'react';
+import { Link } from "react-router";
+import {connect} from "react-redux";
 
+import ApiRequester from "../../apis/ApiRequester.js";
 import Util from "../../apis/Helper"
 
-export default React.createClass({
+import * as actions from "../../actions/actions"
+
+
+
+var StudentDetails = React.createClass({
 
     getInitialState() {
-        return {
-            firstName: "Kaycee",
-            lastName: "Jones",
-            ethnicity: "Caucasian",
-            gender: "Male",
-            grade: "5th Grade",
-            school: "Ravenswood Elementary",
-            isEditing: false,
-            error: false,
-            errorMessage: ""
-        }
+      return {
+          id: this.props.id,
+          isEditing: false,
+          error: false,
+          errorMessage: ""
+      }
     },
 
 
@@ -72,7 +74,7 @@ export default React.createClass({
     saveEditStudent(e){
       e.preventDefault();
       var test = this.ensureInputEntered();
-      console.log("Value of test", test);
+      var {dispatch} = this.props;
 
       if (test) {
         var inputValidator = Util.validateUserInput(this.refs.firstName.value, this.refs.lastName.value);
@@ -94,16 +96,34 @@ export default React.createClass({
     			}
         }
         else{
-          this.setState({
+
+          var editedStudent = {
+            id: this.state.id,
             firstName: this.refs.firstName.value,
             lastName: this.refs.lastName.value,
             ethnicity: this.refs.ethnicity.value,
             gender: this.refs.gender.value,
             grade: this.refs.grade.value,
-            school: this.refs.school.value,
-            isEditing: false,
-            error: false
+            /*  gender: this.state.grade,
+            lunchOption: this.state.lunchOption,
+            presentingIssue: this.state.presentingIssue,
+            referral: this.state.referral,*/
+            school: this.refs.school.value
+          };
+
+          //Call to server-side API
+          ApiRequester.editStudent(editedStudent).then(function(res){
+            alert("Changes saved successfully"); //<============ Change all alerts to modals
+            dispatch(actions.asyncFetchStudentById(editedStudent.id));
+
+          }, function(err){
+            console.log(err);
           });
+
+          this.setState({
+            isEditing: false
+          });
+
           return {
             state: true,
             field: ""
@@ -124,6 +144,15 @@ export default React.createClass({
   			}
   		};
 
+      var renderSchools = () => {
+        return this.props.schools.map((school) => {
+          var schoolName = school.school_name
+          return (
+            <option key={school.school_id}>{schoolName}</option>
+          );
+        });
+      };
+
       var renderProfile= () =>{
   			if (this.state.isEditing){
   				return(
@@ -135,13 +164,13 @@ export default React.createClass({
                   <div class="form-group">
                       <label for="firstName" class="col-sm-2 control-label">First Name</label>
                       <div class="col-sm-5">
-                        <input type="text" class="form-control" ref="firstName" defaultValue = {this.state.firstName}/>
+                        <input type="text" class="form-control" ref="firstName" defaultValue = {this.props.selectedStudent.first_name}/>
                       </div>
                   </div>
                   <div class="form-group">
                       <label for="lastName" class="col-sm-2 control-label">Last Name</label>
                       <div class="col-sm-5">
-                        <input type="text" class="form-control" ref="lastName" defaultValue = {this.state.lastName}/>
+                        <input type="text" class="form-control" ref="lastName" defaultValue = {this.props.selectedStudent.last_name}/>
                       </div>
                   </div>
                   <div class="form-group">
@@ -193,9 +222,7 @@ export default React.createClass({
                       <label for="school" class="col-sm-2 control-label">School</label>
                       <div class="col-sm-5">
                           <select class="form-control" ref="school">
-                              <option>Ranswood Elementary</option>
-                              <option>ABC HighSchool</option>
-                              <option>XYZ College</option>
+                            {renderSchools()}
                           </select>
                       </div>
                   </div>
@@ -216,22 +243,31 @@ export default React.createClass({
   				);
   			}
         else{
+          if (this.props.selectedStudent.first_name){
             return(
-            <div>
-                <p></p>
-                <div>
-                  <p><b>Name</b>: {this.state.firstName} {this.state.lastName}</p>
-                  <p><b>Ethnicity</b>: {this.state.ethnicity}</p>
-                  <p><b>Gender</b>: {this.state.gender}</p>
-                  <p><b>Grade</b>: {this.state.grade}</p>
-                  <p><b>School</b>: {this.state.school}</p>
-                </div>
-                <button type="button" onClick={this.initiateEditStudent} class="btn btn-sm btn-warning" id ="record-event-btn">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                    Edit Details
-                </button>
-            </div>
-          );
+              <div>
+                  <p></p>
+                  <div>
+                    <p><b>Name</b>: {this.props.selectedStudent.first_name} {this.props.selectedStudent.last_name}</p>
+                    <p><b>Ethnicity</b>: {this.props.selectedStudent.ethnicity}</p>
+                    <p><b>Gender</b>: {this.props.selectedStudent.gender}</p>
+                    <p><b>Grade</b>: {this.props.selectedStudent.grade}</p>
+                    <p><b>School</b>: {this.props.selectedStudent.school}</p>
+                  </div>
+                  <button type="button" onClick={this.initiateEditStudent} class="btn btn-sm btn-warning" id ="record-event-btn">
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                      Edit Details
+                  </button>
+              </div>
+            );
+          }
+          else{
+            return(
+              <div>
+                  <p>Details for student not found. Please return to Students page to select valid student</p>
+              </div>
+            );
+          }
         }
       }
       return (
@@ -241,3 +277,11 @@ export default React.createClass({
       );
     }
 });
+module.exports = connect(
+  (store) => {
+    return {
+      schools: store.schools,
+      selectedStudent: store.selectedStudent
+    };
+  }
+)(StudentDetails);

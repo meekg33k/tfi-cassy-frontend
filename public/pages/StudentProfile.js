@@ -3,23 +3,55 @@
 import React from "react";
 import { Link } from "react-router";
 import BreadCrumb from "react-breadcrumbs"
+import {connect} from "react-redux";
 
 import Problem from "../components/PresentingProblem";
 import StudentDetails from "../components/StudentDetails";
 import TreatmentList from "../components/TreatmentConcernList";
 import TimeLineList from "../components/TimeLineList";
 
+import * as actions from "../../actions/actions"
 
-export default React.createClass({
+
+var StudentProfile = React.createClass({
+
+	componentWillMount(){
+  		var user = JSON.parse(localStorage.getItem('user'));
+		var {dispatch} = this.props;
+
+		if (!user){
+			window.location.replace(
+			  window.location.pathname + window.location.search + '#/'
+			);
+			//dispatch(actions.setUserError());
+		}
+		this.setState({
+			_id: this.props.params.id
+		});
+
+		if (!this.props.selectedStudent.first_name){
+			dispatch(actions.asyncFetchStudentById(this.props.params.id));
+		}
+		dispatch(actions.asyncFetchSchools());
+    },
+
+    /*<StudentDetails firstName={this.state.firstName} lastName={this.state.lastName} ethnicity={this.state.ethnicity}
+			            	gender={this.state.gender} grade={this.state.grade} firstName={this.state.school}></StudentDetails>
+*/
+
+    componentWillReceiveProps(nextProps) {
+  		console.log("Next props", nextProps);
+  		this.setState({
+			firstName: this.props.selectedStudent.first_name,
+			lastName: this.props.selectedStudent.last_name,
+			ethnicity: this.props.selectedStudent.ethnicity,
+			gender: this.props.selectedStudent.gender,
+			grade: this.props.selectedStudent.grade,
+			school: this.props.selectedStudent.school
+		});
+	},
 
 	render(){
-
-		// componentDidMount() {
-	  //   this.setState({
-	  //     // route components are rendered with useful information, like URL params
-	  //     user: findUserById(this.props.params.userId)
-	  //   })
-	  // },
 		return (
 			<div>
 				<div class="container">
@@ -32,7 +64,7 @@ export default React.createClass({
 	                    <p class="student-header">Student Profile</p>
 	                </div>
 					<div class="well">
-			            <StudentDetails></StudentDetails>
+			            <StudentDetails id={this.state._id}></StudentDetails>
 					</div>
 			        <p class="line-breaker" />
 					<div>
@@ -66,5 +98,11 @@ export default React.createClass({
 			</div>
 		);
 	}
-
 });
+module.exports = connect(
+	(store) => {
+		return {
+			selectedStudent: store.selectedStudent
+		};
+	}
+)(StudentProfile);
