@@ -32,3 +32,15 @@ export var studentReducer = (state = [], action) => {
 			return state;
 	}
 };
+
+
+export var studentProblemsReducer = (state = [], action) => {
+	switch(action.type){
+		case 'SET_PROBLEM_LIST':
+			console.log("Student problemss", action.payload);
+			return action.payload;
+
+		default:
+			return state;
+	}
+};

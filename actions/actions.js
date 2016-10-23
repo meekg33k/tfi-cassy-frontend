@@ -6,6 +6,7 @@ import * as FormActions from "./formActions.js"
 import * as SchoolActions from "./schoolActions.js"
 import * as StaffActions from "./staffActions.js"
 import * as StudentActions from "./studentActions.js"
+import * as ProblemActions from "./ProblemActions.js"
 
 
 /** Error Actions **/
@@ -43,6 +44,11 @@ export var setSelectedFieldID = FormActions.setSelectedFieldID;
 export var setFieldValues = FormActions.setFieldValues;
 
 
+/** Form-Problem Actions **/
+export var asyncFetchPresentingIssueFormValues = FormActions.asyncFetchPresentingIssueFormValues;
+export var asyncFetchTreatmentConcernFormValues = FormActions.asyncFetchTreatmentConcernFormValues;
+
+
 /** School Actions **/
 export var asyncAddSchool = SchoolActions.asyncAddSchool;
 export var asyncDeleteSchool = SchoolActions.asyncDeleteSchool;
@@ -77,6 +83,12 @@ export var asyncEditStudent = StudentActions.asyncEditStudent;
 export var asyncFetchStudentById = StudentActions.asyncFetchStudentById;
 export var asyncFetchStudents = StudentActions.asyncFetchStudents;
 export var enableAddStudent = StudentActions.enableAddStudent;
+
+
+/** Student-Problem Actions **/
+export var asyncAddStudentProblem = ProblemActions.asyncAddStudentProblem;
+export var asyncFetchStudentProblems = ProblemActions.asyncFetchStudentProblems;
+export var asyncUpdateStudentProblem = ProblemActions.asyncUpdateStudentProblem;
 
 
 /** TimeLine Actions **/

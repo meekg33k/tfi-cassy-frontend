@@ -166,7 +166,7 @@ router.get('/problems/:problemid', (req, res, next) => {
 });
 
 // GET presenting problems for a student
-router.get('/students/:studentid/problems', (req, res, next) => {
+router.get('/:studentid/problems', (req, res, next) => {
   apiManager.getPresentingProblemByStudent(req.params.studentid, (err, result) => {
     if (err) {
       console.error(`Error getting presenting problem for student id ${req.params.studentid}, Error ${err}`);
@@ -236,7 +236,7 @@ router.get('/concerns/:concernid', (req, res, next) => {
 });
 
 // GET treatment concerns for a student
-router.get('/students/:studentid/concerns', (req, res, next) => {
+router.get('/:studentid/concerns', (req, res, next) => {
   apiManager.getTreatmentConcernByStudent(req.params.studentid, (err, result) => {
     if (err) {
       console.error(`Error getting treatment concern for student id ${req.params.studentid}, Error ${err}`);

@@ -16,7 +16,6 @@ var CASSY_URL = "/";//"https://cassy-server.herokuapp.com/";
 module.exports = {
 
 	/** Event-Related API Calls **/
-
 	createEvent: function(event){
 
 		return axios.post(CASSY_URL+"event-attendances", {
@@ -200,6 +199,59 @@ module.exports = {
 			throw new Error(res.data.message);
 		});
 	},
+
+
+
+
+	/** Problem-Related API Calls **/
+	addStudentProblem: function(problem, studentId){
+
+		return axios.post(CASSY_URL+"students/problems", {
+			"id": studentId,
+			"problemtype": problem
+		}).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+	getStudentProblems: function(studentId){
+
+		return axios.get(CASSY_URL+"students/"+studentId+"/problems").then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+	updateStudentProblem: function(studentId, problemId, problemType, resolved){
+
+		return axios.put(CASSY_URL+"students/problems/"+problemId, {
+			"resolved": resolved,
+			"problemtype": problemType
+		}).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
 
 
 
@@ -472,6 +524,58 @@ module.exports = {
 			throw new Error(res.data.message);
 		});
 	},
+
+
+
+	/** Problem-Related API Calls **/
+	addStudentTreatment: function(treatment, studentId){
+
+		return axios.post(CASSY_URL+"students/concerns", {
+			"id": studentId,
+			"concerntype": treatment
+		}).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+	getStudentTreatments: function(studentId){
+
+		return axios.get(CASSY_URL+"students/"+studentId+"/concerns").then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+	updateStudentTreatment: function(studentId, treatmentId, resolved){
+
+		return axios.put(CASSY_URL+"students/concerns/"+problemId, {
+			"resolved": resolved,
+			"concerntype": problem
+		}).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
 
 
 

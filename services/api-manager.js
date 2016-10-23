@@ -445,9 +445,9 @@ apiManager.getPresentingProblemByStudent = (id, callback) => {
 };
 
 // Create a presenting problem
-apiManager.createPresentingProblem = (adminId, id, params, callback) => {
+apiManager.createPresentingProblem = (adminId, params, callback) => {
   var problem = {
-    student_id: id,
+    student_id: params.id,
     react_id: rightNow,
     problem_type: params.problemtype,
     date_identified: rightNow,
@@ -459,7 +459,9 @@ apiManager.createPresentingProblem = (adminId, id, params, callback) => {
     last_modified_by: adminId,
     active: true
   };
-  connection.query('INSERT INTO presenting_problem VALUES ?', problem, (err, result) => {
+  console.log(problem);
+  //'INSERT INTO student SET ?', student,
+  connection.query('INSERT INTO presenting_problem SET ?', problem, (err, result) => {
     if (err) {
       callback(err);
     }
@@ -470,6 +472,7 @@ apiManager.createPresentingProblem = (adminId, id, params, callback) => {
 
 // Update a presenting problem
 apiManager.updatePresentingProblem = (adminId, id, params, callback) => {
+
   var problem = {
     react_id: rightNow,
     problem_type: params.problemtype,
@@ -479,6 +482,9 @@ apiManager.updatePresentingProblem = (adminId, id, params, callback) => {
     last_modified_at: rightNow,
     last_modified_by: adminId
   };
+
+  console.log(problem);
+  
   connection.query('UPDATE presenting_problem SET ? WHERE problem_id = ?', [problem, id], (err, result) => {
     if (err) {
       callback(err);
@@ -542,7 +548,7 @@ apiManager.getTreatmentConcernByStudent = (id, callback) => {
 // Create a treatment concern
 apiManager.createTreatmentConcern = (adminId, id, params, callback) => {
   var concern = {
-    student_id: id,
+    student_id: params.id,
     react_id: rightNow,
     concern_type: params.concerntype,
     date_identified: rightNow,

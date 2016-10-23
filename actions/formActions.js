@@ -55,6 +55,34 @@ export var asyncFetchFormFieldValuesByName = (fieldName) => {
 	};
 }
 
+export var asyncFetchPresentingIssueFormValues = (fieldName) => {
+	var field_name = fieldName;
+	return (dispatch, getState) => {
+
+		ApiRequester.getFormFieldValuesByName(field_name).then(function(res){
+			dispatch(setPresentingIssueValues(res));
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+
+export var asyncFetchTreatmentConcernFormValues = (fieldName) => {
+	var field_name = fieldName;
+	return (dispatch, getState) => {
+
+		ApiRequester.getFormFieldValuesByName(field_name).then(function(res){
+			dispatch(setTreatmentConcernValues(res));
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+
 export var asyncDeleteFieldValue = (fieldValueID, fieldID) => {
 	return (dispatch, getState) => {
 
@@ -112,6 +140,20 @@ export var setFormFields = (value) => {
 export var setFormFieldValues = (fieldValues) => {
 	return {
 		type: 'SET_FIELD_VALUES',
+		payload: fieldValues
+	};
+}
+
+export var setPresentingIssueValues = (fieldValues) => {
+	return {
+		type: 'SET_PROBLEM_VALUES',
+		payload: fieldValues
+	};
+}
+
+export var setTreatmentConcernValues = (fieldValues) => {
+	return {
+		type: 'SET_TREATMENT_VALUES',
 		payload: fieldValues
 	};
 }

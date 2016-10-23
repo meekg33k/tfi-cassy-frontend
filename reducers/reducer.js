@@ -26,8 +26,10 @@ export var eventReducer = EventsReducer.mainEventReducer;
 export var addFieldButtonReducer = FormReducer.addFieldButtonReducer;
 export var formFieldReducer = FormReducer.formFieldReducer;
 export var formFieldValuesReducer = FormReducer.setFieldValuesReducer;
+export var problemValuesReducer = FormReducer.setProblemValuesReducer;
 export var setSelectedFieldReducer = FormReducer.setSelectedFieldReducer; 
 export var setSelectedFieldIDReducer = FormReducer.setSelectedFieldIDReducer; 
+export var treatmentConcernValuesReducer = FormReducer.setTreatmentConcernValuesReducer;
 
 
 /** School Reducers **/
@@ -45,6 +47,14 @@ export var staffReducer = StaffsReducer.staffReducer;
 export var enableAddStudentReducer = StudentsReducer.enableAddStudentReducer;
 export var selectedStudentReducer = StudentsReducer.selectedStudentReducer;
 export var studentReducer = StudentsReducer.studentReducer;
+
+
+/** Student-Problem Reducers **/
+export var studentProblemsReducer = StudentsReducer.studentProblemsReducer;
+
+
+/** Treatment Reducer **/
+//export var formFieldValuesReducer = FormReducer.setFieldValuesReducer;
 
 
 /** Timeline Reducer **/

@@ -23,6 +23,7 @@ export var configure = () => {
 		formFields: reducer.formFieldReducer,
 		formFieldValues:reducer.formFieldValuesReducer,
 		loginError: reducer.loginErrorReducer,
+		problemFieldValues: reducer.problemValuesReducer,
 		searchText: reducer.searchReducer,
 		selectedField: reducer.setSelectedFieldReducer,
 		selectedFieldID: reducer.setSelectedFieldIDReducer,
@@ -30,8 +31,10 @@ export var configure = () => {
 		selectedStudent: reducer.selectedStudentReducer,
 		schools: reducer.schoolReducer,
 		students: reducer.studentReducer,
+		studentProblems: reducer.studentProblemsReducer,
 		staff: reducer.staffReducer,
-		timelineState: reducer.timelineReducer
+		timelineState: reducer.timelineReducer,
+		treatmentConcernValues: reducer.treatmentConcernValuesReducer
 	});
 
 	var store = createStore(appReducer,applyMiddleware(thunk));

@@ -235,3 +235,36 @@ export var setFieldValuesReducer = (state = [], action) => {
 	}
 };
 
+
+export var setProblemValuesReducer = (state = [], action) => {
+	switch(action.type){
+
+		case 'SET_PROBLEM_VALUES':
+			if (state.length > 0){
+				return state;
+			}
+			else{
+				return action.payload;
+			}
+			
+		default:
+			return state;
+	}
+};
+
+export var setTreatmentConcernValuesReducer = (state = [], action) => {
+	switch(action.type){
+
+		case 'SET_TREATMENT_VALUES':
+			if (state.length > 0){
+				return state;
+			}
+			else{
+				return action.payload;
+			}
+			
+		default:
+			return state;
+	}
+};
+
