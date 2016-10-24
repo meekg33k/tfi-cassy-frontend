@@ -7,7 +7,6 @@ import {connect} from "react-redux";
 import moment from "moment";
 
 import Problem from "../components/PresentingProblem";
-import ProblemList from "../components/PresentingProblemList";
 import StudentDetails from "../components/StudentDetails";
 import TreatmentList from "../components/TreatmentConcernList";
 import TimeLineList from "../components/TimeLineList";
@@ -42,7 +41,6 @@ var StudentProfile = React.createClass({
 
 
     componentWillReceiveProps(nextProps) {
-  		console.log("Next props", nextProps);
   		this.setState({
 			firstName: this.props.selectedStudent.first_name,
 			lastName: this.props.selectedStudent.last_name,
@@ -71,7 +69,6 @@ var StudentProfile = React.createClass({
 
 	render(){
 		var renderProblems = () => {
-			console.log("The length", this.props.studentProblems.length);
 			if (this.props.studentProblems.length == 0){
 				return (
 					<p>No issues found. Use form to add issue </p>
@@ -79,7 +76,6 @@ var StudentProfile = React.createClass({
 			}
 			else{
 				return this.props.studentProblems.map((problem) => {
-					console.log("The problem", problem);
 					return (
 						<Problem key={problem.problem_id} onUpdateProblem={this.handleUpdateProblem} {...problem}/>
 					);
