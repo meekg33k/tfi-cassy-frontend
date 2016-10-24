@@ -6,7 +6,7 @@ import * as FormActions from "./formActions.js"
 import * as SchoolActions from "./schoolActions.js"
 import * as StaffActions from "./staffActions.js"
 import * as StudentActions from "./studentActions.js"
-import * as ProblemActions from "./ProblemActions.js"
+import * as ProblemActions from "./problemActions.js"
 
 
 /** Error Actions **/
