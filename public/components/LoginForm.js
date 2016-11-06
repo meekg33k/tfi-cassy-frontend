@@ -2,7 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import {Link} from "react-router";
+import { IndexLink, Link } from "react-router";
 
 
 export default React.createClass({
@@ -26,6 +26,7 @@ export default React.createClass({
 	},
 
 	render(){
+		const active = { color: '#909439', backgroundColor: '#909439' };
 		return(
 			<div>
 				<form id="loginForm" class="form-horizontal" role="form" onSubmit={this.onLogin}>
@@ -41,11 +42,9 @@ export default React.createClass({
 		            </div>
 		            <div class="form-group">
 		                <div>
-		                  <div class="checkbox">
-		                    <label>
-		                      <input type="checkbox" /> Remember me
-		                    </label>
-		                  </div>
+		                	<IndexLink to="/recover">
+		                      	Forgot Password?
+	                        </IndexLink>
 		                </div>
 		            </div>
 		            <p class="line-breaker" />

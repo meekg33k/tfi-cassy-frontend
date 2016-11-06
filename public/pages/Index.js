@@ -22,16 +22,23 @@ var Index = React.createClass( {
 			dispatch(actions.setLoginError("Valid"));
 
 			localStorage.setItem('user', JSON.stringify(res[0]));
-			
-			if (res[0].role.toLowerCase() === "administrator"){
+
+			if (res[0].first_login == 0){
 				window.location.replace(
-				  window.location.pathname + window.location.search + '#/admin'
+				  window.location.pathname + window.location.search + '#/firstlogin'
 				);
 			}
 			else{
-				window.location.replace(
-				  window.location.pathname + window.location.search + '#/home'
-				);
+				if (res[0].role.toLowerCase() === "administrator"){
+					window.location.replace(
+					  window.location.pathname + window.location.search + '#/admin'
+					);
+				}
+				else{
+					window.location.replace(
+					  window.location.pathname + window.location.search + '#/home'
+					);
+				}
 			}
 		}, function(err){
 				dispatch(actions.setLoginError("Invalid"));

@@ -18,12 +18,14 @@ import EventPage from "./pages/Event"
 import FormPage from "./pages/Form"
 import HomePage from "./pages/Home"
 import IndexPage from "./pages/Index"
+import RecoverPasswordPage from "./pages/RecoverPassword"
+import ReportPage from "./pages/Report"
 import SchoolPage from "./pages/School"
 import SchoolDetailsPage from "./pages/SchoolDetails"
+import SetPasswordPage from "./pages/SetPassword"
 import StaffPage from "./pages/Staff"
 import StudentPage from "./pages/Student"
 import StudentProfilePage from "./pages/StudentProfile"
-import ReportPage from "./pages/Report"
 
 
 var appStore = require("../store/configureStore").configure();
@@ -35,14 +37,14 @@ appStore.subscribe(() => {
 
 
 const root = document.getElementById("root");
-console.log(root);
-
 
 ReactDOM.render((
 	<Provider store={appStore}>
 		<Router history={hashHistory}>
 			<Route path="/" component={IndexLayout}>
 				<IndexRoute component={IndexPage}/>
+				<Route path="/recover" component={RecoverPasswordPage}/>
+				<Route path="/firstlogin" component={SetPasswordPage}/>
 			</Route>
 
 			<Route path="/home" component={AppLayout} name="Home">
