@@ -17,8 +17,10 @@ export default React.createClass({
 		                    <span class="icon-bar"></span>
 		                    <span class="icon-bar"></span>
 		                </button>
-		                <a class="navbar-brand" href="../home.html"><img src="../assets/images/imgLogo.png" height="80" ></img></a>
-		            </div>
+		                <IndexLink to="/">
+		                	<span className="navbar-brand"><img src="../assets/images/imgLogo.png" height="80" ></img></span>
+	                	</IndexLink>
+                	</div>
 		            <div id="navbar" class="navbar-collapse collapse">
 		                <ul class="nav navbar-nav">
 
