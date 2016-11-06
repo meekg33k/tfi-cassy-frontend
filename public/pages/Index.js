@@ -23,7 +23,7 @@ var Index = React.createClass( {
 
 			localStorage.setItem('user', JSON.stringify(res[0]));
 
-			if (res[0].first_login == 0){
+			if (res[0].first_login == 1){
 				window.location.replace(
 				  window.location.pathname + window.location.search + '#/firstlogin'
 				);
