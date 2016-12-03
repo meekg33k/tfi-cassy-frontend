@@ -78,7 +78,6 @@ var StudentDetails = React.createClass({
 
       if (test) {
         var inputValidator = Util.validateUserInput(this.refs.firstName.value, this.refs.lastName.value);
-        console.log("Value of special xter check", inputValidator.state);
 
         if (!inputValidator.state){
           this.setState({

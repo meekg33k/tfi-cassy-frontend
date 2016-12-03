@@ -53,8 +53,8 @@ export var studentReducer = StudentsReducer.studentReducer;
 export var studentProblemsReducer = StudentsReducer.studentProblemsReducer;
 
 
-/** Treatment Reducer **/
-//export var formFieldValuesReducer = FormReducer.setFieldValuesReducer;
+/** Student-Treatment Reducer **/
+export var studentTreatmentsReducer = StudentsReducer.studentTreatmentsReducer;
 
 
 /** Timeline Reducer **/

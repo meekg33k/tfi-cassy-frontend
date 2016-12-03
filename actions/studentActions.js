@@ -85,19 +85,6 @@ export var asyncFetchStudentById = (studentId) => {
 }
 
 
-export var asyncFetchStudentProblems = () => {
-	return (dispatch, getState) => {
-
-		ApiRequester.getStudentProblems().then(function(res){
-			dispatch(setStudentList(res));
-		}, function(err){
-			console.log(err);
-		});
-
-	};
-}
-
-
 
 /** User Interface Actions **/
 export var enableAddStudent = (value) => {

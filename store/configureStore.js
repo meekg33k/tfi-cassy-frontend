@@ -32,6 +32,7 @@ export var configure = () => {
 		schools: reducer.schoolReducer,
 		students: reducer.studentReducer,
 		studentProblems: reducer.studentProblemsReducer,
+		studentTreatments: reducer.studentTreatmentsReducer,
 		staff: reducer.staffReducer,
 		timelineState: reducer.timelineReducer,
 		treatmentConcernValues: reducer.treatmentConcernValuesReducer

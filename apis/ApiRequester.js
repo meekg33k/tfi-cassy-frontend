@@ -106,7 +106,6 @@ module.exports = {
 
 
 
-
 	/** Form-Related API Calls **/
 	addFieldValue: function(fieldId, fieldValue){
 
@@ -527,7 +526,46 @@ module.exports = {
 
 
 
-	/** Problem-Related API Calls **/
+
+	/** Timeline-Related API Calls **/
+	addtoStudentTimeline: function(timeLineObject){
+
+		return axios.post(CASSY_URL+"students/"+timeLineObject.id+"/timeline", {
+			"student_id": timeLineObject.id,
+			"date": timeLineObject.date,
+			"activity": timeLineObject.activity,
+			"description": timeLineObject.description,
+			"comments": timeLineObject.comments
+		}).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+	getStudentTimeline: function(studentId){
+
+		return axios.get(CASSY_URL+"students/"+studentId+"/timeline").then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+
+
+
+	/** Treatment-Related API Calls **/
 	addStudentTreatment: function(treatment, studentId){
 
 		return axios.post(CASSY_URL+"students/concerns", {
@@ -559,11 +597,11 @@ module.exports = {
 		});
 	},
 
-	updateStudentTreatment: function(studentId, treatmentId, resolved){
+	updateStudentTreatment: function(studentId, treatmentId, treatmentType, resolved){
 
-		return axios.put(CASSY_URL+"students/concerns/"+problemId, {
+		return axios.put(CASSY_URL+"students/concerns/"+treatmentId, {
 			"resolved": resolved,
-			"concerntype": problem
+			"concerntype": treatmentType
 		}).then(function(res) {
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);
@@ -575,7 +613,6 @@ module.exports = {
 			throw new Error(res.data.message);
 		});
 	},
-
 
 
 
@@ -614,5 +651,25 @@ module.exports = {
 			throw new Error(res.data.message);
 		});
 	},
+
+	resetPassword: function(username){
+
+		console.log("Username to be reset "+username);
+
+		return axios.post(CASSY_URL+"forgot-password", {
+			username: username
+		}).then(function(res) {
+
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				console.log(res);
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	}
 
 }

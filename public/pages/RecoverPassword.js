@@ -4,16 +4,24 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { IndexLink, Link } from "react-router";
 
+import ApiRequester from "../../apis/ApiRequester.js"
+import * as actions from "../../actions/actions"
+
 
 export default React.createClass({
 
 	recoverPassword(e){
 		e.preventDefault();
-		console.log("Make call to reset Password");
 		var username = this.refs.username.value;
-		alert("Kindly check your email for link to reset password");
-	},
 
+		ApiRequester.resetPassword(username).then(function(res){
+			alert("Kindly check your email for link to reset password");
+			console.log(res);
+		}, function(err){
+			//Include Status error here.....
+			console.log(err);
+		});
+	},
 
 	render(){
 		return(

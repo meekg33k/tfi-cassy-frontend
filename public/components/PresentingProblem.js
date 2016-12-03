@@ -50,7 +50,6 @@ var PresentingProblem = React.createClass({
 	render(){
 
 		var renderPresentingProblem = () => {
-
 	      if (this.props.resolved == 1){
 	        return(
 	        	<div>

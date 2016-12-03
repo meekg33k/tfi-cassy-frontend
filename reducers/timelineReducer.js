@@ -24,13 +24,11 @@ var defaultTimelineState = [
 	}
 ];
 
-export var timelineReducer = (state = defaultTimelineState, action) => {
+export var timelineReducer = (state = [], action) => {
 	switch(action.type){
-		case 'ADD_TO_TIMELINE':
-			return 	[
-				...state,
-				action.payload
-			];
+		case 'SET_STUDENT_TIMELINE':
+			return action.payload;
+
 		default:
 			return state;
 	}

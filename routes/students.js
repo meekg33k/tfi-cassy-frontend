@@ -25,6 +25,19 @@ router.get('/:studentid/timeline', (req, res, next) => {
   });
 });
 
+// POST student timeline
+router.post('/:studentid/timeline', (req, res, next) => {
+  apiManager.addToStudentTimeline(JSON.stringify(req.user[0].user_id), req.body, (err, result) => {
+    if (err) {
+      console.error(`Error adding to student timeline ${err}`);
+    }
+    
+    res.status(201).send(result);
+  });
+});
+
+
+
 // GET student by studentid
 router.get('/:studentid', (req, res, next) => {
   apiManager.getStudent(req.params.studentid, (err, result) => {

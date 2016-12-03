@@ -7,6 +7,8 @@ import * as SchoolActions from "./schoolActions.js"
 import * as StaffActions from "./staffActions.js"
 import * as StudentActions from "./studentActions.js"
 import * as ProblemActions from "./problemActions.js"
+import * as TreatmentActions from "./treatmentActions.js"
+import * as TimelineActions from "./timelineActions.js"
 
 
 /** Error Actions **/
@@ -46,6 +48,9 @@ export var setFieldValues = FormActions.setFieldValues;
 
 /** Form-Problem Actions **/
 export var asyncFetchPresentingIssueFormValues = FormActions.asyncFetchPresentingIssueFormValues;
+
+
+/** Form-Treatment Actions **/
 export var asyncFetchTreatmentConcernFormValues = FormActions.asyncFetchTreatmentConcernFormValues;
 
 
@@ -91,10 +96,12 @@ export var asyncFetchStudentProblems = ProblemActions.asyncFetchStudentProblems;
 export var asyncUpdateStudentProblem = ProblemActions.asyncUpdateStudentProblem;
 
 
+/** Student-Treatment Actions **/
+export var asyncAddStudentTreatment = TreatmentActions.asyncAddStudentTreatment;
+export var asyncFetchStudentTreatments = TreatmentActions.asyncFetchStudentTreatments;
+export var asyncUpdateStudentTreatment = TreatmentActions.asyncUpdateStudentTreatment;
+
+
 /** TimeLine Actions **/
-export var addToTimeLine = (timelineObject) => {
-	return {
-		type: 'ADD_TO_TIMELINE',
-		payload: timelineObject
-	};
-}
+export var asyncAddtoStudentTimeline = TimelineActions.asyncAddtoStudentTimeline;
+export var asyncFetchStudentTimeline = TimelineActions.asyncFetchStudentTimeline;

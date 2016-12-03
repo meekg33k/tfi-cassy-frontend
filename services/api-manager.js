@@ -205,6 +205,51 @@ apiManager.deleteUser = (adminId, id, callback) => {
 };
 
 
+// Reset User Password
+apiManager.forgotPassword = (params, callback) => {
+  
+  connection.query('SELECT user_id FROM user WHERE username = ?', params.username, (err, result) => {
+    var userId = result[0].user_id;
+    var randomLength = chance.integer({ min: 8, max: 10 });
+    var defaultPassword = chance.string({ length: randomLength });
+    
+    bcrypt.genSalt(saltRounds, (err, salt) => {
+      if (err) {
+        callback(err);
+      }
+      
+      bcrypt.hash(defaultPassword, salt, (err, hash) => {
+        if (err) {
+          callback(err);
+        }
+        
+        var user = {
+        react_id: rightNow,
+        password: hash,
+        last_modified_at: rightNow
+        };
+        
+        connection.query('UPDATE user SET ? WHERE user_id = ?', [user, userId], (err, result) => {
+          if (err) {
+            callback(err);
+          }
+          
+          apiManager.sendEmailWithPassword(defaultPassword, (err, sent) => {
+            if (err) {
+              console.error('There was an error sending the email: ' + err);
+            }
+  
+            callback(null, result);
+          });
+        });
+        
+      });
+    });
+    
+  });
+};
+
+
 // STUDENTS
 // Create a student
 apiManager.createStudent = (adminId, params, callback) => {
@@ -459,7 +504,6 @@ apiManager.createPresentingProblem = (adminId, params, callback) => {
     last_modified_by: adminId,
     active: true
   };
-  console.log(problem);
   //'INSERT INTO student SET ?', student,
   connection.query('INSERT INTO presenting_problem SET ?', problem, (err, result) => {
     if (err) {
@@ -482,8 +526,6 @@ apiManager.updatePresentingProblem = (adminId, id, params, callback) => {
     last_modified_at: rightNow,
     last_modified_by: adminId
   };
-
-  console.log(problem);
   
   connection.query('UPDATE presenting_problem SET ? WHERE problem_id = ?', [problem, id], (err, result) => {
     if (err) {
@@ -546,7 +588,7 @@ apiManager.getTreatmentConcernByStudent = (id, callback) => {
 };
 
 // Create a treatment concern
-apiManager.createTreatmentConcern = (adminId, id, params, callback) => {
+apiManager.createTreatmentConcern = (adminId, params, callback) => {
   var concern = {
     student_id: params.id,
     react_id: rightNow,
@@ -560,7 +602,7 @@ apiManager.createTreatmentConcern = (adminId, id, params, callback) => {
     last_modified_by: adminId,
     active: true
   };
-  connection.query('INSERT INTO treatment_concern VALUES ?', concern, (err, result) => {
+  connection.query('INSERT INTO treatment_concern SET ?', concern, (err, result) => {
     if (err) {
       callback(err);
     }
@@ -571,9 +613,10 @@ apiManager.createTreatmentConcern = (adminId, id, params, callback) => {
 
 // Update a treatment concern
 apiManager.updateTreatmentConcern = (adminId, id, params, callback) => {
+
   var concern = {
     react_id: rightNow,
-    problem_type: params.concerntype,
+    concern_type: params.concerntype,
     date_identified: rightNow,
     resolved: params.resolved,
     resolution_date: rightNow,
@@ -1391,6 +1434,24 @@ apiManager.deleteFormField = (adminId, id, callback) => {
 
 
 // Student timeline
+apiManager.addToStudentTimeline = (adminId, params, callback) => {
+  var timeline = {
+    student_id: params.student_id,
+    date: rightNow,
+    activity: params.activity,
+    description: params.description,
+    comments: params.comments
+  };
+  connection.query('INSERT INTO student_timeline SET ?', timeline, (err, result) => {
+    if (err) {
+      callback(err);
+    }
+    
+    callback(null, result);
+  });
+};
+
+
 apiManager.getStudentTimeline = (id, callback) => {
   connection.query('SELECT * FROM student_timeline WHERE student_id = ?', id, (err, result) => {
     if (err) {

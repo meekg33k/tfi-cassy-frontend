@@ -16,7 +16,7 @@ var TimeLineList = React.createClass({
 		console.log(timelines);
 
 		var renderTimelines = () => {
-      var filteredTimelines = Util.genericSort(timelines);
+      		var filteredTimelines = Util.genericSort(timelines);
 			return filteredTimelines.map((timeline) => {
 				return (
 					<Timeline key={timeline.id} {...timeline}></Timeline>
@@ -35,7 +35,7 @@ var TimeLineList = React.createClass({
 			else {
 				return(
 					<div>
-		        <div class="row">
+				        <div class="row">
 							<div class="col-sm-1 col-lg-1 col-md-1">
 								<b>Date</b>
 							</div>
@@ -50,9 +50,9 @@ var TimeLineList = React.createClass({
 							</div>
 						</div>
 						<br />
-            {renderTimelines()}
-        </div>
-        );
+		            {renderTimelines()}
+		        </div>
+        		);
 			}
 		};
 
