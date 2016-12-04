@@ -8,8 +8,6 @@ import * as reducer from "../reducers/reducer"
 
 export var configure = () => {
 
-	//const middleware = applyMiddleware(thunk, logger());
-
 	var appReducer = combineReducers({
 		addEventState: reducer.enableAddEventReducer,
 		addFieldButtonState: reducer.addFieldButtonReducer,
@@ -30,15 +28,16 @@ export var configure = () => {
 		selectedSchool: reducer.selectedSchoolReducer,
 		selectedStudent: reducer.selectedStudentReducer,
 		schools: reducer.schoolReducer,
+		siteCoordinators: reducer.siteCoordinatorReducer,
 		students: reducer.studentReducer,
 		studentProblems: reducer.studentProblemsReducer,
 		studentTreatments: reducer.studentTreatmentsReducer,
 		staff: reducer.staffReducer,
 		timelineState: reducer.timelineReducer,
+		therapists: reducer.therapistReducer,
 		treatmentConcernValues: reducer.treatmentConcernValuesReducer
 	});
 
 	var store = createStore(appReducer,applyMiddleware(thunk));
-
 	return store;
 }

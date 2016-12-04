@@ -5,10 +5,10 @@ import ReactDOM from "react-dom";
 import { Router, Route, Link, browserHistory } from "react-router";
 import {connect} from "react-redux";
 
-import LoginForm from "../components/LoginForm"
-import ApiRequester from "../../apis/ApiRequester.js"
+import LoginForm from "../components/LoginForm";
+import ApiRequester from "../../apis/ApiRequester.js";
 
-import * as actions from "../../actions/actions"
+import * as actions from "../../actions/actions";
 
 
 

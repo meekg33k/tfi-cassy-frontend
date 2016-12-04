@@ -14,7 +14,6 @@ export default React.createClass({
 		};
 	},
 
-
 	render(){
 
 		var {schools} = this.props;

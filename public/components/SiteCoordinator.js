@@ -1,13 +1,14 @@
 "use strict"
 
 import React from "react";
+import {connect} from "react-redux"
 
-export default React.createClass({
+var SiteCoordinator = React.createClass({
 
     getInitialState(){
   		return {
     		editing: false,
-        name: "Eve Johnson"
+        name: ""
   		}
   	},
 
@@ -20,6 +21,8 @@ export default React.createClass({
 
     saveEdit(e){
       e.preventDefault();
+      //make api call to set sitecoordinator with--->this.refs.sitecoordinator.value;
+      //on success, save state
       this.setState({
         editing: false,
         name: this.refs.name.value
@@ -34,6 +37,15 @@ export default React.createClass({
     },
 
   	render(){
+
+      var renderSiteCoordinators = () => {
+        return this.props.siteCoordinators.map((staffOption) => {
+          var staffName = staffOption.first_name+" "+staffOption.last_name;
+          return (
+            <option key={staffOption.user_id} value={staffOption.user_id}>{staffName}</option>
+          );
+        });
+      };
 
       var renderMessage = () => {
         if (!this.state.editing){
@@ -55,10 +67,8 @@ export default React.createClass({
                 <p><b>Site Coordinator</b> &emsp; &emsp; </p>
               </div>
               <div class="col-sm-3 col-lg-3 col md-3">
-                <select class="form-control" ref="name">
-                    <option>Eve Johnson</option>
-                    <option>John Doe</option>
-                    <option>Jim Smith</option>
+                <select class="form-control" ref="sitecoordinator" onChange={this.printId}>
+                    {renderSiteCoordinators()}
                 </select>
               </div> &emsp; &emsp;
               <div class="col-sm-6 col-lg-6 col md-6">
@@ -85,3 +95,11 @@ export default React.createClass({
       );
 	}
 });
+
+module.exports = connect(
+  (store) => {
+    return {
+      siteCoordinators: store.siteCoordinators
+    };
+  }
+)(SiteCoordinator);

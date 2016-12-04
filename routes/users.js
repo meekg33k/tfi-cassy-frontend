@@ -35,6 +35,28 @@ router.get('/:userid/role', (req, res, next) => {
   });
 });
 
+
+// GET all users by role
+router.get('/:role', (req, res, next) => {
+  apiManager.hasAdministratorAccess(JSON.stringify(req.user[0].user_id), (err, admin) => {
+    if (err) {
+      console.error(`Error determining user access ${err}`);
+    }
+    if (!admin) {
+      console.log('Access denied');
+      res.status(401).send('Access denied');
+    }
+    
+    apiManager.getUsersbyRole(req.params.role, (err, result) => {
+      if (err) {
+        console.error(`Error getting all users ${err}`);
+      }
+    
+      res.status(200).send(result);
+    });
+  });
+});
+
 // GET user by userid
 router.get('/:userid', (req, res, next) => {
   apiManager.hasAdministratorAccess(JSON.stringify(req.user[0].user_id), (err, admin) => {
@@ -116,16 +138,7 @@ router.put('/:userid', (req, res, next) => {
 
 // PUT change user password
 router.put('/:userid/change-password', (req, res, next) => {
-  apiManager.hasAdministratorAccess(JSON.stringify(req.user[0].user_id), (err, admin) => {
-    if (err) {
-      console.error(`Error determining user access ${err}`);
-    }
-    if (!admin) {
-      console.log('Access denied');
-      res.status(401).send('Access denied');
-    }
-    
-    apiManager.changePassword(JSON.stringify(req.user[0].user_id), req.params.userid, req.body, (err, result) => {
+  apiManager.changePassword(req.params.userid, req.body, (err, result) => {
       if (err) {
         console.error('Error changing user\'s password ' + req.params.userid + err);
       }
@@ -133,7 +146,6 @@ router.put('/:userid/change-password', (req, res, next) => {
       console.log('Password updated');
       res.status(200).send('Updated ' + result.changedRows + ' rows');
     });
-  });
 });
 
 

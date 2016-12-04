@@ -4,10 +4,11 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 // Configure Passport strategy
+
 passport.use(new LocalStrategy(
   (username, password, done) => {
-    // Check password hash
-    connection.query('SELECT * FROM user WHERE active = ? AND username = ? AND password = ?', [true, username, password], (err, user) => {
+    
+    connection.query('SELECT * FROM user WHERE active = ? AND username = ?', [true, username], (err, user) => {
       if (err) {
         return done(err);
       }
@@ -16,7 +17,13 @@ passport.use(new LocalStrategy(
         return done(null, false, { message: 'Incorrect username or password.'});
       }
       
-      return done(null, user);
+      // Check password hash
+      bcrypt.compare(password, user[0].password, (err, res) => {
+        if (res) {
+          return done(null, user);
+        }
+        return done(null, false, { message: 'Incorrect password.'});
+      });
     });
   }
 ));

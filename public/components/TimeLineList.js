@@ -13,13 +13,11 @@ var TimeLineList = React.createClass({
 	render(){
 		var {timelines} = this.props;
 
-		console.log(timelines);
-
 		var renderTimelines = () => {
       		var filteredTimelines = Util.genericSort(timelines);
 			return filteredTimelines.map((timeline) => {
 				return (
-					<Timeline key={timeline.id} {...timeline}></Timeline>
+					<Timeline key={timeline.timeline_id} {...timeline}></Timeline>
 				);
 			});
 		};
@@ -39,23 +37,21 @@ var TimeLineList = React.createClass({
 							<div class="col-sm-1 col-lg-1 col-md-1">
 								<b>Date</b>
 							</div>
-							<div class="col-sm-2 col-lg-2 col-md-2">
+							<div class="col-sm-3 col-lg-3 col-md-3">
 								<b>Activity</b>
 							</div>
 							<div class="col-sm-3 col-lg-3 col-md-3">
 								<b>Description</b>
 							</div>
-							<div class="col-sm-6 col-lg-6 col-md-6">
+							<div class="col-sm-5 col-lg-5 col-md-5">
 								<b>Comments</b>
 							</div>
 						</div>
-						<br />
 		            {renderTimelines()}
 		        </div>
         		);
 			}
 		};
-
 		return(
 			<div>
 				<div class="container">
@@ -70,6 +66,7 @@ var TimeLineList = React.createClass({
 		);
 	}
 });
+
 module.exports = connect(
 	(store) => {
 		return {

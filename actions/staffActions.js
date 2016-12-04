@@ -60,6 +60,30 @@ export var asyncFetchStaff = () => {
 	};
 }
 
+export var asyncFetchSiteCoordinators = () => {
+	return (dispatch, getState) => {
+
+		ApiRequester.getSiteCoordinators().then(function(res){
+			dispatch(setSiteCoordinators(res));
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+export var asyncFetchTherapists = () => {
+	return (dispatch, getState) => {
+
+		ApiRequester.getTherapists().then(function(res){
+			dispatch(setTherapists(res));
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
 
 
 /** User Interface Actions **/
@@ -91,9 +115,23 @@ export var enableAddStaff = (value) => {
 	};
 }
 
+export var setSiteCoordinators = (coordinators) => {
+	return {
+		type: 'SET_COORDINATOR_LIST',
+		payload: coordinators
+	};
+}
+
 export var setStaffList = (staff) => {
 	return {
 		type: 'SET_STAFF_LIST',
 		payload: staff
+	};
+}
+
+export var setTherapists = (therapists) => {
+	return {
+		type: 'SET_THERAPIST_LIST',
+		payload: therapists
 	};
 }

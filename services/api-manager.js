@@ -35,13 +35,13 @@ connection.connect((err) => {
 
 
 // SENDING EMAILS
-apiManager.sendEmailWithPassword = (password, callback) => {
+apiManager.sendEmailWithPassword = (password, username, callback) => {
   // Construct email data object
   var data = {
     from: 'Admin <admin@cassyapp.com>',
-    to: 'anup.kher.1990@gmail.com',
-    subject: 'Hello from Cassy',
-    text: `You have been entered into the system. Your default password is ${password}. Please change your password after logging-in.`
+    to: username,
+    subject: 'Cassy System Message',
+    text: `The temporary password for your account is ${password}. Please change your password after logging-in.`
   };
 
   // Send email with default password
@@ -74,7 +74,7 @@ apiManager.hasAdministratorAccess = (id, callback) => {
     if (err) {
       callback(err);
     }
-    if (result !== 'administrator') {
+    if (result !== 'Administrator') {
       callback(null, false);
     }
     callback(null, true);
@@ -93,19 +93,37 @@ apiManager.firstLogin = (loggedInId, callback) => {
 };
 
 // Change password
-apiManager.changePassword = (adminId, id, params, callback) => {
+apiManager.changePassword = (id, params, callback) => {
+
+  console.log(params);
   
-  var user = {
-    password: params.password,
-    last_modified_by: adminId,
-    last_modified_at: rightNow
-  };
-  connection.query('UPDATE user SET ? WHERE user_id = ?', [user, id], (err, result) => {
+  bcrypt.genSalt(saltRounds, (err, salt) => {
+    
     if (err) {
       callback(err);
     }
+    
+    bcrypt.hash(params.password, salt, (err, hash) => {
+      
+      if (err) {
+        callback(err);
+      }
+      
+      var user = {
+        password: hash,
+        first_login: false,
+        last_modified_by: id,
+        last_modified_at: rightNow
+      };
+      
+      connection.query('UPDATE user SET ? WHERE user_id = ?', [user, id], (err, result) => {
+        if (err) {
+          callback(err);
+        }
 
-    callback(null, result);
+        callback(null, result);
+      }); 
+    });
   });
 };
 
@@ -113,33 +131,54 @@ apiManager.changePassword = (adminId, id, params, callback) => {
 apiManager.createUser = (adminId, params, callback) => {
   var randomLength = chance.integer({ min: 8, max: 10 });
   var defaultPassword = chance.string({ length: randomLength });
-  var user = {
-    react_id: rightNow,
-    first_name: params.firstname,
-    last_name: params.lastname,
-    username: params.username,
-    password: defaultPassword,
-    role: params.role,
-    manager_user_id: params.managerid,
-    first_login: true,
-    created_at: rightNow,
-    created_by: adminId,
-    last_modified_at: rightNow,
-    last_modified_by: adminId,
-    active: true
-  };
   
-  connection.query('INSERT INTO user SET ?', user, (err, result) => {
+  console.log(`Random generated password ${defaultPassword}`);
+  
+  bcrypt.genSalt(saltRounds, (err, salt) => {
+    
     if (err) {
       callback(err);
     }
-
-    apiManager.sendEmailWithPassword(defaultPassword, (err, sent) => {
+    
+    bcrypt.hash(defaultPassword, salt, (err, hash) => {
+      
       if (err) {
-        console.error('There was an error sending the email: ' + err);
+        callback(err);
       }
+      
+      console.log(`Hashed password ${hash}`);
+      
+      var user = {
+        react_id: rightNow,
+        first_name: params.firstname,
+        last_name: params.lastname,
+        username: params.username,
+        password: hash,
+        role: params.role,
+        manager_user_id: params.managerid,
+        first_login: true,
+        created_at: rightNow,
+        created_by: adminId,
+        last_modified_at: rightNow,
+        last_modified_by: adminId,
+        active: true
+      };
+      
+      connection.query('INSERT INTO user SET ?', user, (err, result) => {
+        if (err) {
+          callback(err);
+        }
+
+        console.log(`Email generated with password ${defaultPassword}`);
+        apiManager.sendEmailWithPassword(defaultPassword, params.username, (err, sent) => {
+          if (err) {
+            console.error('There was an error sending the email: ' + err);
+          }
   
-      callback(null, result);
+          callback(null, result);
+        });
+      }); 
+      
     });
   });
 };
@@ -147,6 +186,18 @@ apiManager.createUser = (adminId, params, callback) => {
 // Get all users
 apiManager.allUsers = (callback) => {
   connection.query('SELECT * FROM user WHERE active = ?', true, (err, result) => {
+    if (err) {
+      callback(err);
+    }
+    
+    callback(null, result);
+  });
+};
+
+
+// Get users by role
+apiManager.getUsersbyRole = (role, callback) => {
+  connection.query('SELECT * FROM user WHERE active = ? and role=?', [true,role], (err, result) => {
     if (err) {
       callback(err);
     }
@@ -224,9 +275,10 @@ apiManager.forgotPassword = (params, callback) => {
         }
         
         var user = {
-        react_id: rightNow,
-        password: hash,
-        last_modified_at: rightNow
+          react_id: rightNow,
+          password: hash,
+          last_modified_at: rightNow,
+          first_login: true
         };
         
         connection.query('UPDATE user SET ? WHERE user_id = ?', [user, userId], (err, result) => {
@@ -234,7 +286,7 @@ apiManager.forgotPassword = (params, callback) => {
             callback(err);
           }
           
-          apiManager.sendEmailWithPassword(defaultPassword, (err, sent) => {
+          apiManager.sendEmailWithPassword(defaultPassword, params.username, (err, sent) => {
             if (err) {
               console.error('There was an error sending the email: ' + err);
             }

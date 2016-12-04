@@ -18,7 +18,6 @@ export var asyncAddtoStudentTimeline = (timelineObject) => {
 	};
 }
 
-
 export var asyncFetchStudentTimeline = (studentId) => {
 	return (dispatch, getState) => {
 		ApiRequester.getStudentTimeline(studentId).then(function(res){

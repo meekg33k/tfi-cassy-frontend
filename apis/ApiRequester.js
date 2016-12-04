@@ -524,6 +524,34 @@ module.exports = {
 		});
 	},
 
+	getSiteCoordinators: function(){
+
+		return axios.get(CASSY_URL+"users/Site%20Coordinator").then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+	getTherapists: function(){
+
+		return axios.get(CASSY_URL+"users/Therapist").then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
 
 
 
@@ -555,6 +583,7 @@ module.exports = {
 				throw new Error(res.data.message);
 			}
 			else {
+				console.log(res.data);
 				return res.data;
 			}
 		}, function(res) {
@@ -623,8 +652,6 @@ module.exports = {
 			username: user.username,
 			password: user.password
 		}).then(function(res) {
-			console.log("Response from server>>>>", res.data);
-
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);
 			}
@@ -654,12 +681,27 @@ module.exports = {
 
 	resetPassword: function(username){
 
-		console.log("Username to be reset "+username);
-
 		return axios.post(CASSY_URL+"forgot-password", {
 			username: username
 		}).then(function(res) {
 
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+	setPasswordOnFirstLogin: function(userId, username, password){
+
+		return axios.put(CASSY_URL+"users/"+userId+"/change-password", {
+			username: username,
+			password: password
+		}).then(function(res) {
 			if (res.data.cod && res.data.message){
 				throw new Error(res.data.message);
 			}

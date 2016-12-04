@@ -1,8 +1,9 @@
 import React from 'react';
 
 import Therapist from "./Therapist";
+import {connect} from "react-redux"
 
-export default React.createClass({
+var SchoolTherapists = React.createClass({
 
     getInitialState() {
         return {
@@ -67,7 +68,17 @@ export default React.createClass({
     },
 
     render() {
-      var {therapists} = this.state;
+      var {therapists} = this.state; //Change this to render from the store
+
+      var renderTherapistOptions = () => {
+        return this.props.siteCoordinators.map((staffOption) => {
+          var staffName = staffOption.first_name+" "+staffOption.last_name;
+          return (
+            <option key={staffOption.user_id} value={staffOption.user_id}>{staffName}</option>
+          );
+        });
+      };
+
 
       var displayErrorMessage = () =>{
         if (this.state.error){
@@ -117,3 +128,10 @@ export default React.createClass({
       );
     }
 });
+module.exports = connect(
+  (store) => {
+    return {
+      therapists: store.therapists
+    };
+  }
+)(SchoolTherapists);
