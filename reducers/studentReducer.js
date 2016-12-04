@@ -49,7 +49,6 @@ export var studentProblemsReducer = (state = [], action) => {
 export var studentTreatmentsReducer = (state = [], action) => {
 	switch(action.type){
 		case 'SET_TREATMENT_LIST':
-			console.log("Student treatments", action.payload);
 			return action.payload;
 
 		default:

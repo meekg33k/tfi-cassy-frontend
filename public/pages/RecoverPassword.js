@@ -15,10 +15,12 @@ export default React.createClass({
 		var username = this.refs.username.value;
 
 		ApiRequester.resetPassword(username).then(function(res){
-			alert("Kindly check your email for link to reset password");
-			console.log(res);
+			alert("Password reset successfully. Kindly check your email for new password.");
+
+			window.location.replace(
+			  window.location.pathname + window.location.search + '#/'
+			);
 		}, function(err){
-			//Include Status error here.....
 			console.log(err);
 		});
 	},

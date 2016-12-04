@@ -36,6 +36,32 @@ var staffState = [
 			];
 
 
+export var therapistReducer = (state = [], action) => {
+	switch(action.type){
+		case 'SET_THERAPIST_LIST':
+			if (action.payload)
+				return action.payload;
+			else
+				return state;
+		default:
+			return state;
+	}
+};
+
+
+export var siteCoordinatorReducer = (state = [], action) => {
+	switch(action.type){
+		case 'SET_COORDINATOR_LIST':
+			if (action.payload)
+				return action.payload;
+			else
+				return state;
+		default:
+			return state;
+	}
+};
+
+
 export var staffReducer = (state = [], action) => {
 	switch(action.type){
 		case 'ADD_STAFF':

@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import {connect} from "react-redux";
 
 
-import TherapistList from "../components/TherapistList";
+import SchoolTherapists from "../components/SchoolTherapists";
 import SiteCoordinator from "../components/SiteCoordinator";
 import BreadCrumb from "react-breadcrumbs";
 
@@ -18,7 +18,7 @@ var SchoolDetails = React.createClass({
 		var user = JSON.parse(localStorage.getItem('user'));
 		var {dispatch} = this.props;
 
-		if (user.role !== "administrator"){
+		if (user.role !== "Administrator"){
 			window.location.replace(
 			  window.location.pathname + window.location.search + '#/'
 			);
@@ -26,6 +26,8 @@ var SchoolDetails = React.createClass({
 		}
 		else{
 			dispatch(actions.asyncFetchSchoolById(this.props.params.id));
+			dispatch(actions.asyncFetchSiteCoordinators());
+			dispatch(actions.asyncFetchTherapists());
 			this.setState({
 				_id: this.props.params
 			});
@@ -48,7 +50,7 @@ var SchoolDetails = React.createClass({
 							</div>
 							<div>
 								<SiteCoordinator></SiteCoordinator>
-		            			<TherapistList></TherapistList>
+		            			<SchoolTherapists></SchoolTherapists>
 							</div>
 						</div>
 			        </div>
@@ -63,6 +65,7 @@ module.exports = connect(
 		return {
 			selectedSchool: store.selectedSchool,
 			schools: store.schools,
+			staff: store.staff,
 			addSchool: store.addSchoolState,
 			editSchoolErr: store.editSchoolErrorState,
 			editSchoolErrMsg: store.editSchoolErrorMessage

@@ -4,6 +4,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { IndexLink, Link } from "react-router";
 
+import ApiRequester from "../../apis/ApiRequester.js";
+
 
 export default React.createClass({
 
@@ -35,9 +37,23 @@ export default React.createClass({
 			});
 		}
 		else{
-			console.log("Make call to set Password");
 			var user = JSON.parse(localStorage.getItem('user'));
-			var password = this.refs.username.password;
+
+			ApiRequester.setPasswordOnFirstLogin(user.user_id, this.refs.username.value, this.refs.password.value)
+				.then(function(res){
+					console.log("Received from server" ,res);
+					//dispatch(actions.setLoginError("Valid"));
+
+					alert("New password set successfully. Kindly login with new credentials.");
+
+					window.location.replace(
+					  window.location.pathname + window.location.search + '#/'
+					);
+
+			}, function(err){
+				//dispatch(actions.setLoginError("Invalid")); //<====Set as modal
+				console.log(err);
+			});
 		}
 	},
 
@@ -98,7 +114,8 @@ export default React.createClass({
 						            </div>
 						            <div class="form-group has-feedback" >
 						                <label htmlFor="password" class="control-label">Enter New Password</label>
-						                <input id="password" type="password" name="password" ref="password" class="form-control" placeholder="Enter password" required/>
+						                <input id="password" type="password" name="password" ref="password" class="form-control" 
+						                	onChange={this.validatePassword} placeholder="Enter password" required/>
 						                <i class="glyphicon glyphicon-eye-open form-control-feedback"></i>
 						            </div>
 						            <div class="form-group has-feedback" >

@@ -294,6 +294,12 @@ var StudentProfile = React.createClass({
 					<div>
 						<p class="student-header">Update Progress</p>
 					</div>
+					<div>
+						<p class="student-header">Record Assessment Score</p>
+					</div>
+					<div>
+						<p class="student-header">Record Other Notes.. this dude wraps!!!!</p>
+					</div>
 			        </div>
 			    </div>
 			</div>
@@ -307,6 +313,7 @@ module.exports = connect(
 			studentProblems: store.studentProblems,
 			studentTreatments: store.studentTreatments,
 			problemFieldValues: store.problemFieldValues,
+			timelines: store.timelineState,
 			treatmentFieldValues: store.treatmentConcernValues
 		};
 	}

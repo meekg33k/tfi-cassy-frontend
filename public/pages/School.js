@@ -19,7 +19,7 @@ var School =  React.createClass({
 		var user = JSON.parse(localStorage.getItem('user'));
 		var {dispatch} = this.props;
 
-		if (user.role !== "administrator"){
+		if (user.role !== "Administrator"){
 			window.location.replace(
 			  window.location.pathname + window.location.search + '#/'
 			);
@@ -27,7 +27,7 @@ var School =  React.createClass({
 		}
 		else{
 			dispatch(actions.asyncFetchSchools());
-			dispatch(actions.asyncFetchStaff());
+			dispatch(actions.asyncFetchStaff());//<============ FETCH THERAPISTS AND SITE COORDINATORS
 		}
 
 	},
@@ -58,7 +58,6 @@ var School =  React.createClass({
 
 	handleDeleteSchool(victimSchool){
 	    if (confirm("Do you want to proceed to delete the school?") == true) {
-	    	//TODO: Include REST API calls to delete school
 	    	var { dispatch } = this.props;
 			dispatch(actions.asyncDeleteSchool(victimSchool));
 	    }
@@ -68,7 +67,6 @@ var School =  React.createClass({
 		var { dispatch } = this.props;
 		console.log("Edited School in School", editedSchool);
 		dispatch(actions.asyncEditSchool(editedSchool));
-		//dispatch(actions.editSchool(editedSchool));
 	},
 
 	handleExitAddSchool(){
@@ -137,7 +135,7 @@ var School =  React.createClass({
 			        <div class="row row-header report-form">
 						{renderAddSchool()}
 						<br />
-						<div class="row row-header">
+					<div class="row row-header">
 	                <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
 	                    <p class="school-header">School List</p>
 	                </div>

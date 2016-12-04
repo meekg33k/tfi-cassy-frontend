@@ -41,6 +41,8 @@ export var schoolReducer = SchoolsReducer.schoolReducer;
 /** Staff Reducers **/
 export var enableAddStaffReducer = StaffsReducer.enableAddStaffReducer;
 export var staffReducer = StaffsReducer.staffReducer;
+export var siteCoordinatorReducer = StaffsReducer.siteCoordinatorReducer;
+export var therapistReducer = StaffsReducer.therapistReducer;
 
 
 /** Student Reducers **/

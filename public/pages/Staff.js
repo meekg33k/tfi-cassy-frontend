@@ -20,7 +20,7 @@ var Staff =  React.createClass({
 		var {dispatch} = this.props;
 
 		if (user){
-			if (user.role !== "administrator"){
+			if (user.role !== "Administrator"){
 				window.location.replace(
 				  window.location.pathname + window.location.search + '#/'
 				);
