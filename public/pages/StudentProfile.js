@@ -101,19 +101,37 @@ var StudentProfile = React.createClass({
 			this.setState({
 				addProblemError: false
 			});
-			///dispatch(actions.asyncAddStudentProblem(this.refs.problem.value, this.state._id));
+			dispatch(actions.asyncAddStudentProblem(this.refs.problem.value, this.state._id));
 
 			//Update Student TimeLine
 			dispatch(actions.asyncAddtoStudentTimeline({
 				id: this.state._id,
 				date: moment().format("MM/DD/YY"),	
 				activity: "New Problem",
-				description:this.refs.problem.value+" added",
-				comments: ""
+				description: this.refs.problem.value,
+				comments: this.refs.problem.value+" added"
 			}));
 		}
 	},
 
+
+	handleAddNote(e){
+		e.preventDefault();
+		
+		var {dispatch} = this.props;
+
+	},
+
+
+	handleAddScore(e){
+		e.preventDefault();
+
+		var {dispatch} = this.props;
+		dispatch(actions.asyncAddStudentScore(this.refs.scoreOption.value, 
+			this.refs.score.value, this.refs.date.value, this.state._id));
+
+		this.refs.score.value = "";
+	},
 
 
 	handleAddTreatment(){
@@ -129,17 +147,18 @@ var StudentProfile = React.createClass({
 			this.setState({
 				addTreatmentError: false
 			});
-			//dispatch(actions.asyncAddStudentTreatment(this.refs.treatment.value, this.state._id));
+			dispatch(actions.asyncAddStudentTreatment(this.refs.treatment.value, this.state._id));
+			
+			//Update Student TimeLine
+			dispatch(actions.asyncAddtoStudentTimeline({
+				id: this.state._id,
+				date: moment().format("MM/DD/YY"),	
+				activity: "New Treatment Concern",
+				description:this.refs.treatment.value+" added",
+				comments: ""
+			}));
 		} 
 
-		//Update Student TimeLine
-		dispatch(actions.asyncAddtoStudentTimeline({
-			id: this.state._id,
-			date: moment().format("MM/DD/YY"),	
-			activity: "New Problem",
-			description:this.refs.problem.value+" added",
-			comments: ""
-		}));
 	},
 
 
@@ -190,7 +209,7 @@ var StudentProfile = React.createClass({
 		var renderAddTreatmentError= () => {
 			if (this.state.addTreatmentError){
 				return (
-					<p class="error">Treatment already exists.</p>
+					<p class="error">Treatment Concern already exists.</p>
 				);
 			}
 			else{
@@ -276,7 +295,7 @@ var StudentProfile = React.createClass({
 									<div class="form-group">
 										<button type="submit" class="btn btn-sm btn-danger" onClick={this.handleAddTreatment}>
 											<span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
-											&nbsp; Add New Treatment Focus
+											&nbsp; Add Treatment Concern
 										</button>
 									</div>
 								</div>
@@ -293,14 +312,53 @@ var StudentProfile = React.createClass({
 					<p class="line-breaker" />
 					<div>
 						<p class="student-header">Update Progress</p>
+						<div class="well">
+							<p><b>Record Assessment Score</b></p>
+							<form onSubmit={this.handleAddScore}>
+								<div class="row">
+							  		<div class="col-sm-4 col-lg-4 col-xs-12">
+							            <select class="form-control" ref="scoreOption">
+											<option>CGAS</option>
+											<option>DA/WM</option>
+										</select>
+						            </div>
+	  								<div class="col-sm-3 col-lg-3 col-xs-12">
+							            <input class="form-control" type="date" ref="date" required></input>
+						            </div>
+	  								<div class="col-sm-3 col-lg-3 col-xs-12">
+							            <input class="form-control" type="number" ref="score" placeholder="Enter score" required></input>
+						            </div>
+						            <div class="col-sm-2 col-lg-2 col-xs-12">
+							            <button type="submit" class="btn btn-sm btn-success">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true">  </span>
+											&nbsp; Click to Add Score
+										</button>
+						            </div>
+								</div>
+							</form>
+						</div>
 					</div>
+					<p class="line-breaker" />
 					<div>
-						<p class="student-header">Record Assessment Score</p>
+						<p class="student-header">Record Other Notes</p>
+						<div class="well">
+							<form onSubmit={this.handleAddNote}>
+								<div class = "row">
+									<div class="col-sm-8 col-lg-9 col-xs-12">
+					                    <textarea class="form-control" ref="notes" rows="10" required placeholder="Enter any extra information or notes here">
+					                        </textarea>
+			                        </div>
+			                        <div class="col-sm-4 col-lg-3 col-xs-6">
+					                    <button type="button" class="btn btn-sm btn-success">
+											<span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
+											&nbsp; Click to Save Notes
+										</button>
+			                        </div>
+		                        </div>
+	                        </form>
+		                </div>
 					</div>
-					<div>
-						<p class="student-header">Record Other Notes.. this dude wraps!!!!</p>
 					</div>
-			        </div>
 			    </div>
 			</div>
 		);

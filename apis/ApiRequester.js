@@ -343,6 +343,23 @@ module.exports = {
 	},
 
 
+	/**Student-Assessment-Score-Related API Calls **/
+	addStudentScore: function(scoreOption, scoreValue, date, studentId){
+		return axios.post(CASSY_URL+"students/"+studentId+"/scores", {
+			"scoretype": scoreOption,
+			"score": scoreValue,
+			"date": date
+		}).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
 
 
 	/** Student-Related API Calls **/
@@ -362,7 +379,6 @@ module.exports = {
 				throw new Error(res.data.message);
 			}
 			else {
-				console.log(res.data);
 				return res.data;
 			}
 		}, function(res) {

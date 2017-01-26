@@ -120,13 +120,12 @@ router.get('/students/:studentid/scores', (req, res, next) => {
 });
 
 // POST create a student score
-router.post('/scores', (req, res, next) => {
-  apiManager.createStudentScore(JSON.stringify(req.user[0].user_id), req.body, (err, result) => {
+router.post('/:studentid/scores', (req, res, next) => {
+  apiManager.createStudentScore(JSON.stringify(req.user[0].user_id), req.params.studentid, req.body, (err, result) => {
     if (err) {
       console.error(`There was an error creating student score ${err}`);
     }
     
-    console.log(`Student score created with id ${result.insertId}`);
     res.status(201).send(result);
   });
 });

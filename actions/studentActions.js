@@ -85,6 +85,20 @@ export var asyncFetchStudentById = (studentId) => {
 }
 
 
+export var asyncAddStudentScore = (scoreOption, scoreValue, date, studentId) => {
+	return (dispatch, getState) => {
+
+		ApiRequester.addStudentScore(scoreOption, scoreValue, date, studentId).then(function(res){
+			alert("Student score saved successfully"); 
+
+		}, function(err){
+			console.log(err);
+		});
+
+	};
+}
+
+
 
 /** User Interface Actions **/
 export var enableAddStudent = (value) => {

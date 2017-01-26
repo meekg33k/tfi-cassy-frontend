@@ -91,6 +91,9 @@ export var asyncFetchStudentById = StudentActions.asyncFetchStudentById;
 export var asyncFetchStudents = StudentActions.asyncFetchStudents;
 export var enableAddStudent = StudentActions.enableAddStudent;
 
+/** Student-Assessment Score Actions **/
+export var asyncAddStudentScore = StudentActions.asyncAddStudentScore;
+
 
 /** Student-Problem Actions **/
 export var asyncAddStudentProblem = ProblemActions.asyncAddStudentProblem;

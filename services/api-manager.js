@@ -462,7 +462,7 @@ apiManager.createStudentScore = (adminId, id, params, callback) => {
     last_modified_by: adminId,
     active: true
   };
-  connection.query('INSERT INTO assessment_score VALUES ?', score, (err, result) => {
+  connection.query('INSERT INTO assessment_score SET ?', score, (err, result) => {
     if (err) {
       callback(err);
     }
