@@ -13,7 +13,7 @@ export var asyncAddEvent = (theEvent) => {
 			dispatch(asyncFetchEvents());
 
 		}, function(err){
-			console.log(err);
+			alert("Error adding new event");
 		});
 
 	};
@@ -27,7 +27,7 @@ export var asyncDeleteEvent = (theEvent) => {
 			dispatch(asyncFetchEvents());
 
 		}, function(err){
-			console.log(err);
+			alert("Error deleting event");
 		});
 
 	};
@@ -37,11 +37,11 @@ export var asyncEditEvent = (theEvent) => {
 	return (dispatch, getState) => {
 
 		ApiRequester.editEvent(theEvent).then(function(res){
-			alert("Changes saved successfully"); //<============ Change all alerts to modals
+			alert("Changes saved successfully"); 
 			dispatch(asyncFetchEvents());
 
 		}, function(err){
-			console.log(err);
+			alert("Error saving event changes");
 		});
 
 	};

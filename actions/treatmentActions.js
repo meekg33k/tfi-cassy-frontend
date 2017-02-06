@@ -13,6 +13,7 @@ export var asyncAddStudentTreatment = (treatment, studentId) => {
 			//Re-render problems in StudentProfile View
 			dispatch(asyncFetchStudentTreatments(student_id));
 		}, function(err){
+			console.log("Error adding new student treatment"); 
 			console.log(err);
 		});
 
@@ -33,7 +34,7 @@ export var asyncFetchStudentTreatments = (studentId) => {
 	};
 }
 
-//This will be done in the main Student component..
+
 export var asyncUpdateStudentTreatment = (studentId, treatmentId, treatmentType, resolved) => {
 	var id = studentId;
 	var treatment_id = treatmentId;
@@ -46,7 +47,7 @@ export var asyncUpdateStudentTreatment = (studentId, treatmentId, treatmentType,
 			dispatch(asyncFetchStudentTreatments(id));
 
 		}, function(err){
-			console.log(err);
+			console.log("Error updating treatment status"); 
 		});
 
 	};

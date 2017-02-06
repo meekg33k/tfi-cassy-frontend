@@ -378,9 +378,9 @@ router.get('/notes', (req, res, next) => {
 
 // GET a student note by id
 router.get('/notes/:noteid', (req, res, next) => {
-  apiManager.getStudentNote(req.prams.noteid, (err, result) => {
+  apiManager.getStudentNote(req.params.noteid, (err, result) => {
     if (err) {
-      console.error(`Error getting student note id ${req.prams.noteid}, Error ${err}`);
+      console.error(`Error getting student note id ${req.params.noteid}, Error ${err}`);
     }
     
     res.status(200).send(result);
@@ -389,9 +389,9 @@ router.get('/notes/:noteid', (req, res, next) => {
 
 // GET a student note by student id
 router.get('/:studentid/notes', (req, res, next) => {
-  apiManager.getStudentNoteByStudent(req.prams.studentid, (err, result) => {
+  apiManager.getStudentNoteByStudent(req.params.studentid, (err, result) => {
     if (err) {
-      console.error(`Error getting student note id ${req.prams.studentid}, Error ${err}`);
+      console.error(`Error getting student note id ${req.params.studentid}, Error ${err}`);
     }
     
     res.status(200).send(result);
@@ -400,21 +400,20 @@ router.get('/:studentid/notes', (req, res, next) => {
 
 // POST create a new student note
 router.post('/:studentid/notes', (req, res, next) => {
-  apiManager.createStudentNote(JSON.stringify(req.user[0].user_id), req.prams.studentid, req.body, (err, result) => {
+  apiManager.createStudentNote(JSON.stringify(req.user[0].user_id), req.params.studentid, req.body, (err, result) => {
     if (err) {
-      console.error(`Could not create student note with student id ${req.prams.studentid}, Error ${err}`);
+      console.error(`Could not create student note with student id ${req.params.studentid}, Error ${err}`);
     }
     
-    console.log(`Student note created with id ${result.insertId}`);
     res.status(201).send(result);
   });
 });
 
 // PUT update a student note
-router.post('/:studentid/notes', (req, res, next) => {
-  apiManager.updateStudentNote(JSON.stringify(req.user[0].user_id), req.prams.studentid, req.body, (err, result) => {
+router.put('/:studentid/notes', (req, res, next) => {
+  apiManager.updateStudentNote(JSON.stringify(req.user[0].user_id), req.params.studentid, req.body, (err, result) => {
     if (err) {
-      console.error(`Could not update student note with student id ${req.prams.studentid}, Error ${err}`);
+      console.error(`Could not update student note with student id ${req.params.studentid}, Error ${err}`);
     }
     
     res.status(200).send('Updated ' + result.changedRows + ' rows');

@@ -849,7 +849,7 @@ apiManager.createStudentNote = (adminId, id, params, callback) => {
     last_modified_by: adminId,
     active: true
   };
-  connection.query('INSERT INTO student_note VALUES ?', note, (err, result) => {
+  connection.query('INSERT INTO student_note SET ?', note, (err, result) => {
     if (err) {
       callback(err);
     }

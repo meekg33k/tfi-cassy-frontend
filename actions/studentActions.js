@@ -12,7 +12,7 @@ export var asyncAddStudent = (student) => {
 			dispatch(asyncFetchStudents());
 
 		}, function(err){
-			console.log(err);
+			console.log("Error adding student"); 
 		});
 
 	};
@@ -27,7 +27,7 @@ export var asyncDeleteStudent = (student) => {
 			dispatch(asyncFetchStudents());
 
 		}, function(err){
-			console.log(err);
+			alert("Error deleting student"); 
 		});
 
 	};
@@ -41,7 +41,7 @@ export var asyncEditStudent = (student) => {
 			dispatch(asyncFetchStudents());
 
 		}, function(err){
-			console.log(err);
+			alert("Error saving changes"); 
 		});
 
 	};
@@ -71,7 +71,6 @@ export var asyncFetchStudentsByStaff = () => {
 	};
 }
 
-
 export var asyncFetchStudentById = (studentId) => {
 	return (dispatch, getState) => {
 
@@ -84,14 +83,28 @@ export var asyncFetchStudentById = (studentId) => {
 	};
 }
 
-
 export var asyncAddStudentScore = (scoreOption, scoreValue, date, studentId) => {
 	return (dispatch, getState) => {
 
 		ApiRequester.addStudentScore(scoreOption, scoreValue, date, studentId).then(function(res){
-			alert("Student score saved successfully"); 
+			alert("Student score added successfully"); 
 
 		}, function(err){
+			alert("Error adding student score"); 
+			console.log(err);
+		});
+
+	};
+}
+
+export var asyncAddStudentNote = (note, studentId) => {
+	return (dispatch, getState) => {
+
+		ApiRequester.addStudentNote(note, studentId).then(function(res){
+			alert("Note saved successfully"); 
+
+		}, function(err){
+			alert("Error saving student note");
 			console.log(err);
 		});
 

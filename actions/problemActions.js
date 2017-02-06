@@ -13,6 +13,7 @@ export var asyncAddStudentProblem = (problem, studentId) => {
 			//Re-render problems in StudentProfile View
 			dispatch(asyncFetchStudentProblems(student_id));
 		}, function(err){
+			alert("Error adding new student problem");
 			console.log(err);
 		});
 
@@ -46,6 +47,7 @@ export var asyncUpdateStudentProblem = (studentId, problemId, problemType, resol
 			dispatch(asyncFetchStudentProblems(id));
 
 		}, function(err){
+			alert("Error updating problem status");
 			console.log(err);
 		});
 

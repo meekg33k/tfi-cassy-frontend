@@ -19,17 +19,19 @@ var TreatmentConcern = React.createClass({
         this.props.concern_id, this.props.concern_type, true));
 
     //This is next stage
-		dispatch(actions.addToTimeLine({
+		dispatch(actions.asyncAddtoStudentTimeline({
 			id: Date.now(),
 			date: moment().format("MM/DD/YY"),
 			activity: "Progress Update",
-			description: "Treatment Concern resolution",
-			comments: dispatchMessage,
+			description: "Treatment Concern Resolved",
+			comments: dispatchMessage
 		}));
+
 		this.setState({
 			resolved: true
 		});
 	},
+
 
   undoMarkAsResolved(){
 		var {dispatch} = this.props;
@@ -37,18 +39,20 @@ var TreatmentConcern = React.createClass({
     dispatch(actions.asyncUpdateStudentTreatment(this.props.student_id, 
         this.props.concern_id, this.props.concern_type, false));
 
-		var dispatchMessage = this.props.name + " is no longer marked as resolved";
-		dispatch(actions.addToTimeLine({
+		var dispatchMessage = this.props.name + " is marked as unresolved";
+		dispatch(actions.asyncAddtoStudentTimeline({
 			id: Date.now(),
 			date: moment().format("MM/DD/YY"),
 			activity: "Progress Update",
-			description: "Treatment Concern resolution",
+			description: "Treatment Concern Unresolved",
 			comments: dispatchMessage
 		}));
+
     this.setState({
       resolved: false
     });
   },
+
 
 	render(){
 

@@ -9,11 +9,11 @@ export var asyncAddStaff = (staff) => {
 	return (dispatch, getState) => {
 
 		ApiRequester.addStaff(staff).then(function(res){
-			alert("New staff added successfully");  //<============ Change all alerts to modals
+			alert("New staff added successfully");
 			dispatch(asyncFetchStaff());
 
 		}, function(err){
-			console.log(err);
+			alert("Error adding new staff");
 		});
 
 	};
@@ -23,12 +23,12 @@ export var asyncDeleteStaff = (staff) => {
 	return (dispatch, getState) => {
 
 		ApiRequester.deleteStaff(staff).then(function(res){
-			alert("Staff deleted successfully"); //<============ Change all alerts to modals
+			alert("Staff deleted successfully");
 			//Update changes in Staff view
 			dispatch(asyncFetchStaff());
 
 		}, function(err){
-			console.log(err);
+			alert("Error deleting staff");
 		});
 
 	};
@@ -38,11 +38,11 @@ export var asyncEditStaff = (staff) => {
 	return (dispatch, getState) => {
 
 		ApiRequester.editStaff(staff).then(function(res){
-			alert("Changes saved successfully"); //<============ Change all alerts to modals
+			alert("Changes saved successfully"); 
 			dispatch(asyncFetchStaff());
 
 		}, function(err){
-			console.log(err);
+			alert("Error saving staff changes");
 		});
 
 	};

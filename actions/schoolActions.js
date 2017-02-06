@@ -25,9 +25,9 @@ export var asyncAddSchool = (school) => {
 			};
 			//Render school in Schools View
 			dispatch(asyncFetchSchools());
-			//dispatch(addSchool(schoolFromServer));
 
 		}, function(err){
+			alert("Error adding new school");
 			console.log(err);
 		});
 
@@ -42,6 +42,7 @@ export var asyncDeleteSchool = (school) => {
 			dispatch(asyncFetchSchools());
 
 		}, function(err){
+			alert("Error deleting school");
 			console.log(err);
 		});
 
@@ -56,6 +57,7 @@ export var asyncEditSchool = (school) => {
 			dispatch(asyncFetchSchools());
 
 		}, function(err){
+			alert("Error saving school changes");
 			console.log(err);
 		});
 

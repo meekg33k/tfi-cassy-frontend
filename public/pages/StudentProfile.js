@@ -66,7 +66,6 @@ var StudentProfile = React.createClass({
 	containsProblem(a, obj) {
 	    var i = a.length;
 	    while (i--) {
-	    	console.log("Comparing "+a[i].problem_type+" and "+obj);
 	       	if (a[i].problem_type === obj) {
 	       		console.log(" "+a[i]+" equals "+obj);
 	           	return true;
@@ -79,7 +78,6 @@ var StudentProfile = React.createClass({
 	containsTreatment(a, obj) {
 	    var i = a.length;
 	    while (i--) {
-	    	console.log("Comparing "+a[i].concern_type+" and "+obj);
 	       	if (a[i].concern_type === obj) {
 	       		console.log(" "+a[i]+" equals "+obj);
 	           	return true;
@@ -87,6 +85,27 @@ var StudentProfile = React.createClass({
 	    }
 	    return false;
 	},
+
+
+	handleAddNote(e){
+		e.preventDefault();
+
+		var {dispatch} = this.props;
+		var dispatchMessage = "New note added";
+
+		//This can be better managed //
+		dispatch(actions.asyncAddStudentNote(this.refs.notes.value, this.state._id));
+		dispatch(actions.asyncAddtoStudentTimeline({
+			id: Date.now(),
+			date: moment().format("MM/DD/YY"),
+			activity: "Progress Update",
+			description: "New Note",
+			comments: dispatchMessage
+		}));
+
+		this.refs.notes.value = "";
+	},
+
 
 	handleAddProblem(){
 
@@ -102,7 +121,6 @@ var StudentProfile = React.createClass({
 				addProblemError: false
 			});
 			dispatch(actions.asyncAddStudentProblem(this.refs.problem.value, this.state._id));
-
 			//Update Student TimeLine
 			dispatch(actions.asyncAddtoStudentTimeline({
 				id: this.state._id,
@@ -115,20 +133,20 @@ var StudentProfile = React.createClass({
 	},
 
 
-	handleAddNote(e){
-		e.preventDefault();
-		
-		var {dispatch} = this.props;
-
-	},
-
-
 	handleAddScore(e){
 		e.preventDefault();
-
 		var {dispatch} = this.props;
+
 		dispatch(actions.asyncAddStudentScore(this.refs.scoreOption.value, 
 			this.refs.score.value, this.refs.date.value, this.state._id));
+		//Update Student TimeLine
+		dispatch(actions.asyncAddtoStudentTimeline({
+			id: Date.now(),
+			date: moment().format("MM/DD/YY"),
+			activity: "Progress Update",
+			description: "New Score",
+			comments: this.refs.scoreOption.value+" score of "+this.refs.score.value+" added"
+		}));
 
 		this.refs.score.value = "";
 	},
@@ -148,7 +166,6 @@ var StudentProfile = React.createClass({
 				addTreatmentError: false
 			});
 			dispatch(actions.asyncAddStudentTreatment(this.refs.treatment.value, this.state._id));
-			
 			//Update Student TimeLine
 			dispatch(actions.asyncAddtoStudentTimeline({
 				id: this.state._id,
@@ -349,9 +366,9 @@ var StudentProfile = React.createClass({
 					                        </textarea>
 			                        </div>
 			                        <div class="col-sm-4 col-lg-3 col-xs-6">
-					                    <button type="button" class="btn btn-sm btn-success">
-											<span class="glyphicon glyphicon-save" aria-hidden="true">  </span>
-											&nbsp; Click to Save Notes
+					                    <button type="submit" class="btn btn-sm btn-success">
+											<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+											&nbsp; Click to Save Note
 										</button>
 			                        </div>
 		                        </div>

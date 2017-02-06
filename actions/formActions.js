@@ -11,6 +11,7 @@ export var asyncAddValueToField = (fieldID, fieldValue) => {
 		ApiRequester.addFieldValue(fieldID, fieldValue).then(function(res){
 			dispatch(asyncFetchFormFieldValues(fieldID));
 		}, function(err){
+			alert("Error adding new field value");
 			console.log(err);
 		});
 
@@ -90,7 +91,7 @@ export var asyncDeleteFieldValue = (fieldValueID, fieldID) => {
 			dispatch(asyncFetchFormFieldValues(fieldID));
 
 		}, function(err){
-			console.log(err);
+			alert("Error deleting field value");
 		});
 
 	};
@@ -104,7 +105,7 @@ export var asyncEditFieldValue = (fieldValueID, fieldID, fieldValue) => {
 			dispatch(asyncFetchFormFieldValues(fieldID));
 
 		}, function(err){
-			console.log(err);
+			alert("Error saving field value changes");
 		});
 
 	};

@@ -5,12 +5,10 @@ import {connect} from "react-redux";
 import moment from "moment";
 
 import Util from "../../apis/Helper"
-
 import * as actions from "../../actions/actions"
 
 
 var PresentingProblem = React.createClass({
-
 
 	markResolved(){
 		var {dispatch} = this.props;
@@ -19,29 +17,30 @@ var PresentingProblem = React.createClass({
 				this.props.problem_id, this.props.problem_type, true));
 
 		var dispatchMessage = this.props.name + " is marked as resolved";
-		dispatch(actions.addToTimeLine({
+		dispatch(actions.asyncAddtoStudentTimeline({
 			id: Date.now(),
 			date: moment().format("MM/DD/YY"),
 			activity: "Progress Update",
-			description: "Treatment Concern resolution",
-			comments: dispatchMessage,
+			description: "Presenting Problem Resolved",
+			comments: dispatchMessage
 		}));
 		this.setState({
 			resolved: true
 		});
 	},
 
+
   	undoMarkAsResolved(){
 		var {dispatch} = this.props;
 		dispatch(actions.asyncUpdateStudentProblem(this.props.student_id, 
 				this.props.problem_id, this.props.problem_type, false));
 
-		var dispatchMessage = this.props.name + " is no longer marked as resolved";
-		dispatch(actions.addToTimeLine({
+		var dispatchMessage = this.props.name + " is marked as Unresolved";
+		dispatch(actions.asyncAddtoStudentTimeline({
 			id: Date.now(),
 			date: moment().format("MM/DD/YY"),
 			activity: "Progress Update",
-			description: "Treatment Concern resolution",
+			description: "Presenting Problem Unresolved",
 			comments: dispatchMessage
 		}));
   	},
