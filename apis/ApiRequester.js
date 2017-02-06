@@ -202,6 +202,27 @@ module.exports = {
 
 
 
+	/** Note-Related API Calls **/
+	addStudentNote: function(note, studentId){
+
+		return axios.post(CASSY_URL+"students/"+studentId+"/notes", {
+			"id": studentId,
+			"note": note
+		}).then(function(res) {
+			if (res.data.cod && res.data.message){
+				throw new Error(res.data.message);
+			}
+			else {
+				return res.data;
+			}
+		}, function(res) {
+			throw new Error(res.data.message);
+		});
+	},
+
+
+
+
 	/** Problem-Related API Calls **/
 	addStudentProblem: function(problem, studentId){
 
